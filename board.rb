@@ -29,19 +29,27 @@ class Board
 
   def self.seed_numbers
     board = self.seed_bombs
-
+    max_row = board.length - 1
+    max_col = board.first.length - 1
     board.each_with_index do |row, row_idx|
       board.each_with_index do |el, col_idx|
 
         if board[row_idx][col_idx].nil?
-          neighbors = find_neighbors(row_idx, col_idx)
+          neighbors = find_neighbors(max_row, max_col, row_idx, col_idx)
         end
+        
       end
     end
+
   end
 
-  def self.find_neighbors(row_idx, col_idx)
-
+  def self.find_neighbors(max_row, max_col, row_idx, col_idx)
+    neighbors = DELTAS.map do |row_del, col_del|
+      [row_idx + row_del, col_idx + col_del]
+    end
+    neighbors.select do |r_idx, c_idx|
+      r_idx.between?(0, max_row) && c_idx.between?(0, max_col)
+    end
   end
 
   def initialize(board)
@@ -52,4 +60,4 @@ class Board
 
 end
 
-Board.seed_bombs
+Board.seed_numbers
