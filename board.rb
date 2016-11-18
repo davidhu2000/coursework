@@ -1,10 +1,13 @@
 require 'colorize'
+require_relative 'tile'
 
 class Board
   attr_accessor :grid
 
   DELTAS = [[-1, -1], [-1, 0], [-1, 1], [0, 1],
             [1, 1],   [1, 0],  [1, -1], [0, -1]].freeze
+
+  BOMB_SYMBOL = "\u1F4A3"
 
   def empty_board(height, width)
     Array.new(height) { Array.new(width) }
@@ -18,7 +21,6 @@ class Board
 
     @grid = seed_bombs
     @grid = seed_numbers
-    p @grid
   end
 
   def [](row, col)
@@ -38,7 +40,7 @@ class Board
       print "#{idx} ".colorize(:red)
       print "|".colorize(:light_black)
       row.each do |el|
-        print "#{el.to_s.rjust(2)} "
+        print "#{el.value.to_s.rjust(2)} "
         print "|".colorize(:light_black)
       end
       puts
@@ -54,8 +56,8 @@ class Board
       row = rand(grid.length)
       col = rand(grid.first.length)
 
-      unless grid[row][col] == "\u1F4A3"
-        grid[row][col] = "\u1F4A3"
+      if grid[row][col].nil?
+        grid[row][col] = Tile.new(BOMB_SYMBOL)
         placed += 1
       end
 
@@ -69,7 +71,7 @@ class Board
 
         if grid[row_idx][col_idx].nil?
           neighbors = find_neighbors(row_idx, col_idx)
-          grid[row_idx][col_idx] = cell_value(neighbors)
+          grid[row_idx][col_idx] = Tile.new(cell_value(neighbors))
         end
 
       end
@@ -92,7 +94,8 @@ class Board
 
   def cell_value(neighbors)
     neighbors.count do |row_idx, col_idx|
-      grid[row_idx][col_idx] ==  "\u1F4A3"
+      current = grid[row_idx][col_idx]
+      !current.nil? && current.value == BOMB_SYMBOL
     end
   end
 
