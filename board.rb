@@ -1,63 +1,103 @@
-
+require 'colorize'
 
 class Board
-  attr_reader :board
+  attr_accessor :grid
+
   DELTAS = [[-1, -1], [-1, 0], [-1, 1], [0, 1],
             [1, 1],   [1, 0],  [1, -1], [0, -1]].freeze
 
-  def self.empty_board(height = 10, width = 10)
+  def empty_board(height, width)
     Array.new(height) { Array.new(width) }
   end
 
-  def self.seed_bombs(num_bombs = 10)
-    board = self.empty_board
+  def initialize(height = 10, width = 10, num_bombs = 10)
+    @grid = empty_board(height, width)
+    @height = height
+    @width = width
+    @num_bombs = num_bombs
 
+    @grid = seed_bombs
+    @grid = seed_numbers
+    p @grid
+  end
+
+  def [](row, col)
+    grid[row][col]
+  end
+
+  def []=(row, col, value)
+    grid[row][col] = value
+  end
+
+  def render
+    puts "    #{(0..grid.first.length - 1).to_a.join('   ')}  "
+            .colorize(:color => :black, :background => :light_white)
+
+    puts ("---" + "----" * grid.first.length).colorize(:light_white)
+    grid.each_with_index do |row, idx|
+      print "#{idx} ".colorize(:color => :black, :background => :light_white)
+      print "|".colorize(:light_white)
+      row.each do |el|
+        print "#{el.to_s.rjust(2)} "
+        print "|".colorize(:light_white)
+      end
+      puts
+      puts ("---" + "----" * grid.first.length).colorize(:light_white)
+    end
+  end
+
+  private
+
+  def seed_bombs
     placed = 0
+    until placed == @num_bombs
+      row = rand(grid.length)
+      col = rand(grid.first.length)
 
-    until placed == num_bombs
-
-      row = rand(board.length)
-      col = rand(board.first.length)
-
-      unless board[row][col] == "\u1F4A3"
-        board[row][col] = "\u1F4A3"
+      unless grid[row][col] == "\u1F4A3"
+        grid[row][col] = "\u1F4A3"
         placed += 1
       end
+
     end
-    board
+    grid
   end
 
-  def self.seed_numbers
-    board = self.seed_bombs
-    max_row = board.length - 1
-    max_col = board.first.length - 1
-    board.each_with_index do |row, row_idx|
-      board.each_with_index do |el, col_idx|
+  def seed_numbers
+    grid.each_with_index do |row, row_idx|
+      grid.each_with_index do |el, col_idx|
 
-        if board[row_idx][col_idx].nil?
-          neighbors = find_neighbors(max_row, max_col, row_idx, col_idx)
+        if grid[row_idx][col_idx].nil?
+          neighbors = find_neighbors(row_idx, col_idx)
+          grid[row_idx][col_idx] = cell_value(neighbors)
         end
-        
+
       end
     end
 
   end
 
-  def self.find_neighbors(max_row, max_col, row_idx, col_idx)
+  def find_neighbors(row_idx, col_idx)
     neighbors = DELTAS.map do |row_del, col_del|
       [row_idx + row_del, col_idx + col_del]
     end
+
+    max_row = grid.length - 1
+    max_col = grid.first.length - 1
+
     neighbors.select do |r_idx, c_idx|
       r_idx.between?(0, max_row) && c_idx.between?(0, max_col)
     end
   end
 
-  def initialize(board)
-    @board = board
+  def cell_value(neighbors)
+    neighbors.count do |row_idx, col_idx|
+      grid[row_idx][col_idx] ==  "\u1F4A3"
+    end
   end
 
 
 
 end
 
-Board.seed_numbers
+Board.new(10,10,10).render
