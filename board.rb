@@ -13,7 +13,7 @@ class Board
     Array.new(height) { Array.new(width) }
   end
 
-  def initialize(height = 10, width = 10, num_bombs = 10)
+  def initialize(height = 8, width = 8, num_bombs = 10)
     @grid = empty_board(height, width)
     @height = height
     @width = width
@@ -23,29 +23,37 @@ class Board
     @grid = seed_numbers
   end
 
+  def render
+    print "     "
+    (0..grid.first.length - 1).each do |idx|
+      print "#{idx}".ljust(3).colorize(:red)
+      print ' '
+    end
+
+    puts
+    puts ("----" + "----" * grid.first.length).colorize(:light_black)
+    grid.each_with_index do |row, idx|
+      print "#{idx} ".rjust(3).colorize(:red)
+      print "|".colorize(:light_black)
+      row.each do |el|
+        if el.revealed
+          print "#{el.value.to_s.rjust(2)} "
+        else
+          print "   ".colorize(:background => :light_white)
+        end
+        print "|".colorize(:light_black)
+      end
+      puts
+      puts ("----" + "----" * grid.first.length).colorize(:light_black)
+    end
+  end
+
   def [](row, col)
     grid[row][col]
   end
 
   def []=(row, col, value)
     grid[row][col] = value
-  end
-
-  def render
-    puts "    #{(0..grid.first.length - 1).to_a.join('   ')}  "
-            .colorize(:red)
-
-    puts ("---" + "----" * grid.first.length).colorize(:light_black)
-    grid.each_with_index do |row, idx|
-      print "#{idx} ".colorize(:red)
-      print "|".colorize(:light_black)
-      row.each do |el|
-        print "#{el.value.to_s.rjust(2)} "
-        print "|".colorize(:light_black)
-      end
-      puts
-      puts ("---" + "----" * grid.first.length).colorize(:light_black)
-    end
   end
 
   private
@@ -100,5 +108,3 @@ class Board
   end
 
 end
-
-Board.new(10,10,10).render
