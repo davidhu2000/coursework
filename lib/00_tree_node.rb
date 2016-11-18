@@ -52,10 +52,9 @@ class PolyTreeNode
   def dfs(target)
     return self if self.value == target
 
-    stack = []
     @children.each do |child|
-      var = child.dfs(target)
-      return var if var
+      current_node = child.dfs(target)
+      return current_node if current_node
     end
     nil
   end
@@ -63,9 +62,9 @@ class PolyTreeNode
   def bfs(target)
     queue = [self]
     until queue.empty?
-      current = queue.shift
-      return current if current.value == target
-      current.children.each do |child|
+      current_node = queue.shift
+      return current_node if current_node.value == target
+      current_node.children.each do |child|
         queue << child
       end
     end
