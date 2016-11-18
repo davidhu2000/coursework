@@ -32,15 +32,53 @@ class PolyTreeNode
   end
 
   def add_child(node)
+    # debugger
     unless @children.include?(node)
-      @children << node
+      puts "here"
+      # @children << node
       node.parent = self
     end
   end
 
   def remove_child(node)
-    node.parent = nil
-    @children.reject! { |child| child == node }
+    if @children.include?(node)
+      node.parent = nil
+      @children.reject! { |child| child == node }
+    else
+      raise "Not a child"
+    end
+  end
+
+  def dfs(target)
+    return self if self.value == target
+
+    stack = []
+    @children.each do |child|
+      var = child.dfs(target)
+      return var if var
+    end
+    nil
+  end
+
+  def bfs(target)
+    queue = [self]
+    until queue.empty?
+      current = queue.shift
+      return current if current.value == target
+      current.children.each do |child|
+        queue << child
+      end
+    end
+
+    nil
   end
 
 end
+
+root = PolyTreeNode.new("root")
+node1 = PolyTreeNode.new(1)
+node2 = PolyTreeNode.new(2)
+root.add_child(node1)
+p root.children
+root.add_child(node1)
+p root.children
