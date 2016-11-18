@@ -31,18 +31,18 @@ class Board
 
   def render
     puts "    #{(0..grid.first.length - 1).to_a.join('   ')}  "
-            .colorize(:color => :black, :background => :light_white)
+            .colorize(:red)
 
-    puts ("---" + "----" * grid.first.length).colorize(:light_white)
+    puts ("---" + "----" * grid.first.length).colorize(:light_black)
     grid.each_with_index do |row, idx|
-      print "#{idx} ".colorize(:color => :black, :background => :light_white)
-      print "|".colorize(:light_white)
+      print "#{idx} ".colorize(:red)
+      print "|".colorize(:light_black)
       row.each do |el|
         print "#{el.to_s.rjust(2)} "
-        print "|".colorize(:light_white)
+        print "|".colorize(:light_black)
       end
       puts
-      puts ("---" + "----" * grid.first.length).colorize(:light_white)
+      puts ("---" + "----" * grid.first.length).colorize(:light_black)
     end
   end
 
@@ -95,8 +95,6 @@ class Board
       grid[row_idx][col_idx] ==  "\u1F4A3"
     end
   end
-
-
 
 end
 
