@@ -38,13 +38,12 @@ class KnightPathFinder
     end
   end
 
-
   def new_move_positions(pos)
     possible_moves = self.class.valid_moves(pos)
     possible_moves.reject! { |move| @visited_positions.include?(move) }
-    possible_moves.each do |move|
-      @visited_positions << move
-    end
+
+    possible_moves.each { |move| @visited_positions << move }
+
     possible_moves
   end
 
