@@ -46,7 +46,7 @@ describe TicTacToeNode do
     it "doesn't produce children that include non-empty squares" do
       empty_board_node.board[[0, 0]] = :x
       empty_board_node.board[[0, 1]] = :o
-      kids = empty_board_node.children.map{ |kid| kid.prev_move_pos }
+      kids = empty_board_node.children.map{ |kid| kid.prev_move_pos  }
       expect(kids.include?([0, 0])).to eq(false)
       expect(kids.include?([0, 1])).to eq(false)
     end
