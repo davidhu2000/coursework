@@ -1,23 +1,19 @@
 require_relative 'tree_node'
 
 class KnightPathFinder
-  DELTAS = [
-    [-2, -1],
-    [-2, 1],
-    [-1, 2],
-    [1, 2],
-    [2, 1],
-    [2, -1],
-    [1, -2],
-    [-1, -2]
-  ].freeze
+  DELTAS = [[-2, -1], [-2,  1], [-1,  2], [ 1,  2],
+            [ 2,  1], [ 2, -1], [ 1, -2], [-1, -2]].freeze
 
   def self.valid_moves(pos)
     row, col = pos
-    moves = DELTAS.map do |drow, dcol|
-      [row + drow, col + dcol]
+    moves = DELTAS.map do |row_delta, col_delta|
+      [row + row_delta, col + col_delta]
     end
-    moves.select { |row, col| row.between?(0, 7) && col.between?(0, 7)}
+
+    moves.select do |m_row, m_col|
+      m_row.between?(0, 7) && m_col.between?(0, 7)
+    end
+
   end
 
   attr_accessor :pos_node
@@ -45,9 +41,9 @@ class KnightPathFinder
 
   def new_move_positions(pos)
     possible_moves = self.class.valid_moves(pos)
-    possible_moves.reject! { |pos| @visited_positions.include?(pos) }
-    possible_moves.each do |pos|
-      @visited_positions << pos
+    possible_moves.reject! { |move| @visited_positions.include?(move) }
+    possible_moves.each do |move|
+      @visited_positions << move
     end
     possible_moves
   end

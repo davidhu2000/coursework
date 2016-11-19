@@ -32,10 +32,7 @@ class PolyTreeNode
   end
 
   def add_child(node)
-    # debugger
     unless @children.include?(node)
-      puts "here"
-      # @children << node
       node.parent = self
     end
   end
@@ -43,7 +40,7 @@ class PolyTreeNode
   def remove_child(node)
     if @children.include?(node)
       node.parent = nil
-      @children.reject! { |child| child == node }
+      @children.delete(node)
     else
       raise "Not a child"
     end
@@ -64,6 +61,7 @@ class PolyTreeNode
     until queue.empty?
       current_node = queue.shift
       return current_node if current_node.value == target
+
       current_node.children.each do |child|
         queue << child
       end
