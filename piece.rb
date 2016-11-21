@@ -1,5 +1,5 @@
 
 
 class Piece
-
+  
 end

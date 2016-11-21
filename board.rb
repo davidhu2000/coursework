@@ -60,7 +60,8 @@ class Board
     self[end_pos] = piece
     self[start_pos] = "Null"
   end
-end
 
-board  = Board.new
-p board.grid
+  def in_bounds?(pos)
+    pos.all? { |idx| (0..7).cover?(idx) }
+  end
+end
