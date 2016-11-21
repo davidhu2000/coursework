@@ -1,8 +1,9 @@
-class Player
+class HumanPlayer
   attr_reader :name
 
-  def initialize(name)
+  def initialize(dictionary, name = "Computer")
     @name = name
+    @dictionary = dictionary
   end
 
   def guess

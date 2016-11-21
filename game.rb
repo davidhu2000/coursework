@@ -1,10 +1,11 @@
-require_relative 'player'
+require_relative 'human'
+require_relative 'computer'
 
 class Game
   attr_accessor :fragment
 
-  def initialize(player1 = Player.new("Player1"),
-                 player2 = Player.new("Player2"))
+  def initialize(player1 = HumanPlayer.new("Player1"),
+                 player2 = HumanPlayer.new("Player2"))
 
     @current_player = player1
     @previous_player = player2
@@ -15,8 +16,7 @@ class Game
   end
 
   def run
-    until @losses.values.include?(2
-      )
+    until @losses.values.include?(5)
       display_standings
       play_round
     end
@@ -25,6 +25,8 @@ class Game
     puts "#{@previous_player.name} loses the game."
   end
 
+  private
+  
   def play_round
 
     until over?
