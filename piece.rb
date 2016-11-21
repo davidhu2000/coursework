@@ -1,9 +1,10 @@
 require_relative 'board'
 
 class Piece
-  def initialize(position, board)
+  def initialize(position, board, color)
     @position = position
     @board = board
+    @color = color
   end
 
   def moves
@@ -18,7 +19,22 @@ class Piece
 end
 
 module SlidingPiece
+  def valid_move?(end_pos)
+    delta_row = end_pos.first - @position.first
+    delta_col = end_pos.last - @position.last
+    delta_row /= delta_row.abs unless delta_row.zero?
+    delta_col /= delta_col.abs unless delta_col.zero?
+    pos = @position.dup
+    until pos == end_pos
+      pos = [pos.first + delta_row, pos.last + delta_col]
+      return false unless board[pos] == "Null"
+    end
+    true
+  end
 end
+
+
+
 
 module SteppingPiece
   def valid_move?(end_pos)
@@ -39,7 +55,7 @@ class Knight < Piece
             [1, -2],
             [-1, -2]].freeze
 
-  def initialize(position, board)
+  def initialize(position, board, color)
     super
   end
 
@@ -56,7 +72,7 @@ end
 class King < Piece
   include SteppingPiece
 
-  def initialize(position, board)
+  def initialize(position, board, color)
     super
   end
 
