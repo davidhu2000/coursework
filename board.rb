@@ -59,9 +59,14 @@ class Board
 
   def move_piece(start_pos, end_pos)
     piece = self[start_pos]
+    p piece.moves
     raise "Invalid move" unless piece.moves.include?(end_pos)
     self[end_pos] = piece
+
+    piece.position = end_pos
+
     self[start_pos] = NullPiece.instance
+
   end
 
   def in_bounds?(pos)

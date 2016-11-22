@@ -10,7 +10,7 @@ class Display
   end
 
   def render
-    system('clear')
+
     board.grid.each_with_index do |row, row_idx|
       row.each_with_index do |tile, col_idx|
 

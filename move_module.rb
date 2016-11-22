@@ -19,6 +19,7 @@ module ValidMove
 
   def is_enemy?(pos)
     other_piece = @board[pos]
+    return false if other_piece.is_a? NullPiece
     @color != other_piece.color
   end
 end

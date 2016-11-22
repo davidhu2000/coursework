@@ -29,7 +29,6 @@ class Game
     end
   end
 
-
   def get_move
     pos = @cursor.get_input
     unless pos.nil?
@@ -40,21 +39,6 @@ class Game
     end
   end
 
-  # def move_piece
-  #   if @move.length == 2
-  #     piece = @board[@move.first]
-  #     p piece.class
-  #     p piece.moves
-  #     possible_moves = piece.moves
-  #
-  #     if possible_moves.include? @move.last
-  #       @board[@move.first] = NullPiece.instance
-  #       @board[@move.last] = piece
-  #     end
-  #
-  #     @move = []
-  #   end
-  # end
 end
 
 Game.new.play
