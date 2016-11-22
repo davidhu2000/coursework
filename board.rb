@@ -23,8 +23,8 @@ class Board
 
     # set pawns + null piece
     (0..7).each do |col|
-      board.grid[1][col] = :pawn
-      board.grid[6][col] = :pawn
+      board.grid[1][col] = Pawn.new([1, col], board, :black)
+      board.grid[6][col] = Pawn.new([6, col], board, :white)
 
       (2..5).each do |row|
         board.grid[row][col] = NullPiece.instance
@@ -68,3 +68,8 @@ class Board
     pos.all? { |idx| (0..7).cover?(idx) }
   end
 end
+
+# Test pawns
+board = Board.setup
+board[[2,2]] = 'no'
+p board[[1,3]].moves #=> [[2, 3], [3, 3], [2, 2]]
