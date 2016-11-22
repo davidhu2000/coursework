@@ -26,7 +26,7 @@ class Display
   end
 end
 
-board = Board.new
+board = Board.setup
 cursor = Cursor.new([0, 0], board)
 display = Display.new(board, cursor)
 

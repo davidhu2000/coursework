@@ -1,4 +1,4 @@
-
+require_relative "piece"
 
 class Board
 
@@ -12,35 +12,38 @@ class Board
 
   def self.setup
 
-
-    grid = Array.new(8) { Array.new(8) }
+    board = Board.empty_board
 
     # set non-pawn pieces
     STARTING_POSITIONS.each do |piece, positions|
       positions.each do |pos|
-        row, col = pos
-        grid[row][col] = piece
+        board[pos] = Kernel.const_get(piece.to_s.capitalize).new(pos, board, :black)
       end
     end
 
     # set pawns + null piece
     (0..7).each do |col|
-      grid[1][col] = :pawn
-      grid[6][col] = :pawn
+      board.grid[1][col] = :pawn
+      board.grid[6][col] = :pawn
 
       (2..5).each do |row|
-        grid[row][col] = 'Null'
+        board.grid[row][col] = NullPiece.instance
       end
 
     end
 
-    grid
+    board
+  end
+
+  def self.empty_board
+    grid = Array.new(8) { Array.new(8) }
+    self.new(grid)
   end
 
   attr_accessor :grid
 
-  def initialize
-    @grid = Board.setup
+  def initialize(grid)
+    @grid = grid
   end
 
   def [](pos)

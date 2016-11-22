@@ -1,3 +1,5 @@
+require 'byebug'
+
 module SlidingPiece
   STRAIGHT_DELTA = [[-1, 0], [0, 1], [1, 0], [0, -1]].freeze
   DIAGONAL_DELTA = [[-1, -1], [-1, 1], [1, 1], [1, -1]].freeze
@@ -38,6 +40,19 @@ module SlidingPiece
 end
 
 module SteppingPiece
+
+  KNIGHT_DELTAS = [[-2, -1],
+                   [-2, 1],
+                   [-1, 2],
+                   [1, 2],
+                   [2, 1],
+                   [2, -1],
+                   [1, -2],
+                   [-1, -2]].freeze
+
+  KING_DELTAS = [[-1,-1], [-1, 0], [-1,  1], [0, -1],
+                 [ 0, 1], [ 1, 0], [ 1, -1], [1,  1]].freeze
+
   def valid_move?(end_pos)
     # needs logic for taking enemy piece
     @board[end_pos] == 'Null'
@@ -48,4 +63,15 @@ module SteppingPiece
       @board.in_bounds?(move) && valid_move?(move)
     end
   end
+
+  def moves
+    deltas = self.class == King ? KING_DELTAS : KNIGHT_DELTAS
+    row, col = @position
+    poss_moves = deltas.map do |row_delta, col_delta|
+      [row + row_delta, col + col_delta]
+    end
+
+    remove_invalid_moves(poss_moves)
+  end
+
 end
