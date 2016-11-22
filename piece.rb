@@ -19,22 +19,79 @@ class Piece
 end
 
 module SlidingPiece
+  STRAIGHT_DELTA = [[-1, 0], [0, 1], [1, 0], [0, -1]].freeze
+  DIAGONAL_DELTA = [[-1, -1], [-1, 1], [1, 1], [1, -1]].freeze
+
   def valid_move?(end_pos)
-    delta_row = end_pos.first - @position.first
-    delta_col = end_pos.last - @position.last
-    delta_row /= delta_row.abs unless delta_row.zero?
-    delta_col /= delta_col.abs unless delta_col.zero?
-    pos = @position.dup
-    until pos == end_pos
-      pos = [pos.first + delta_row, pos.last + delta_col]
-      return false unless board[pos] == "Null"
+    # delta_row = end_pos.first - @position.first
+    # delta_col = end_pos.last - @position.last
+    # delta_row /= delta_row.abs unless delta_row.zero?
+    # delta_col /= delta_col.abs unless delta_col.zero?
+    # pos = @position.dup
+    # until pos == end_pos
+    #   pos = [pos.first + delta_row, pos.last + delta_col]
+    #   return false unless board[pos] == "Null"
+    # end
+    # true
+
+    # needs logic for taking enemy piece
+    @board[end_pos] == 'Null'
+
+  end
+
+  def moves
+    case self.class.to_s
+    when "Bishop" then diagonal_moves
+    when "Rook"   then straight_moves
+    when "Queen"  then diagonal_moves + straight_moves
     end
-    true
+  end
+
+  def diagonal_moves
+    get_moves(DIAGONAL_DELTA)
+  end
+
+  def straight_moves
+    get_moves(STRAIGHT_DELTA)
+  end
+
+  def get_moves(deltas)
+    poss_moves = []
+    deltas.each do |delta_row, delta_col|
+      pos = @position.dup
+      pos = [pos.first + delta_row, pos.last + delta_col]
+      while @board.in_bounds?(pos) && valid_move?(pos)
+        poss_moves << pos
+        pos = [pos.first + delta_row, pos.last + delta_col]
+      end
+    end
+    poss_moves
   end
 end
 
+class Bishop < Piece
+  include SlidingPiece
 
+  def initialize(position, board, color)
+    super
+  end
+end
 
+class Rook < Piece
+  include SlidingPiece
+
+  def initialize(position, board, color)
+    super
+  end
+end
+
+class Queen < Piece
+  include SlidingPiece
+
+  def initialize(position, board, color)
+    super
+  end
+end
 
 module SteppingPiece
   def valid_move?(end_pos)
@@ -92,6 +149,17 @@ class King < Piece
 
 end
 
-board = Board.new
-knight = Knight.new([0, 1], board)
-p knight.moves
+# # board = Board.new
+# # knight = Knight.new([0, 1], board, :black)
+# # p knight.moves
+# board = Board.new
+# board[[1,4]] = 'Null'
+# board[[1,2]] = 'Null'
+# board[[1,3]] = 'Null'
+# # board[[3,5]] = :knight
+# # bis = Bishop.new([0,2], board, :black)
+# # p bis.moves
+# # rook = Rook.new([0,0], board, :black)
+# # p rook.moves
+# q = Queen.new([0,3], board, :black)
+# p q.moves
