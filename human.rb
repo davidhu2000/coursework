@@ -1,7 +1,7 @@
 class HumanPlayer
   attr_reader :name
 
-  def initialize(_, name)
+  def initialize(name)
     @name = name
   end
 
@@ -12,5 +12,8 @@ class HumanPlayer
 
   def alert_invalid_guess
     puts "Invalid letter"
+  end
+
+  def receive_fragment(fragment)
   end
 end

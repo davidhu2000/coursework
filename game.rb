@@ -26,13 +26,12 @@ class Game
   end
 
   private
-  
+
   def play_round
 
     until over?
       take_turn
       next_player!
-      #@dictionary.collect! { |word| word =~ /^#{@fragment}/ }
     end
 
     puts "#{@previous_player.name} loses this round."
@@ -52,15 +51,18 @@ class Game
   end
 
   def take_turn
-
+    @current_player.receive_fragment(@fragment)
+    @previous_player.receive_fragment(@fragment)
+    puts
+    puts "Fragment: #{@fragment}"
     str = @current_player.guess
     until valid_play?(str)
       @current_player.alert_invalid_guess
       str = @current_player.guess
     end
-    @fragment += str
 
-  end
+    @fragment += str
+end
 
   def valid_play?(string)
     return false unless ('a'..'z').to_a.include?(string)
@@ -76,6 +78,7 @@ class Game
   end
 
   def display_standings
+    puts
     @losses.each do |player, loss|
       next if loss.zero?
       puts "#{player.name} has #{record(loss)}."
@@ -85,5 +88,7 @@ end
 
 
 if __FILE__ == $PROGRAM_NAME
-  Game.new.run
+  player1 = HumanPlayer.new("Computer1")
+  player2 = ComputerPlayer.new("Computer2")
+  Game.new(player1, player2).run
 end
