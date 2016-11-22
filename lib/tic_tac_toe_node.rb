@@ -12,7 +12,6 @@ class TicTacToeNode
     @next_mover_mark = next_mover_mark
     @prev_move_pos = prev_move_pos
     @parent = nil
-    # @children = []
   end
 
   def losing_node?(evaluator)
