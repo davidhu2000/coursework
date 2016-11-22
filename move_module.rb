@@ -2,9 +2,21 @@ require 'byebug'
 
 module ValidMove
   def valid_move?(pos)
-    # needs logic for taking enemy piece
-    # check for moves that put you in check
-    in_bounds?(pos) && (empty_space?(pos) || is_enemy?(pos))
+    p pos
+    return false unless in_bounds?(pos)
+    return false unless empty_space?(pos) || is_enemy?(pos)
+
+    start_pos = self.position
+
+    @board.undo_move(pos, start_pos)
+
+    if @board.in_check?(self.color)
+      @board.undo_move(start_pos, pos)
+      return false
+    else
+      @board.undo_move(start_pos, pos)
+    end
+    true
   end
 
   private
@@ -55,7 +67,9 @@ module SlidingPiece
       pos = [pos.first + delta_row, pos.last + delta_col]
       while valid_move?(pos)
         poss_moves << pos
+        break if is_enemy?(pos)
         pos = [pos.first + delta_row, pos.last + delta_col]
+
       end
     end
     poss_moves

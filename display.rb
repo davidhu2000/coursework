@@ -10,10 +10,11 @@ class Display
   end
 
   def render
-
+    puts "      " + ('a'..'h').to_a.join('     ')
     board.grid.each_with_index do |row, row_idx|
-      puts "-" * 49
-      print '|'
+      puts "-" * 52
+      print "#{row_idx}  |"
+
       row.each_with_index do |tile, col_idx|
 
         if [row_idx, col_idx] == @cursor.cursor_pos
@@ -26,6 +27,6 @@ class Display
       end
       puts
     end
-    puts "-" * 49
+    puts "-" * 52
   end
 end

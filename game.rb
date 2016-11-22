@@ -13,11 +13,14 @@ class Game
     loop do
       system('clear')
       @display.render
-      p @move
       begin
         get_move
         if @move.length == 2
           @board.move_piece(@move.first, @move.last)
+          if @board.checkmate?(:red)
+            p "Game Over"
+            return true
+          end
           @move = []
         end
       rescue StandardError => e

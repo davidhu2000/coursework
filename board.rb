@@ -59,25 +59,63 @@ class Board
 
   def move_piece(start_pos, end_pos)
     piece = self[start_pos]
-    p piece.moves
+
     raise "Invalid move" unless piece.moves.include?(end_pos)
+
     self[end_pos] = piece
-
     piece.position = end_pos
-
     self[start_pos] = NullPiece.instance
 
+  end
+
+  def undo_move(start_pos, end_pos)
+    piece = self[end_pos]
+    self[start_pos] = piece
+    piece.position = start_pos
+    self[end_pos] = NullPiece.instance
   end
 
   def in_bounds?(pos)
     pos.all? { |idx| (0..7).cover?(idx) }
   end
 
-  # def in_check?(color)
-  #   king_position = king_position()
-  #   grid do |row|
-  #
-  # end
+  def in_check?(color)
+    king_pos = king_position(color)
+
+    grid.each do |row|
+      row.each do |piece|
+        unless piece.is_a?(NullPiece) || piece.color == color
+          return true if piece.moves.include?(king_pos)
+        end
+      end
+    end
+    false
+  end
+
+  def checkmate?(color)
+    if in_check?(color)
+      grid.each do |row|
+        row.each do |piece|
+          if piece.color == color
+            piece.moves.each do |move|
+              start_pos = piece.position
+              move_piece(start_pos, move)
+
+              if in_check?(color)
+                undo_move(start_pos, move)
+              else
+                undo_move(start_pos, move)
+                return false
+              end
+
+            end
+          end
+        end
+      end
+      return true
+    end
+    false
+  end
 
   def king_position(color)
     grid.each_with_index do |row, row_index|

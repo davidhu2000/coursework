@@ -59,7 +59,7 @@ class Pawn < Piece
     dia_moves = []
     [-1, 1].each do |col_delta|
       dia_pos = [pos.first, pos.last + col_delta]
-      dia_moves << dia_pos if is_enemy?(dia_pos)
+      dia_moves << dia_pos if in_bounds?(dia_pos) && is_enemy?(dia_pos)
     end
     dia_moves
   end
