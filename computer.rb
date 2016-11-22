@@ -16,8 +16,7 @@ class ComputerPlayer
     end
 
     possible_words = @dictionary.select do |word|
-      (word =~ /^#{@fragment}/) &&
-      (word.length - @fragment.length) > 1
+      (word =~ /^#{@fragment}/) 
     end
 
     possible_words = possible_words.to_a.sort.reverse

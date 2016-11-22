@@ -62,6 +62,7 @@ class Game
     end
 
     @fragment += str
+    gets
 end
 
   def valid_play?(string)
@@ -88,7 +89,7 @@ end
 
 
 if __FILE__ == $PROGRAM_NAME
-  player1 = HumanPlayer.new("Computer1")
+  player1 = ComputerPlayer.new("Computer1")
   player2 = ComputerPlayer.new("Computer2")
   Game.new(player1, player2).run
 end
