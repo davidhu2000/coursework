@@ -12,14 +12,16 @@ class Board
   end
 
   def [](pos)
-    row, col = pos[0], pos[1]
+    row = pos[0]
+    col = pos[1]
     @rows[row][col]
   end
 
   def []=(pos, mark)
-    raise "mark already placed there!" unless empty?(pos)
+    raise 'mark already placed there!' unless empty?(pos)
 
-    row, col = pos[0], pos[1]
+    row = pos[0]
+    col = pos[1]
     @rows[row][col] = mark
   end
 
@@ -59,7 +61,7 @@ class Board
     return false if won?
 
     # no empty space?
-    @rows.all? { |row| row.none? { |el| el.nil? }}
+    @rows.all? { |row| row.none?(&:nil?) }
   end
 
   def over?
@@ -94,32 +96,41 @@ class TicTacToe
 
   def initialize(player1, player2)
     @board = Board.new
-    @players = { :x => player1, :o => player2 }
+    @players = { x: player1, o: player2 }
     @turn = :x
   end
 
   def run
-    until self.board.over?
-      play_turn
-    end
-
-    if self.board.won?
-      winning_player = self.players[self.board.winner]
+    play_turn until board.over?
+    show
+    if board.won?
+      winning_player = players[board.winner]
       puts "#{winning_player.name} won the game!"
     else
-      puts "No one wins!"
+      puts 'No one wins!'
     end
   end
 
   def show
     # not very pretty printing!
-    self.board.rows.each { |row| p row }
+    puts
+    board.rows.each_with_index do |row, row_idx|
+      row.each_with_index do |el, col_idx|
+        print el.nil? ? ' ' : el
+        print ' | ' unless col_idx == row.length - 1
+
+      end
+      puts
+      puts '-' * 10 unless row_idx == board.rows.length - 1
+    end
+    puts
   end
 
   private
+
   def place_mark(pos, mark)
-    if self.board.empty?(pos)
-      self.board[pos] = mark
+    if board.empty?(pos)
+      board[pos] = mark
       true
     else
       false
@@ -128,14 +139,14 @@ class TicTacToe
 
   def play_turn
     loop do
-      current_player = self.players[self.turn]
-      pos = current_player.move(self, self.turn)
+      current_player = players[turn]
+      pos = current_player.move(self, turn)
 
-      break if place_mark(pos, self.turn)
+      break if place_mark(pos, turn)
     end
 
     # swap next whose turn it will be next
-    @turn = ((self.turn == :x) ? :o : :x)
+    @turn = (turn == :x ? :o : :x)
   end
 end
 
@@ -146,22 +157,23 @@ class HumanPlayer
     @name = name
   end
 
-  def move(game, mark)
+  def move(game, _mark)
     game.show
-    while true
+    loop do
       puts "#{@name}: please select your space"
-      row, col = gets.chomp.split(",").map(&:to_i)
+      row, col = gets.chomp.split(',').map(&:to_i)
       if HumanPlayer.valid_coord?(row, col)
         return [row, col]
       else
-        puts "Invalid coordinate!"
+        puts 'Invalid coordinate!'
       end
     end
   end
 
   private
+
   def self.valid_coord?(row, col)
-    [row, col].all? { |coord| (0..2).include?(coord) }
+    [row, col].all? { |coord| (0..2).cover?(coord) }
   end
 end
 
@@ -169,7 +181,7 @@ class ComputerPlayer
   attr_reader :name
 
   def initialize
-    @name = "Tandy 400"
+    @name = 'Tandy 400'
   end
 
   def move(game, mark)
@@ -177,6 +189,7 @@ class ComputerPlayer
   end
 
   private
+
   def winner_move(game, mark)
     (0..2).each do |row|
       (0..2).each do |col|
@@ -196,7 +209,7 @@ class ComputerPlayer
 
   def random_move(game)
     board = game.board
-    while true
+    loop do
       range = (0..2).to_a
       pos = [range.sample, range.sample]
 
@@ -206,8 +219,8 @@ class ComputerPlayer
 end
 
 if __FILE__ == $PROGRAM_NAME
-  puts "Play the dumb computer!"
-  hp = HumanPlayer.new("Ned")
+  puts 'Play the dumb computer!'
+  hp = HumanPlayer.new('Ned')
   cp = ComputerPlayer.new
 
   TicTacToe.new(hp, cp).run
