@@ -1,4 +1,4 @@
-# DON'T EDIT ME!
+require 'colorize'
 
 class Board
   attr_reader :rows
@@ -116,7 +116,8 @@ class TicTacToe
     puts
     board.rows.each_with_index do |row, row_idx|
       row.each_with_index do |el, col_idx|
-        print el.nil? ? ' ' : el
+        color = el == :x ? :cyan : :red
+        print (el.nil? ? ' ' : el.to_s).colorize(color)
         print ' | ' unless col_idx == row.length - 1
 
       end
