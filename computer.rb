@@ -16,19 +16,25 @@ class ComputerPlayer
     end
 
     possible_words = @dictionary.select do |word|
-      word =~ /^#{@fragment}/
+      (word =~ /^#{@fragment}/) &&
+      (word.length - @fragment.length) > 1
     end
 
     possible_words = possible_words.to_a.sort.reverse
+    ltr_count = Hash.new(0)
 
-    possible_guesses = possible_words.map do |word|
-      word[@fragment.length]
+    possible_words.each do |word|
+      ltr_count[word[@fragment.length]] += 1
     end
+
+    possible_guesses = ltr_count.reject { |_, count| count > 10}.keys
 
     possible_guesses.each do |ltr|
       frag_check = @fragment + ltr
-      words = possible_words.select { |word| word =~ /^#{frag_check}/ }
-      if words.length == 1 && (words.length - frag_check.length).odd?
+      words = possible_words.select do |word|
+        word =~ /^#{frag_check}/ && (word.length - @fragment.length).even?
+      end
+      if words.length == 1 && !@dictionary.include?(frag_check)
         puts "#{@name} guesses #{ltr}"
         return ltr
       end
