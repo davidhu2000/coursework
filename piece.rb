@@ -3,6 +3,8 @@ require_relative 'move_module'
 require 'singleton'
 
 class Piece
+  attr_reader :color
+
   def initialize(position, board, color)
     @position = position
     @board = board
@@ -16,11 +18,15 @@ end
 
 class NullPiece < Piece
   include Singleton
-  attr_reader :color, :symbol
+  attr_reader :symbol
 
   def initialize
     @color = :brown
     @symbol = :null
+  end
+
+  def moves
+    []
   end
 end
 
@@ -46,7 +52,7 @@ class Pawn < Piece
     [-1, 1].each do |col_delta|
       dia_pos = [pos.first, pos.last + col_delta]
       poss_moves << dia_pos unless empty_space?(dia_pos)
-      # add check to see if diagonbal has enemy pieces.
+      # add check to see if diagonal has enemy pieces.
     end
     poss_moves
   end

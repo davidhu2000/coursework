@@ -17,13 +17,14 @@ class Board
     # set non-pawn pieces
     STARTING_POSITIONS.each do |piece, positions|
       positions.each do |pos|
-        board[pos] = Kernel.const_get(piece.to_s.capitalize).new(pos, board, :black)
+        color = pos.first == 0 ? :red : :white
+        board[pos] = Kernel.const_get(piece.to_s.capitalize).new(pos, board, color)
       end
     end
 
     # set pawns + null piece
     (0..7).each do |col|
-      board.grid[1][col] = Pawn.new([1, col], board, :black)
+      board.grid[1][col] = Pawn.new([1, col], board, :red)
       board.grid[6][col] = Pawn.new([6, col], board, :white)
 
       (2..5).each do |row|
@@ -57,11 +58,10 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    raise "No piece at starting position." if self[start_pos] == "Null"
-    # raise exception if piece cannot move to end_pos
     piece = self[start_pos]
+    raise "Invalid move" unless piece.moves.include?(end_pos)
     self[end_pos] = piece
-    self[start_pos] = "Null"
+    self[start_pos] = NullPiece.instance
   end
 
   def in_bounds?(pos)
@@ -69,7 +69,7 @@ class Board
   end
 end
 
-# Test pawns
-board = Board.setup
-board[[2,2]] = 'no'
-p board[[1,3]].moves #=> [[2, 3], [3, 3], [2, 2]]
+# # Test pawns
+# board = Board.setup
+# board[[2,2]] = 'no'
+# p board[[1,3]].moves #=> [[2, 3], [3, 3], [2, 2]]

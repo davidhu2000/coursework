@@ -3,8 +3,11 @@ require 'byebug'
 module ValidMove
   def valid_move?(pos)
     # needs logic for taking enemy piece
-    empty_space?(pos) && in_bounds?(pos)
+    # check for moves that put you in check
+    in_bounds?(pos) && (empty_space?(pos) || is_enemy?(pos))
   end
+
+  private
 
   def in_bounds?(pos)
     pos.all? { |idx| (0..7).cover?(idx) }
@@ -12,6 +15,11 @@ module ValidMove
 
   def empty_space?(pos)
     @board[pos] == NullPiece.instance
+  end
+
+  def is_enemy?(pos)
+    other_piece = @board[pos]
+    @color != other_piece.color
   end
 end
 

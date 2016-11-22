@@ -18,20 +18,10 @@ class Display
           print "#{tile} ".center(7)
                 .colorize(:background => :light_white, :color => :red)
         else
-          print "#{tile} ".center(7)
+          print "#{tile} ".center(7).colorize(:color => tile.color)
         end
       end
       puts
     end
   end
-end
-
-board = Board.setup
-cursor = Cursor.new([0, 0], board)
-display = Display.new(board, cursor)
-
-while true
-
-  display.render
-  cursor.get_input
 end
