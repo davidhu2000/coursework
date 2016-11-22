@@ -24,6 +24,12 @@ class NullPiece < Piece
   end
 end
 
+class Pawn < Piece
+  def initialize(position, board, color)
+    super
+  end
+end
+
 class Bishop < Piece
   include SlidingPiece
 
