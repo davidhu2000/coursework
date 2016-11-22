@@ -12,16 +12,20 @@ class Display
   def render
 
     board.grid.each_with_index do |row, row_idx|
+      puts "-" * 49
+      print '|'
       row.each_with_index do |tile, col_idx|
 
         if [row_idx, col_idx] == @cursor.cursor_pos
-          print "#{tile} ".center(7)
+          print "#{tile} ".center(5)
                 .colorize(:background => :light_white, :color => :red)
         else
-          print "#{tile} ".center(7).colorize(:color => tile.color)
+          print "#{tile} ".center(5).colorize(:color => tile.color)
         end
+        print "|"
       end
       puts
     end
+    puts "-" * 49
   end
 end

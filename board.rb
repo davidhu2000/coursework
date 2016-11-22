@@ -6,8 +6,8 @@ class Board
     rook: [[0,0], [0,7], [7,0], [7,7]],
     knight: [[0,1], [0,6], [7,1], [7,6]],
     bishop: [[0,2], [0,5], [7,2], [7,5]],
-    king: [[0,3], [7,3]],
-    queen: [[0,4], [7,4]]
+    king: [[0,4], [7,4]],
+    queen: [[0,3], [7,3]]
   }.freeze
 
   def self.setup
@@ -71,6 +71,21 @@ class Board
 
   def in_bounds?(pos)
     pos.all? { |idx| (0..7).cover?(idx) }
+  end
+
+  # def in_check?(color)
+  #   king_position = king_position()
+  #   grid do |row|
+  #
+  # end
+
+  def king_position(color)
+    grid.each_with_index do |row, row_index|
+      col_index = row.find_index do |piece|
+        piece.is_a?(King) && piece.color == color
+      end
+      return [row_index, col_index] if col_index
+    end
   end
 end
 
