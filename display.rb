@@ -19,9 +19,9 @@ class Display
 
         if [row_idx, col_idx] == @cursor.cursor_pos
           print "#{tile} ".center(5)
-                .colorize(:background => :light_white, :color => :red)
+            .colorize(background: :light_white, color: :red)
         else
-          print "#{tile} ".center(5).colorize(:color => tile.color)
+          print "#{tile} ".center(5).colorize(color: tile.color)
         end
         print "|"
       end

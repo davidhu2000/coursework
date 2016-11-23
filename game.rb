@@ -1,4 +1,5 @@
 require_relative 'display'
+require_relative 'human'
 
 class Game
 
@@ -7,20 +8,22 @@ class Game
     @cursor = Cursor.new([0, 0], @board)
     @display = Display.new(@board, @cursor)
     @move = []
+    @player1 = HumanPlayer.new(:white, "Human1")
+    @player2 = HumanPlayer.new(:red, "Human2")
+    @current_player = @player1
   end
 
   def play
-    loop do
-      system('clear')
+    until @board.checkmate?(@player1.color) || @board.checkmate?(@player2.color)
+      # system('clear')
+      p 'in play'
+      p @board[[2,6]].class
+
       @display.render
       begin
         get_move
         if @move.length == 2
           @board.move_piece(@move.first, @move.last)
-          if @board.checkmate?(:red)
-            p "Game Over"
-            return true
-          end
           @move = []
         end
       rescue StandardError => e
@@ -28,8 +31,10 @@ class Game
         @move = []
         sleep(1)
       end
-
     end
+
+    puts 'Game Over!'
+    puts "Winner is #{@current_player.name}"
   end
 
   def get_move

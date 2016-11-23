@@ -1,6 +1,8 @@
 require_relative "piece"
+require 'byebug'
 
 class Board
+
 
   STARTING_POSITIONS = {
     rook: [[0,0], [0,7], [7,0], [7,7]],
@@ -62,17 +64,24 @@ class Board
 
     raise "Invalid move" unless piece.moves.include?(end_pos)
 
+    if piece.into_check?(end_pos)
+      if in_check?(piece.color)
+        raise "Must move out of check"
+      end
+      raise "Cannot move into check"
+    end
     self[end_pos] = piece
     piece.position = end_pos
     self[start_pos] = NullPiece.instance
-
   end
 
-  def undo_move(start_pos, end_pos)
+  def shift_position(start_pos, end_pos)
+
     piece = self[end_pos]
     self[start_pos] = piece
     piece.position = start_pos
     self[end_pos] = NullPiece.instance
+
   end
 
   def in_bounds?(pos)
@@ -93,18 +102,22 @@ class Board
   end
 
   def checkmate?(color)
+
     if in_check?(color)
       grid.each do |row|
         row.each do |piece|
           if piece.color == color
             piece.moves.each do |move|
               start_pos = piece.position
-              move_piece(start_pos, move)
+              prev_piece = self[move]
+              shift_position(move, start_pos)
 
               if in_check?(color)
-                undo_move(start_pos, move)
+                shift_position(start_pos, move)
+                self[move] = prev_piece
               else
-                undo_move(start_pos, move)
+                shift_position(start_pos, move)
+                self[move] = prev_piece
                 return false
               end
 
@@ -114,7 +127,10 @@ class Board
       end
       return true
     end
+
+
     false
+
   end
 
   def king_position(color)

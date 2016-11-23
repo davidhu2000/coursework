@@ -2,22 +2,20 @@ require 'byebug'
 
 module ValidMove
   def valid_move?(pos)
-    p pos
     return false unless in_bounds?(pos)
     return false unless empty_space?(pos) || is_enemy?(pos)
 
-    start_pos = self.position
-
-    @board.undo_move(pos, start_pos)
-
-    if @board.in_check?(self.color)
-      @board.undo_move(start_pos, pos)
-      return false
-    else
-      @board.undo_move(start_pos, pos)
-    end
     true
   end
+
+  def into_check?(pos)
+    start_pos = self.position
+    @board.shift_position(pos, start_pos)
+    moved_into_check = @board.in_check?(self.color)
+    @board.shift_position(start_pos, pos)
+    moved_into_check
+  end
+
 
   private
 
