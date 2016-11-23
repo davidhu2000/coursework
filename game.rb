@@ -15,13 +15,12 @@ class Game
 
   def play
     until @board.checkmate?(@player1.color) || @board.checkmate?(@player2.color)
-      # system('clear')
-      p 'in play'
-      p @board[[2,6]].class
-
+      system('clear')
       @display.render
       begin
-        get_move
+
+        move = @current_player.play_turn
+
         if @move.length == 2
           @board.move_piece(@move.first, @move.last)
           @move = []
