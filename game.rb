@@ -27,7 +27,7 @@ class Game
       end
     end
     @display.render
-    puts 'Game Over!'
+    puts 'Checkmate!'
     puts "Winner is #{@current_player.name}"
   end
 

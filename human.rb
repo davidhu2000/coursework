@@ -9,22 +9,21 @@ class HumanPlayer
     @display = display
     @cursor = display.cursor
     @board = display.board
-    @move = []
   end
 
   def play_turn
-    until @move.length == 2
+    move = []
+    until move.length == 2
       @display.render
       pos = @cursor.get_input
-      unless pos.nil?
-        if @board[pos] == NullPiece.instance && @move.empty?
-          raise 'No piece at starting position.'
-        end
-        @move << pos
+      next unless pos
+
+      if @board[pos] == NullPiece.instance && move.empty?
+        raise 'No piece at starting position.'
       end
+      move << pos
+
     end
-    return_move = @move
-    @move = []
-    return_move
+    move
   end
 end

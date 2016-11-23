@@ -106,8 +106,7 @@ class Board
       row.each do |piece|
         next unless piece.color == color
 
-        can_escape_check = move_out_of_check?(piece)
-        return false if can_escape_check
+        return false if move_out_of_check?(piece)
       end
     end
     true
