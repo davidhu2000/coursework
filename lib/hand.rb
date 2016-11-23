@@ -34,9 +34,11 @@ class Hand
   end
 
   def four_of_a_kind
+    card_hash.values.count { |val| val == 4 } == 1
   end
 
   def full_house
+    three_of_a_kind && one_pair
   end
 
   def flush
@@ -47,7 +49,7 @@ class Hand
   def straight
     vals = (1..14).to_a.join
 
-    values = @cards.map(&:value)
+    values = card_values
     if values.include?(:a)
       values.delete(:a)
       values << 1
@@ -62,12 +64,25 @@ class Hand
   end
 
   def three_of_a_kind
+    card_hash.values.count { |val| val == 3 } == 1
   end
 
   def two_pairs
+    card_hash.values.count { |val| val == 2 } == 2
   end
 
   def one_pair
+    card_hash.values.count { |val| val == 2 } == 1
+  end
+
+  def card_values
+    @cards.map(&:value)
+  end
+
+  def card_hash
+    hash = Hash.new(0)
+    card_values.each { |card| hash[card] += 1 }
+    hash
   end
 
 end

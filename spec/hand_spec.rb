@@ -4,9 +4,13 @@ require 'hand'
 describe Hand do
   subject(:hand) { Hand.new }
 
-  let(:sa) { double('Ace Spade', suit: :spade, value: :a)}
+  let(:sa) { double('Ace Spade', suit: :spade, value: :a) }
+  let(:d7) { double('Seven Diamond', suit: :diamond, value: 7) }
+  let(:c7) { double('Seven Club', suit: :club, value: 7)}
   12.times do |i|
-    let("s#{i + 2}") { double("#{i + 2} Spade", suit: :spade, value: "#{i + 2}".to_i)}
+    let("s#{i + 2}") do
+      double("#{i + 2} Spade", suit: :spade, value: "#{i + 2}".to_i)
+    end
   end
 
   12.times do |i|
@@ -47,9 +51,23 @@ describe Hand do
       expect(hand.hand_ranking).to eq(1)
     end
 
-    it 'returns 2 for four of a kind'
+    it 'returns 2 for four of a kind' do
+      hand.receive(d7)
+      hand.receive(h7)
+      hand.receive(s7)
+      hand.receive(c7)
+      hand.receive(h10)
+      expect(hand.hand_ranking).to eq(2)
+    end
 
-    it 'returns 3 for a full house'
+    it 'returns 3 for a full house' do
+      hand.receive(d7)
+      hand.receive(h7)
+      hand.receive(s7)
+      hand.receive(s10)
+      hand.receive(h10)
+      expect(hand.hand_ranking).to eq(3)
+    end
 
     it 'returns 4 for a flush' do
       hand.receive(sa)
@@ -69,9 +87,23 @@ describe Hand do
       expect(hand.hand_ranking).to eq(5)
     end
 
-    it 'returns 6 for three of a kind'
+    it 'returns 6 for three of a kind' do
+      hand.receive(sa)
+      hand.receive(d7)
+      hand.receive(s7)
+      hand.receive(h7)
+      hand.receive(h11)
+      expect(hand.hand_ranking).to eq(6)
+    end
 
-    it 'returns 7 for two pairs'
+    it 'returns 7 for two pairs' do
+      hand.receive(sa)
+      hand.receive(h12)
+      hand.receive(s12)
+      hand.receive(s11)
+      hand.receive(h11)
+      expect(hand.hand_ranking).to eq(7)
+    end
 
     it 'returns 8 for one pair' do
       hand.receive(sa)
