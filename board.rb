@@ -119,11 +119,12 @@ class Board
       prev_piece = self[move]
       shift_position(start_pos, move)
 
-      in_check = in_check?(color)
+      in_check = in_check?(piece.color)
       shift_position(move, start_pos)
       self[move] = prev_piece
       return true unless in_check
     end
+    nil
   end
 
   def king_position(color)
