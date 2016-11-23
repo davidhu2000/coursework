@@ -22,8 +22,8 @@ class Game
         @board.move_piece(move.first, move.last)
       rescue StandardError => e
         puts e
-        retry
         sleep(1)
+        retry
       end
     end
     @display.render

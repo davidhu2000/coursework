@@ -44,13 +44,13 @@ class Pawn < Piece
     direction = @starting_position.first == 1 ? 1 : -1
 
     pos = [@position.first + direction, @position.last]
+
     poss_moves << pos if empty_space?(pos)
 
     if @starting_position == @position && valid_move?(pos)
       two_space_move = [pos.first + direction, pos.last]
       poss_moves << two_space_move if empty_space?(two_space_move)
     end
-
 
     poss_moves + diagonal_moves(pos)
   end
@@ -63,13 +63,6 @@ class Pawn < Piece
     end
     dia_moves
   end
-
-  def forward_moves(pos)
-
-  end
-
-
-
 
 end
 
@@ -97,3 +90,4 @@ end
 # dynamic_name = "ClassName"
 # Object.const_set(dynamic_name, Class.new { def method1() 42 end })
 # ClassName.new.method1 #=> 42
+# Dijkstra's algorithm
