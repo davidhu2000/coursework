@@ -4,6 +4,8 @@ require_relative 'cursor'
 
 class Display
   attr_accessor :board, :cursor
+  BAR = "-" * 52
+  HEADING = "      " + ('a'..'h').to_a.join('     ')
 
   def initialize(board, cursor)
     @board = board
@@ -12,9 +14,10 @@ class Display
 
   def render
     system('clear')
-    puts "      " + ('a'..'h').to_a.join('     ')
+    puts HEADING
+    
     board.grid.each_with_index do |row, row_idx|
-      puts "-" * 52
+      puts BAR
       print "#{row_idx}  |"
 
       row.each_with_index do |tile, col_idx|
@@ -29,6 +32,6 @@ class Display
       end
       puts
     end
-    puts "-" * 52
+    puts BAR
   end
 end

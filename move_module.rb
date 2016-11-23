@@ -10,12 +10,11 @@ module ValidMove
 
   def into_check?(pos)
     start_pos = self.position
-    @board.shift_position(pos, start_pos)
-    moved_into_check = @board.in_check?(self.color)
     @board.shift_position(start_pos, pos)
+    moved_into_check = @board.in_check?(self.color)
+    @board.shift_position(pos, start_pos)
     moved_into_check
   end
-
 
   private
 
@@ -89,14 +88,8 @@ module SteppingPiece
 
   private
 
-  KNIGHT_DELTAS = [[-2, -1],
-                   [-2, 1],
-                   [-1, 2],
-                   [1, 2],
-                   [2, 1],
-                   [2, -1],
-                   [1, -2],
-                   [-1, -2]].freeze
+  KNIGHT_DELTAS = [[-2, -1], [-2, 1], [-1, 2], [1, 2],
+                   [2, 1], [2, -1], [1, -2], [-1, -2]].freeze
 
   KING_DELTAS = [[-1,-1], [-1, 0], [-1,  1], [0, -1],
                  [ 0, 1], [ 1, 0], [ 1, -1], [1,  1]].freeze

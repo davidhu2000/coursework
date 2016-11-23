@@ -61,11 +61,7 @@ class Board
 
   def move_piece(start_pos, end_pos)
     piece = self[start_pos]
-    p start_pos
-    p end_pos
-    p self[end_pos].class
-    p piece.class
-    p piece.moves
+
     raise "Invalid move" unless piece.moves.include?(end_pos)
 
     if piece.into_check?(end_pos)
@@ -80,12 +76,10 @@ class Board
   end
 
   def shift_position(start_pos, end_pos)
-
-    piece = self[end_pos]
-    self[start_pos] = piece
-    piece.position = start_pos
-    self[end_pos] = NullPiece.instance
-
+    piece = self[start_pos]
+    self[end_pos] = piece
+    piece.position = end_pos
+    self[start_pos] = NullPiece.instance
   end
 
   def in_bounds?(pos)
@@ -106,35 +100,30 @@ class Board
   end
 
   def checkmate?(color)
+    return false unless in_check?(color)
 
-    if in_check?(color)
-      grid.each do |row|
-        row.each do |piece|
-          if piece.color == color
-            piece.moves.each do |move|
-              start_pos = piece.position
-              prev_piece = self[move]
-              shift_position(move, start_pos)
+    grid.each do |row|
+      row.each do |piece|
+        next unless piece.color == color
 
-              if in_check?(color)
-                shift_position(start_pos, move)
-                self[move] = prev_piece
-              else
-                shift_position(start_pos, move)
-                self[move] = prev_piece
-                return false
-              end
-
-            end
-          end
-        end
+        can_escape_check = move_out_of_check?(piece)
+        return false if can_escape_check
       end
-      return true
     end
+    true
+  end
 
+  def move_out_of_check?(piece)
+    piece.moves.each do |move|
+      start_pos = piece.position
+      prev_piece = self[move]
+      shift_position(start_pos, move)
 
-    false
-
+      in_check = in_check?(color)
+      shift_position(move, start_pos)
+      self[move] = prev_piece
+      return true unless in_check
+    end
   end
 
   def king_position(color)
@@ -146,8 +135,3 @@ class Board
     end
   end
 end
-
-# # Test pawns
-# board = Board.setup
-# board[[2,2]] = 'no'
-# p board[[1,3]].moves #=> [[2, 3], [3, 3], [2, 2]]
