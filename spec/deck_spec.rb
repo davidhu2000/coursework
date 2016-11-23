@@ -32,11 +32,35 @@ describe Deck do
     end
   end
 
-  describe '#shuffle' do
+  describe '#shuffle!' do
     it 'should shuffle the deck' do
       original = deck.cards.dup
       deck.shuffle!
       expect(deck.cards).to_not eq(original)
+    end
+  end
+
+  describe '#deal!' do
+    it 'should deal one card from cards' do
+      expect(deck.cards.length).to eq(52)
+      deck.deal!
+      expect(deck.cards.length).to eq(51)
+    end
+
+    it 'should return the first card' do
+      first_card = deck.cards.first
+      expect(deck.deal!).to eq(first_card)
+    end
+  end
+
+  describe '#reshuffle' do
+    before(:each) { 20.times { deck.deal! } }
+
+    it 'should reshuffle the deck' do
+      expect(deck).to receive(:shuffle!)
+      expect(deck.cards.length).to eq(32)
+      deck.reshuffle!
+      expect(deck.cards.length).to eq(52)
     end
   end
 end

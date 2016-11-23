@@ -26,6 +26,13 @@ class Deck
     @cards.shuffle!
   end
 
+  def deal!
+    @cards.shift
+  end
 
+  def reshuffle!
+    @cards = create_deck
+    shuffle!
+  end
 
 end
