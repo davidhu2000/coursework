@@ -7,27 +7,27 @@ class Game
     @board = Board.setup
     @cursor = Cursor.new([0, 0], @board)
     @display = Display.new(@board, @cursor)
-    @move = []
-    @player1 = HumanPlayer.new(:white, "Human1")
-    @player2 = HumanPlayer.new(:red, "Human2")
+    @player1 = HumanPlayer.new("Human1", :white, @display)
+    @player2 = HumanPlayer.new("Human2", :red, @display)
     @current_player = @player1
   end
 
   def play
     until @board.checkmate?(@player1.color) || @board.checkmate?(@player2.color)
-      system('clear')
-      @display.render
+
       begin
 
         move = @current_player.play_turn
-
-        if @move.length == 2
-          @board.move_piece(@move.first, @move.last)
-          @move = []
+        unless @board[move.first].color == @current_player.color
+          raise "That is not your piece."
         end
+        
+        @board.move_piece(move.first, move.last)
+        p @current_player.name
+        switch_player!
       rescue StandardError => e
         puts e
-        @move = []
+
         sleep(1)
       end
     end
@@ -36,14 +36,8 @@ class Game
     puts "Winner is #{@current_player.name}"
   end
 
-  def get_move
-    pos = @cursor.get_input
-    unless pos.nil?
-      if @board[pos] == NullPiece.instance && @move.empty?
-        raise "No piece at starting position."
-      end
-      @move << pos
-    end
+  def switch_player!
+    @current_player = @current_player == @player1 ? @player2 : @player1
   end
 
 end

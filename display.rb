@@ -3,13 +3,15 @@ require_relative 'board'
 require_relative 'cursor'
 
 class Display
-  attr_accessor :board
+  attr_accessor :board, :cursor
+
   def initialize(board, cursor)
     @board = board
     @cursor = cursor
   end
 
   def render
+    system('clear')
     puts "      " + ('a'..'h').to_a.join('     ')
     board.grid.each_with_index do |row, row_idx|
       puts "-" * 52
