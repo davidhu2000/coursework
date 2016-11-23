@@ -7,7 +7,7 @@ class Game
     @board = Board.setup
     @display = Display.new(@board, Cursor.new([0, 0], @board))
     @player1 = HumanPlayer.new("Human1", :white, @display)
-    @player2 = HumanPlayer.new("Human2", :red, @display)
+    @player2 = HumanPlayer.new("Human2", :black, @display)
     @current_player = @player2
   end
 

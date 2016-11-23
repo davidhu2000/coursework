@@ -19,14 +19,14 @@ class Board
     # set non-pawn pieces
     STARTING_POSITIONS.each do |piece, positions|
       positions.each do |pos|
-        color = pos.first == 0 ? :red : :white
+        color = pos.first == 0 ? :black : :white
         board[pos] = Kernel.const_get(piece.to_s.capitalize).new(pos, board, color)
       end
     end
 
     # set pawns + null piece
     (0..7).each do |col|
-      board.grid[1][col] = Pawn.new([1, col], board, :red)
+      board.grid[1][col] = Pawn.new([1, col], board, :black)
       board.grid[6][col] = Pawn.new([6, col], board, :white)
 
       (2..5).each do |row|

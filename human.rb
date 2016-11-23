@@ -22,8 +22,11 @@ class HumanPlayer
         raise 'No piece at starting position.'
       end
       move << pos
-
+      if move.length == 1
+        @display.selected = pos
+      end
     end
+    @display.selected = []
     move
   end
 end
