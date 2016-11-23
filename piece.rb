@@ -13,6 +13,7 @@ class Piece
   end
 
   def to_s
+    return '  ' if self.class == NullPiece
     self.class.to_s.slice(0, 2)
   end
 end
@@ -64,26 +65,45 @@ class Pawn < Piece
     dia_moves
   end
 
+  def to_s
+    self.color == :white ? "\u2659" : "\u265F"
+  end
+
 end
 
 class Bishop < Piece
   include SlidingPiece
+  def to_s
+    self.color == :white ? "\u2657" : "\u265D"
+  end
 end
 
 class Rook < Piece
   include SlidingPiece
+  def to_s
+    self.color == :white ? "\u2656" : "\u265C"
+  end
 end
 
 class Queen < Piece
   include SlidingPiece
+  def to_s
+    self.color == :white ? "\u2655" : "\u265B"
+  end
 end
 
 class Knight < Piece
   include SteppingPiece
+  def to_s
+    self.color == :white ? "\u2658" : "\u265E"
+  end
 end
 
 class King < Piece
   include SteppingPiece
+  def to_s
+    self.color == :white ? "\u2654" : "\u265A"
+  end
 end
 
 # For fun
