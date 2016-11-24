@@ -12,10 +12,18 @@ class Game
   end
 
   def play
+
   end
 
   def take_turn
+    @current_player.do_action
+  end
 
+  def next_player!
+    current_idx = @players.index(@current_player)
+    current_idx =+ 1
+    current_idx = 0 if current_idx == @players.length
+    @current_player = @players[current_idx]
   end
 
   def deal
@@ -24,5 +32,9 @@ class Game
         player.hand.receive(@deck.deal!)
       end
     end
+  end
+
+  def game_over?
+    @players.map(&:amount).reject(&:zero?).length == 1
   end
 end

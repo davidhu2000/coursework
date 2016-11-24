@@ -1,7 +1,8 @@
 require_relative 'hand'
 
 class Player
-  attr_reader :name, :amount, :hand, :folded
+  attr_reader :name, :hand, :folded
+  attr_accessor :amount
 
   def initialize(name, amount)
     @name = name
@@ -46,7 +47,9 @@ class Player
         player_raise = $stdin.gets.chomp.to_i
       end
       @amount -= player_raise
+      return player_raise
     end
+    nil
   end
 
   private

@@ -1,14 +1,12 @@
 require 'rspec'
 require 'game'
+require 'player'
 
 describe Game do
 
-  let(:hand1) { double("hand1", cards: [])}
-  let(:hand2) { double("hand2", cards: [])}
-  let(:hand3) { double("hand3", cards: [])}
-  let(:player1) { double('player1', name: "Fred", amount: 1000, hand: hand1) }
-  let(:player2) { double('player2', name: "George", amount: 1000, hand: hand2) }
-  let(:player3) { double('player3', name: "Ron", amount: 1000, hand: hand3) }
+  let(:player1) { Player.new("Player1", 1000) }
+  let(:player2) { Player.new("Player2", 1000) }
+  let(:player3) { Player.new("Player3", 1000) }
 
   subject(:game) { Game.new([player1, player2, player3]) }
 
@@ -33,17 +31,36 @@ describe Game do
 
   describe '#deal' do
     it 'should deal 5 cards to each player' do
-      allow(hand1).to receive(receive).
       game.deal
       [player1, player2, player3].each do |player|
         expect(player.hand.cards.length).to eq(5)
       end
-      expect(deck.cards.length).to eq(37)
+      expect(game.deck.cards.length).to eq(37)
     end
   end
 
   describe '#take_turn' do
-    it 'should receive an action from player'
+    it 'should receive an action from player' do
+      expect(game.current_player).to receive(:do_action)
+      game.take_turn
+    end
+  end
+
+  describe '#next_player' do
+    it 'should change the player' do
+      expect(game.current_player).to eq(player1)
+      game.next_player!
+      expect(game.current_player).to_not eq(player1)
+    end
+  end
+
+  describe '#game_over?' do
+    it 'return true if only have player have money' do
+      expect(game.game_over?).to be false
+      player2.amount = 0
+      player3.amount = 0
+      expect(game.game_over?).to be true 
+    end
   end
 
 end

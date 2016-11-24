@@ -2,7 +2,7 @@ require_relative 'card'
 
 class Deck
   SUITS = [:spade, :heart, :club, :diamond].freeze
-  VALUES = [:a] + (2..13).to_a
+  VALUES = [:a, 2, 3, 4, 5, 6, 7, 8, 9, :t, :j, :q, :k].freeze
 
   attr_reader :cards
 
