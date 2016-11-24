@@ -45,7 +45,7 @@ describe Hand do
   end
 
   describe '#hand_ranking' do
-    it 'checks for straight flush' do
+    it 'return 1 straight flush' do
       hand.receive(sa)
       hand.receive(s13)
       hand.receive(s12)

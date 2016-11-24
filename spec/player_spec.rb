@@ -25,8 +25,8 @@ describe Player do
       expect(player.hand.cards).to be_empty
     end
 
-    it 'should initialize starting amount' do
-      expect(player.amount).to eq(1000)
+    it 'should initialize starting chips' do
+      expect(player.chips).to eq(1000)
     end
   end
 
@@ -96,22 +96,22 @@ describe Player do
       expect(player.folded).to be true
     end
 
-    it 'should subtract bet from amount if call' do
+    it 'should subtract bet from chips if call' do
       $stdin = StringIO.new('cork')
-      expect(player.amount).to eq(1000)
+      expect(player.chips).to eq(1000)
 
       player.do_action(100)
 
-      expect(player.amount).to eq(900)
+      expect(player.chips).to eq(900)
     end
 
-    it 'should subtract the raised amount' do
+    it 'should subtract the raised chips' do
       $stdin = StringIO.new('rork')
-      expect(player.amount).to eq(1000)
+      expect(player.chips).to eq(1000)
 
       player.do_action(100)
 
-      expect(player.amount).to eq(900)
+      expect(player.chips).to eq(900)
     end
   end
 

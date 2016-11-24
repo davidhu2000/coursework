@@ -35,6 +35,6 @@ class Game
   end
 
   def game_over?
-    @players.map(&:amount).reject(&:zero?).length == 1
+    @players.map(&:chips).reject(&:zero?).length == 1
   end
 end

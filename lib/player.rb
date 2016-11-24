@@ -2,12 +2,12 @@ require_relative 'hand'
 
 class Player
   attr_reader :name, :hand, :folded
-  attr_accessor :amount
+  attr_accessor :chips
 
-  def initialize(name, amount)
+  def initialize(name, chips)
     @name = name
     @hand = Hand.new
-    @amount = amount
+    @chips = chips
     @folded = false
   end
 
@@ -39,14 +39,14 @@ class Player
     if action == 'f'
       @folded = true
     elsif action == 'c'
-      @amount -= bet
+      @chips -= bet
     else
       # puts "Enter raised bet: "
       player_raise = bet
       until player_raise > bet
         player_raise = $stdin.gets.chomp.to_i
       end
-      @amount -= player_raise
+      @chips -= player_raise
       return player_raise
     end
     nil

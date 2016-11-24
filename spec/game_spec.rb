@@ -57,9 +57,9 @@ describe Game do
   describe '#game_over?' do
     it 'return true if only have player have money' do
       expect(game.game_over?).to be false
-      player2.amount = 0
-      player3.amount = 0
-      expect(game.game_over?).to be true 
+      player2.chips = 0
+      player3.chips = 0
+      expect(game.game_over?).to be true
     end
   end
 
