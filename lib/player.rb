@@ -1,12 +1,13 @@
 require_relative 'hand'
 
 class Player
-  attr_reader :name, :amount, :hand
+  attr_reader :name, :amount, :hand, :folded
 
   def initialize(name, amount)
     @name = name
     @hand = Hand.new
     @amount = amount
+    @folded = false
   end
 
   def get_discard
@@ -26,8 +27,26 @@ class Player
     @hand.discard(suit, value)
   end
 
-  def check_valid_input
+  def get_action
+    action = $stdin.gets.chomp
+    raise "Invalid Action" unless %w(f c r).include?(action[0])
+    action[0]
+  end
 
+  def do_action(bet)
+    action = get_action
+    if action == 'f'
+      @folded = true
+    elsif action == 'c'
+      @amount -= bet
+    else
+      # puts "Enter raised bet: "
+      player_raise = bet
+      until player_raise > bet
+        player_raise = $stdin.gets.chomp.to_i
+      end
+      @amount -= player_raise
+    end
   end
 
   private

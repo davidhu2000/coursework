@@ -2,6 +2,9 @@ require 'rspec'
 require 'player'
 
 describe Player do
+
+  after(:each) { $stdin = STDIN }
+
   let(:hand) { double("Hand", cards: [])}
   subject(:player) { Player.new('Johnson', 1000)}
   let(:sa) { double("Ace space", suit: :spade, value: :a)}
@@ -32,10 +35,6 @@ describe Player do
       player.hand.cards << s9
       player.hand.cards << s13
       player.hand.cards << sa
-    end
-
-    after do
-      $stdin = STDIN
     end
 
     it 'raises an error if card is not part of hand' do
@@ -72,7 +71,48 @@ describe Player do
 
       expect(player.hand.cards).to_not include(s9)
     end
+  end
 
+  describe '#get_action' do
+
+    it 'raise an error for invalid action' do
+      $stdin = StringIO.new('apple')
+      expect { player.get_action }.to raise_error("Invalid Action")
+    end
+
+    it 'returns the correct action' do
+      $stdin = StringIO.new('fork')
+      expect(player.get_action).to eq('f')
+    end
+  end
+
+  describe '#do_action' do
+    it 'should fold if player inputted fold' do
+      $stdin = StringIO.new('fork')
+      expect(player.folded).to be false
+
+      player.do_action(100)
+
+      expect(player.folded).to be true
+    end
+
+    it 'should subtract bet from amount if call' do
+      $stdin = StringIO.new('cork')
+      expect(player.amount).to eq(1000)
+
+      player.do_action(100)
+
+      expect(player.amount).to eq(900)
+    end
+
+    it 'should subtract the raised amount' do
+      $stdin = StringIO.new('rork')
+      expect(player.amount).to eq(1000)
+
+      player.do_action(100)
+
+      expect(player.amount).to eq(900)
+    end
   end
 
 end
