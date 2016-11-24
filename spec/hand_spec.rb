@@ -1,12 +1,14 @@
 require 'rspec'
 require 'hand'
+require 'stringio'
 
 describe Hand do
   subject(:hand) { Hand.new }
 
   let(:sa) { double('Ace Spade', suit: :spade, value: :a) }
   let(:d7) { double('Seven Diamond', suit: :diamond, value: 7) }
-  let(:c7) { double('Seven Club', suit: :club, value: 7)}
+  let(:c7) { double('Seven Club', suit: :club, value: 7) }
+
   12.times do |i|
     let("s#{i + 2}") do
       double("#{i + 2} Spade", suit: :spade, value: "#{i + 2}".to_i)
@@ -14,7 +16,9 @@ describe Hand do
   end
 
   12.times do |i|
-    let("h#{i + 2}") { double("#{i + 2} Heart", suit: :heart, value: "#{i + 2}".to_i)}
+    let("h#{i + 2}") do
+      double("#{i + 2} Heart", suit: :heart, value: "#{i + 2}".to_i)
+    end
   end
 
   describe '#initialize' do
@@ -123,5 +127,4 @@ describe Hand do
       expect(hand.hand_ranking).to eq(9)
     end
   end
-
 end
