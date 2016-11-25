@@ -7,3 +7,4 @@
 ### Week 2
 - Day 1: Inheritance
 - Day 2: Test Driven Development
+- Day 4: Big-O Exercises
