@@ -61,6 +61,7 @@ class LinkedList
     link.prev = @tail.prev
     @tail.prev = link
     link.prev.next = link
+    link
   end
 
   def loop_link(key)

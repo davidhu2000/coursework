@@ -17,7 +17,7 @@ class Array
     hash_value = Object.hash_class_name(self.class)
     self.each_with_index do |el, idx|
       current_hash = idx.hash
-      if [Integer, Array, Hash].include?(el.class)
+      if [Integer, Array, Hash, Fixnum].include?(el.class)
         current_hash *= el.hash
       else
         el = 0.to_s if el.nil?
