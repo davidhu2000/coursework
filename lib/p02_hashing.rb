@@ -17,9 +17,10 @@ class Array
     hash_value = Object.hash_class_name(self.class)
     self.each_with_index do |el, idx|
       current_hash = idx.hash
-      if el.is_a? Integer
+      if [Integer, Array, Hash].include?(el.class)
         current_hash *= el.hash
       else
+        el = 0.to_s if el.nil?
         current_hash *= Object::ALPHANUM.index(el)
       end
       hash_value += current_hash
@@ -31,7 +32,7 @@ end
 class String
   def hash
     hash_value = Object.hash_class_name(self.class)
-    hash_value += self.chars.hash
+    hash_value + self.chars.hash
   end
 end
 
