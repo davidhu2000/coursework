@@ -31,7 +31,6 @@ class Display
 
     puts HEADING
 
-
     board.grid.each_with_index do |row, row_idx|
       puts BAR
       print " #{row_idx} |"

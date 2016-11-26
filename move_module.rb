@@ -10,9 +10,11 @@ module ValidMove
 
   def into_check?(pos)
     start_pos = self.position
+    piece_at_pos = @board[pos]
     @board.shift_position(start_pos, pos)
     moved_into_check = @board.in_check?(self.color)
     @board.shift_position(pos, start_pos)
+    @board[pos] = piece_at_pos
     moved_into_check
   end
 
