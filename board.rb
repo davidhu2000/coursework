@@ -1,19 +1,16 @@
-require_relative "piece"
+require_relative 'piece'
 require 'byebug'
 
 class Board
-
-
   STARTING_POSITIONS = {
-    rook: [[0,0], [0,7], [7,0], [7,7]],
-    knight: [[0,1], [0,6], [7,1], [7,6]],
-    bishop: [[0,2], [0,5], [7,2], [7,5]],
-    king: [[0,4], [7,4]],
-    queen: [[0,3], [7,3]]
+    rook: [[0, 0], [0, 7], [7, 0], [7, 7]],
+    knight: [[0, 1], [0, 6], [7, 1], [7, 6]],
+    bishop: [[0, 2], [0, 5], [7, 2], [7, 5]],
+    king: [[0, 4], [7, 4]],
+    queen: [[0, 3], [7, 3]]
   }.freeze
 
   def self.setup
-
     board = Board.empty_board
 
     # set non-pawn pieces
@@ -32,7 +29,6 @@ class Board
       (2..5).each do |row|
         board.grid[row][col] = NullPiece.instance
       end
-
     end
 
     board
@@ -40,7 +36,7 @@ class Board
 
   def self.empty_board
     grid = Array.new(8) { Array.new(8) }
-    self.new(grid)
+    new(grid)
   end
 
   attr_accessor :grid
@@ -62,13 +58,11 @@ class Board
   def move_piece(start_pos, end_pos)
     piece = self[start_pos]
 
-    raise "Invalid move" unless piece.moves.include?(end_pos)
+    raise 'Invalid move' unless piece.moves.include?(end_pos)
 
     if piece.into_check?(end_pos)
-      if in_check?(piece.color)
-        raise "Must move out of check"
-      end
-      raise "Cannot move into check"
+      raise 'Must move out of check' if in_check?(piece.color)
+      raise 'Cannot move into check'
     end
     self[end_pos] = piece
     piece.position = end_pos
