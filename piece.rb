@@ -101,6 +101,34 @@ class King < Piece
   def to_s
     self.color == :white ? "\u2654" : "\u265A"
   end
+
+  def moves
+    moves = super
+    if self.position.last == 4
+      row = self.color == :white ? 7 : 0
+      # check for castle on left
+      moves << [row, 2] if check_valid_castle(0, row)
+      # check for castle on right
+      moves << [row, 6] if check_valid_castle(7, row)
+    end
+
+    moves
+  end
+
+  def check_valid_castle(rook_idx, row)
+    return false unless @board[[row, rook_idx]].is_a? Rook
+    return false unless @board[[row, 4]].is_a? King
+
+    start_idx, end_idx = [rook_idx, 4].minmax
+    start_idx += 1
+    end_idx -= 1
+
+    (start_idx..end_idx).each do |idx|
+      return false unless @board[[row, idx]].is_a? NullPiece
+    end
+
+    true
+  end
 end
 
 # For fun
