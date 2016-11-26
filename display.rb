@@ -27,6 +27,9 @@ class Display
   def render
     system('clear')
 
+    piece_moves = []
+    piece_moves = @board[selected].moves unless selected.empty?
+    
     captured_pieces(:white)
 
     puts HEADING
@@ -42,6 +45,9 @@ class Display
         elsif [row_idx, col_idx] == selected
           print tile.to_s.center(4)
             .colorize(background: :light_red, color: tile.color)
+        elsif piece_moves.include?([row_idx, col_idx])
+          print tile.to_s.center(4)
+            .colorize(background: :light_black, color: tile.color)
         else
           print tile.to_s.center(4)
         end
