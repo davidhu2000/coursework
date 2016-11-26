@@ -12,7 +12,7 @@ class MaxIntSet
   end
 
   def remove(num)
-    @store[num] = false unless is_valid?(num)
+    @store[num] = false if is_valid?(num)
   end
 
   def include?(num)
