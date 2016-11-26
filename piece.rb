@@ -1,4 +1,3 @@
-# require_relative 'board'
 require_relative 'move_module'
 require 'singleton'
 
@@ -12,23 +11,21 @@ class Piece
     @color = color
   end
 
-  def to_s
-    return '  ' if self.class == NullPiece
-    self.class.to_s.slice(0, 2)
-  end
 end
 
 class NullPiece < Piece
   include Singleton
-  attr_reader :symbol
 
   def initialize
     @color = :brown
-    @symbol = :null
   end
 
   def moves
     []
+  end
+
+  def to_s
+    '  '
   end
 end
 
