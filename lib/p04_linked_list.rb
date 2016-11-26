@@ -23,6 +23,8 @@ end
 class LinkedList
   include Enumerable
 
+  attr_reader :head, :tail
+
   def initialize
     @head = Link.new
     @tail = Link.new
