@@ -67,6 +67,16 @@ class Board
     self[end_pos] = piece
     piece.position = end_pos
     self[start_pos] = NullPiece.instance
+
+    # check the moving piece is a king and it moved two spaces
+    if piece.is_a?(King) && (start_pos.last - end_pos.last).abs == 2
+      rook_row = start_pos.first
+      rook_col = end_pos.last == 6 ? 7 : 0
+      shift = rook_col.zero? ? -1 : 1
+      rook = self[[rook_row, rook_col]]
+      self[[rook_row, rook_col]] = NullPiece.instance
+      self[[rook_row, start_pos.last + shift]] = rook
+    end
   end
 
   def shift_position(start_pos, end_pos)
