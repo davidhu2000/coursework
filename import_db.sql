@@ -62,9 +62,10 @@ CREATE TABLE replies (
 INSERT INTO
   replies(question_id, parent_id, user_id, body)
 VALUES
-  (1, NULL, 1, 'this is my reply'),
-  (1, 1, 2, 'you are wrong'),
-  (2, NULL, 3, 'Not sure');
+  (1, NULL, 1, 'parent1'),
+  (1, 1, 2, 'child1-1'),
+  (1, 1, 3, 'child1-2'),
+  (2, NULL, 3, 'parent2');
 
 DROP TABLE IF EXISTS question_likes;
 
