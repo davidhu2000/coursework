@@ -38,6 +38,31 @@ class User
     @lname = options['lname']
   end
 
+  def save
+    @id ? update : create
+  end
+
+  def create
+    QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname)
+      INSERT INTO
+        users (fname, lname)
+      VALUES
+        (?, ?)
+    SQL
+    @id = QuestionsDatabase.instance.last_insert_row_id
+  end
+
+  def update
+    QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
+      UPDATE
+        users
+      SET
+        fname = ?, lname = ?
+      WHERE
+        id = ?
+    SQL
+  end
+
   def authored_questions
     Question.find_by_author_id(@id)
   end
@@ -75,4 +100,8 @@ end
 # p User.find_by_id(1).authored_replies
 # p User.find_by_id(1).followed_questions
 # p User.find_by_id(2).liked_questions
-p User.find_by_id(1).average_karma
+# p User.find_by_id(1).average_karma
+
+user = User.find_by_id(5)
+user.fname = 'G'
+user.save
