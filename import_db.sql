@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS users
+
 CREATE TABLE users (
   id INTEGER PRIMARY KEY,
   fname VARCHAR(255) NOT NULL,
@@ -8,6 +10,8 @@ INSERT INTO
   users(fname, lname)
 VALUES
   ('Hugh', 'Jackman'), ('Bob', 'Saget'), ('Larry', 'Cucumber');
+
+DROP TABLE IF EXISTS questions
 
 CREATE TABLE questions (
   id INTEGER PRIMARY KEY,
@@ -25,6 +29,8 @@ VALUES
   ('What Is Death', 'this is also gibberish body', (SELECT id FROM users WHERE fname = 'Bob')),
   ('What Is After Life', 'this is the last gibberish body', (SELECT id FROM users WHERE fname = 'Larry'));
 
+DROP TABLE IF EXISTS question_follows
+
 CREATE TABLE question_follows (
   id INTEGER PRIMARY KEY,
   follower_id INTEGER NOT NULL,
@@ -38,6 +44,8 @@ INSERT INTO
   question_follows(follower_id, question_id)
 VALUES
   (1, 1), (1, 2), (1, 3), (2, 3);
+
+DROP TABLE IF EXISTS replies
 
 CREATE TABLE replies (
   id INTEGER PRIMARY KEY,
@@ -58,6 +66,8 @@ VALUES
   (1, 1, 2, 'you are wrong'),
   (2, NULL, 3, 'Not sure');
 
+DROP TABLE IF EXISTS question_likes
+
 CREATE TABLE question_likes (
   id INTEGER PRIMARY KEY,
   liker_id INTEGER NOT NULL,
@@ -71,4 +81,4 @@ CREATE TABLE question_likes (
 INSERT INTO
   question_likes(liker_id, question_id, liked_question)
 VALUES
-  (1, 1, TRUE), (2, 1, TRUE), (3, 1, TRUE), (2, 2, TRUE);
+  (1, 1, true), (2, 1, true), (3, 1, true), (2, 2, true);
