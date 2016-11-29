@@ -1,5 +1,5 @@
 require_relative 'questions_database'
-require_relative 'question'
+require_relative 'question_follow'
 
 class User
 
@@ -45,8 +45,13 @@ class User
     Reply.find_by_author_id(@id)
   end
 
+  def followed_questions
+    QuestionFollow.followed_questions_for_user_id(@id)
+  end
+
 end
 
 # p User.new('fname' => 'Hugh', 'lname' => 'Jackman')
-p User.find_by_id(1).authored_questions
-p User.find_by_id(1).authored_replies
+# p User.find_by_id(1).authored_questions
+# p User.find_by_id(1).authored_replies
+# p User.find_by_id(1).followed_questions

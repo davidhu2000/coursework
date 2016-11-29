@@ -1,4 +1,5 @@
 require_relative 'questions_database'
+require_relative 'question_follow'
 require_relative 'reply'
 
 class Question
@@ -67,7 +68,12 @@ class Question
     reply = Reply.find_by_question_id(@id)
     reply.map(&:body)
   end
-  
+
+  def followers
+    QuestionFollow.followers_for_question_id(@id)
+  end
+
 end
 
-p Question.find_by_id(1).replies
+# p Question.find_by_id(1).replies
+# p Question.find_by_id(3).followers
