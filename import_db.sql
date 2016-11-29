@@ -51,16 +51,16 @@ CREATE TABLE replies (
   id INTEGER PRIMARY KEY,
   question_id INTEGER NOT NULL,
   parent_id INTEGER,
-  user_id INTEGER NOT NULL,
+  author_id INTEGER NOT NULL,
   body TEXT NOT NULL,
 
   FOREIGN KEY (question_id) REFERENCES questions(id),
   FOREIGN KEY (parent_id) REFERENCES replies(id),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
 INSERT INTO
-  replies(question_id, parent_id, user_id, body)
+  replies(question_id, parent_id, author_id, body)
 VALUES
   (1, NULL, 1, 'parent1'),
   (1, 1, 2, 'child1-1'),

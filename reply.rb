@@ -2,7 +2,7 @@ require_relative 'questions_database'
 
 class Reply
 
-  attr_reader :id, :question_id, :parent_id, :user_id
+  attr_reader :id, :question_id, :parent_id, :author_id
   attr_accessor :body
 
   def self.find_by_id(id)
@@ -17,14 +17,14 @@ class Reply
     self.new(options.first)
   end
 
-  def self.find_by_user_id(user_id)
-    options = QuestionsDatabase.instance.execute(<<-SQL, user_id)
+  def self.find_by_author_id(author_id)
+    options = QuestionsDatabase.instance.execute(<<-SQL, author_id)
       SELECT
         *
       FROM
         replies
       WHERE
-        user_id = ?
+        author_id = ?
     SQL
     self.new(options.first)
   end
@@ -38,7 +38,7 @@ class Reply
       WHERE
         question_id = ?
     SQL
-    self.new(options.first)
+    options.map { |option| self.new(option) }
   end
 
 
@@ -46,12 +46,12 @@ class Reply
     @id = options['id']
     @question_id = options['question_id']
     @parent_id = options['parent_id']
-    @user_id = options['user_id']
+    @author_id = options['author_id']
     @body = options['body']
   end
 
   def author
-    author_name = QuestionsDatabase.instance.execute(<<-SQL, @user_id)
+    author_name = QuestionsDatabase.instance.execute(<<-SQL, @author_id)
       SELECT
         fname,
         lname
@@ -103,8 +103,8 @@ class Reply
   end
 
 end
-
-p Reply.find_by_id(1).author
-p Reply.find_by_id(2).question
-p Reply.find_by_id(2).parent_reply
-p Reply.find_by_id(1).child_replies
+# 
+# p Reply.find_by_id(1).author
+# p Reply.find_by_id(2).question
+# p Reply.find_by_id(2).parent_reply
+# p Reply.find_by_id(1).child_replies

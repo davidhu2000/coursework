@@ -1,4 +1,5 @@
 require_relative 'questions_database'
+require_relative 'reply'
 
 class Question
 
@@ -63,5 +64,10 @@ class Question
   end
 
   def replies
+    reply = Reply.find_by_question_id(@id)
+    reply.map(&:body)
   end
+  
 end
+
+p Question.find_by_id(1).replies
