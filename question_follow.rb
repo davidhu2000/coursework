@@ -1,6 +1,6 @@
 require_relative 'questions_database'
 require_relative 'user'
-# require_relative 'question'
+require_relative 'question'
 
 class QuestionFollow
 
@@ -9,7 +9,7 @@ class QuestionFollow
   def self.followers_for_question_id(question_id)
     followers = QuestionsDatabase.instance.execute(<<-SQL, question_id)
       SELECT
-        *
+        users.*
       FROM
         users
       JOIN
@@ -20,7 +20,6 @@ class QuestionFollow
         question_id = ?
     SQL
     followers.map do |follower|
-      follower['id'] = follower['follower_id']
       User.new(follower)
     end
   end
@@ -28,7 +27,7 @@ class QuestionFollow
   def self.followed_questions_for_user_id(user_id)
     questions = QuestionsDatabase.instance.execute(<<-SQL, user_id)
       SELECT
-        *
+        questions.*
       FROM
         users
       JOIN
@@ -39,7 +38,6 @@ class QuestionFollow
         follower_id = ?
     SQL
     questions.map do |question|
-      question['id'] = question['follower_id']
       Question.new(question)
     end
   end
@@ -47,7 +45,7 @@ class QuestionFollow
   def self.most_followed_questions(n)
     question_data = QuestionsDatabase.instance.execute(<<-SQL, n)
       SELECT
-        *
+        questions.*
       FROM
         questions
       JOIN
@@ -71,4 +69,4 @@ end
 
 # p QuestionFollow.followers_for_question_id(3)
 # p QuestionFollow.followed_questions_for_user_id(1)
-p QuestionFollow.most_followed_questions(2)
+# QuestionFollow.most_followed_questions(2)

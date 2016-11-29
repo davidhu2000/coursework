@@ -1,6 +1,7 @@
 require_relative 'questions_database'
-require_relative 'question_follow'
+# require_relative 'question_follow'
 require_relative 'reply'
+# require_relative 'question_like'
 
 class Question
 
@@ -44,6 +45,14 @@ class Question
     # write methods to account for multiply outputs
   end
 
+  def self.most_followed(n)
+    QuestionFollow.most_followed_questions(n)
+  end
+
+  def self.most_liked(n)
+    QuestionLike.most_liked_questions(n)
+  end
+
   def initialize(options)
     @id = options['id']
     @title = options['title']
@@ -73,7 +82,20 @@ class Question
     QuestionFollow.followers_for_question_id(@id)
   end
 
+  def likers
+    QuestionLike.likers_for_question_id(@id)
+  end
+
+  def num_likes
+    QuestionLike.num_likes_for_question_id(@id)
+  end
+
+
+
 end
 
 # p Question.find_by_id(1).replies
 # p Question.find_by_id(3).followers
+# p Question.most_followed(4)
+# p Question.find_by_id(1).likers
+# p Question.find_by_id(1).num_likes

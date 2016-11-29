@@ -27,7 +27,7 @@ INSERT INTO
 VALUES
   ('What Is Life', 'this is gibberish body', (SELECT id FROM users WHERE fname = 'Hugh')),
   ('What Is Death', 'this is also gibberish body', (SELECT id FROM users WHERE fname = 'Bob')),
-  ('What Is After Life', 'this is the last gibberish body', (SELECT id FROM users WHERE fname = 'Larry'));
+  ('What Is After Life', 'this is the last gibberish body', (SELECT id FROM users WHERE fname = 'Hugh'));
 
 DROP TABLE IF EXISTS question_follows;
 
@@ -73,13 +73,12 @@ CREATE TABLE question_likes (
   id INTEGER PRIMARY KEY,
   liker_id INTEGER NOT NULL,
   question_id INTEGER NOT NULL,
-  liked_question BOOLEAN DEFAULT FALSE,
 
   FOREIGN KEY (liker_id) REFERENCES users(id),
   FOREIGN KEY (question_id) REFERENCES questions(id)
 );
 
 INSERT INTO
-  question_likes(liker_id, question_id, liked_question)
+  question_likes(liker_id, question_id)
 VALUES
-  (1, 1, 1), (2, 1, 1), (3, 1, 1), (2, 2, 1);
+  (1, 1), (2, 1), (2, 2), (3, 1), (1, 3);
