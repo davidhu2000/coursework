@@ -1,24 +1,12 @@
-require_relative 'questions_database'
 # require_relative 'question_follow'
 require_relative 'reply'
 # require_relative 'question_like'
+require_relative 'modelbase'
 
-class Question
+class Question < ModelBase
 
   attr_reader :id, :author_id
   attr_accessor :title, :body
-
-  def self.find_by_id(id)
-    options = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        questions
-      WHERE
-        id = ?
-    SQL
-    self.new(options.first)
-  end
 
   def self.find_by_author_id(author_id)
     options = QuestionsDatabase.instance.execute(<<-SQL, author_id)
@@ -60,31 +48,6 @@ class Question
     @author_id = options['author_id']
   end
 
-  def save
-    @id ? update : create
-  end
-
-  def create
-    QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author_id)
-      INSERT INTO
-        questions(title, body, author_id)
-      VALUES
-        (?, ?, ?)
-    SQL
-    @id = QuestionsDatabase.instance.last_insert_row_id
-  end
-
-  def update
-    QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author_id, @id)
-      UPDATE
-        questions
-      SET
-        title = ?, body = ?, author_id = ?
-      WHERE
-        id = ?
-    SQL
-  end
-
   def author
     author_name = QuestionsDatabase.instance.execute(<<-SQL, @author_id)
       SELECT
@@ -119,8 +82,14 @@ class Question
 
 end
 
+# p Question.find_by_id(1)
+
 # p Question.find_by_id(1).replies
 # p Question.find_by_id(3).followers
 # p Question.most_followed(4)
 # p Question.find_by_id(1).likers
 # p Question.find_by_id(1).num_likes
+
+quest = Question.find_by_id(1)
+quest.body = 'new body'
+quest.save

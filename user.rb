@@ -1,23 +1,11 @@
-require_relative 'questions_database'
 # require_relative 'question_follow'
 require_relative 'question_like'
+require_relative 'modelbase'
 
-class User
+class User < ModelBase
 
   attr_reader :id
   attr_accessor :fname, :lname
-
-  def self.find_by_id(id)
-    options = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        users
-      WHERE
-        id = ?
-    SQL
-    User.new(options.first)
-  end
 
   def self.find_by_name(fname, lname)
     options = QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
@@ -36,31 +24,6 @@ class User
     @id = options['id']
     @fname = options['fname']
     @lname = options['lname']
-  end
-
-  def save
-    @id ? update : create
-  end
-
-  def create
-    QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname)
-      INSERT INTO
-        users (fname, lname)
-      VALUES
-        (?, ?)
-    SQL
-    @id = QuestionsDatabase.instance.last_insert_row_id
-  end
-
-  def update
-    QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
-      UPDATE
-        users
-      SET
-        fname = ?, lname = ?
-      WHERE
-        id = ?
-    SQL
   end
 
   def authored_questions
@@ -95,6 +58,7 @@ class User
 
 end
 
+# p User.find_by_id(1)
 # p User.new('fname' => 'Hugh', 'lname' => 'Jackman')
 # p User.find_by_id(1).authored_questions
 # p User.find_by_id(1).authored_replies
@@ -102,6 +66,10 @@ end
 # p User.find_by_id(2).liked_questions
 # p User.find_by_id(1).average_karma
 
-user = User.find_by_id(5)
-user.fname = 'G'
+# user = User.new('fname' => 'George', 'lname' => 'Jungle')
+# user.save
+
+user = User.find_by_id(9)
+user.fname = 'Lucas'
+user.lname = 'Field'
 user.save

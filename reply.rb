@@ -1,21 +1,9 @@
-require_relative 'questions_database'
+require_relative 'modelbase'
 
-class Reply
+class Reply < ModelBase
 
   attr_reader :id, :question_id, :parent_id, :author_id
   attr_accessor :body
-
-  def self.find_by_id(id)
-    options = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        replies
-      WHERE
-        id = ?
-    SQL
-    self.new(options.first)
-  end
 
   def self.find_by_author_id(author_id)
     options = QuestionsDatabase.instance.execute(<<-SQL, author_id)
@@ -48,31 +36,6 @@ class Reply
     @parent_id = options['parent_id']
     @author_id = options['author_id']
     @body = options['body']
-  end
-
-  def save
-    @id ? update : create
-  end
-
-  def create
-    QuestionsDatabase.instance.execute(<<-SQL, @question_id, @parent_id, @author_id, @body)
-      INSERT INTO
-        replies (question_id, parent_id, author_id, body)
-      VALUES
-        (?, ?, ?, ?)
-    SQL
-    @id = QuestionsDatabase.instance.last_insert_row_id
-  end
-
-  def update
-    QuestionsDatabase.instance.execute(<<-SQL, @question_id, @parent_id, @author_id, @body, @id)
-      UPDATE
-        replies
-      SET
-        question_id = ?, parent_id = ?, author_id = ?, body = ?
-      WHERE
-        id = ?
-    SQL
   end
 
   def author
@@ -128,7 +91,8 @@ class Reply
   end
 
 end
-#
+
+# p Reply.find_by_id(1)
 # p Reply.find_by_id(1).author
 # p Reply.find_by_id(2).question
 # p Reply.find_by_id(2).parent_reply
