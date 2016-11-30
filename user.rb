@@ -7,19 +7,6 @@ class User < ModelBase
   attr_reader :id
   attr_accessor :fname, :lname
 
-  def self.find_by_name(fname, lname)
-    options = QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
-      SELECT
-        *
-      FROM
-        users
-      WHERE
-        fname = ? AND lname = ?
-    SQL
-    User.new(options.first)
-    # write methods to account for multiply outputs
-  end
-
   def initialize(options)
     @id = options['id']
     @fname = options['fname']
@@ -69,7 +56,11 @@ end
 # user = User.new('fname' => 'George', 'lname' => 'Jungle')
 # user.save
 
-user = User.find_by_id(9)
-user.fname = 'Lucas'
-user.lname = 'Field'
-user.save
+# user = User.find_by_id(9)
+# user.fname = 'Lucas'
+# user.lname = 'Field'
+# user.save
+
+p User.find_by_id(1)
+# p User.where(:fname => 'Hugh', :lname => 'Jackman')
+# p User.find_by_fname_and_lname('Hugh', 'Jackman')

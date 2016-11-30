@@ -8,31 +8,6 @@ class Question < ModelBase
   attr_reader :id, :author_id
   attr_accessor :title, :body
 
-  def self.find_by_author_id(author_id)
-    options = QuestionsDatabase.instance.execute(<<-SQL, author_id)
-      SELECT
-        *
-      FROM
-        questions
-      WHERE
-        author_id = ?
-    SQL
-    self.new(options.first)
-  end
-
-  def self.find_by_title(title)
-    options = QuestionsDatabase.instance.execute(<<-SQL, title)
-      SELECT
-        *
-      FROM
-        questions
-      WHERE
-        title = ?
-    SQL
-    self.new(options.first)
-    # write methods to account for multiply outputs
-  end
-
   def self.most_followed(n)
     QuestionFollow.most_followed_questions(n)
   end
@@ -94,4 +69,4 @@ end
 # quest.body = 'new body'
 # quest.save
 
-p Question.where({author_id: 2})
+# p Question.where({:title => 'What Is Death', :id => 2})

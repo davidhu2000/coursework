@@ -3,8 +3,7 @@ require_relative 'questions_database'
 class ModelBase
 
   def self.where(options)
-    string = options.to_a.map { |key, val| "#{key} = '#{val}'" }.join(", ")
-
+    string = options.to_a.map { |key, val| "#{key} = '#{val}'" }.join(" AND ")
     QuestionsDatabase.instance.execute(<<-SQL)
       SELECT
         *
@@ -22,18 +21,6 @@ class ModelBase
     else
       table_name + 's'
     end
-  end
-
-  def self.find_by_id(id)
-    options = QuestionsDatabase.instance.execute(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        #{get_table_name}
-      WHERE
-        id = ?
-    SQL
-    self.new(options.first)
   end
 
   def self.all
@@ -85,6 +72,21 @@ class ModelBase
 
   def get_vars
     self.instance_variables
+  end
+
+  def self.method_missing(method_name, *args)
+    if method_name.to_s.start_with?('find_by_')
+      col_names = method_name.to_s.sub('find_by_', '')
+      col_names = col_names.split('_and_')
+      options = {}
+      (0...args.length).each do |idx|
+        options[col_names[idx]] = args[idx]
+      end
+      p options
+      where(options)
+    else
+      super
+    end
   end
 
 end
