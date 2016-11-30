@@ -53,4 +53,6 @@ group :development do
   gem 'pry-rails'
 
   gem 'faker'
+
+  gem 'launchy'
 end
