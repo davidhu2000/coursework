@@ -1,7 +1,7 @@
+require_relative 'modelbase'
 # require_relative 'question_follow'
 require_relative 'reply'
 # require_relative 'question_like'
-require_relative 'modelbase'
 
 class Question < ModelBase
 
@@ -52,21 +52,4 @@ class Question < ModelBase
   def num_likes
     QuestionLike.num_likes_for_question_id(@id)
   end
-
-
-
 end
-
-# p Question.find_by_id(1)
-
-# p Question.find_by_id(1).replies
-# p Question.find_by_id(3).followers
-# p Question.most_followed(4)
-# p Question.find_by_id(1).likers
-# p Question.find_by_id(1).num_likes
-#
-# quest = Question.find_by_id(1)
-# quest.body = 'new body'
-# quest.save
-
-# p Question.where({:title => 'What Is Death', :id => 2})

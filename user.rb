@@ -44,24 +44,3 @@ class User < ModelBase
   end
 
 end
-
-# p User.find_by_id(1)
-# p User.new('fname' => 'Hugh', 'lname' => 'Jackman')
-# p User.find_by_id(1).authored_questions
-# p User.find_by_id(1).authored_replies
-# p User.find_by_id(1).followed_questions
-# p User.find_by_id(2).liked_questions
-# p User.find_by_id(1).average_karma
-
-# user = User.new('fname' => 'George', 'lname' => 'Jungle')
-# user.save
-
-# user = User.find_by_id(9)
-# user.fname = 'Lucas'
-# user.lname = 'Field'
-# user.save
-
-# p User.find_by_id(1)
-# p User.where(:fname => 'Hugh', :lname => 'Jackman')
-# p User.find_by_fname_and_lname('Hugh', 'Jackman')
-# p User.where("lname LIKE '%ag%'")

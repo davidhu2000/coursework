@@ -66,9 +66,3 @@ class Reply < ModelBase
   end
 
 end
-
-# p Reply.find_by_id(1)
-# p Reply.find_by_id(1).author
-# p Reply.find_by_id(2).question
-# p Reply.find_by_id(2).parent_reply
-# p Reply.find_by_id(1).child_replies

@@ -66,7 +66,3 @@ class QuestionFollow
   end
 
 end
-
-# p QuestionFollow.followers_for_question_id(3)
-# p QuestionFollow.followed_questions_for_user_id(1)
-# QuestionFollow.most_followed_questions(2)

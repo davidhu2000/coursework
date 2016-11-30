@@ -63,9 +63,3 @@ class QuestionLike
     SQL
   end
 end
-
-# p QuestionLike.likers_for_question_id(1)
-# p QuestionLike.num_likes_for_question_id(1)
-# p QuestionLike.liked_questions_for_user_id(3)
-
-# p QuestionLike.most_liked_questions(3)

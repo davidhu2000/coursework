@@ -8,7 +8,7 @@ class ModelBase
     else
       string = options.to_a.map { |key, val| "#{key} = '#{val}'" }.join(" AND ")
     end
-    
+
     QuestionsDatabase.instance.execute(<<-SQL)
       SELECT
         *
@@ -65,6 +65,7 @@ class ModelBase
     vars << vars.shift
     input = vars.map { |var| self.instance_variable_get(var.to_s)}
     vars = vars[0..-2].map { |var| var.to_s + ' = ?' }.join(', ').gsub('@','')
+    
     QuestionsDatabase.instance.execute(<<-SQL, *input)
       UPDATE
         #{self.class.get_table_name}
@@ -87,7 +88,6 @@ class ModelBase
       (0...args.length).each do |idx|
         options[col_names[idx]] = args[idx]
       end
-      p options
       where(options)
     else
       super
