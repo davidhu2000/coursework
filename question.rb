@@ -89,7 +89,9 @@ end
 # p Question.most_followed(4)
 # p Question.find_by_id(1).likers
 # p Question.find_by_id(1).num_likes
+#
+# quest = Question.find_by_id(1)
+# quest.body = 'new body'
+# quest.save
 
-quest = Question.find_by_id(1)
-quest.body = 'new body'
-quest.save
+p Question.where({author_id: 2})

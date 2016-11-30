@@ -2,6 +2,19 @@ require_relative 'questions_database'
 
 class ModelBase
 
+  def self.where(options)
+    string = options.to_a.map { |key, val| "#{key} = '#{val}'" }.join(", ")
+
+    QuestionsDatabase.instance.execute(<<-SQL)
+      SELECT
+        *
+      FROM
+        #{get_table_name}
+      WHERE
+        #{string}
+    SQL
+  end
+
   def self.get_table_name
     table_name = self.name.to_s.downcase
     if table_name == 'reply'
