@@ -3,7 +3,12 @@ require_relative 'questions_database'
 class ModelBase
 
   def self.where(options)
-    string = options.to_a.map { |key, val| "#{key} = '#{val}'" }.join(" AND ")
+    if options.is_a? String
+      string = options
+    else
+      string = options.to_a.map { |key, val| "#{key} = '#{val}'" }.join(" AND ")
+    end
+    
     QuestionsDatabase.instance.execute(<<-SQL)
       SELECT
         *

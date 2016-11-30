@@ -61,6 +61,7 @@ end
 # user.lname = 'Field'
 # user.save
 
-p User.find_by_id(1)
+# p User.find_by_id(1)
 # p User.where(:fname => 'Hugh', :lname => 'Jackman')
 # p User.find_by_fname_and_lname('Hugh', 'Jackman')
+# p User.where("lname LIKE '%ag%'")
