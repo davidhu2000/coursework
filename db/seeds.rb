@@ -10,22 +10,32 @@
   User.create!(user_name: Faker::Name.name)
 end
 
-10.times do
-  Poll.create!(title: Faker::Book.title, author_id: rand(10) + 1)
-end
-
-10.times do
-  Question.create!(body: "Where are the #{Faker::Team.name}", poll_id: rand(10) + 1)
+10.times do |i|
+  Poll.create!(title: Faker::Book.title, author_id: i + 1)
 end
 
 10.times do |i|
   3.times do
-    AnswerChoice.create!(body: Faker::Team.state, question_id: i)
+    Question.create!(body: "Where are the #{Faker::Team.name}", poll_id: i + 1)
   end
 end
 
-50.times do
-  Response.create!(user_id: rand(10) + 1, answer_choice_id: rand(30) + 1 )
+10.times do |i|
+  3.times do
+    AnswerChoice.create!(body: Faker::ChuckNorris.fact, question_id: i + 1)
+  end
 end
 
-Response.create!(user_id: 1, answer_choice_id: 1)
+# 100.times do
+#   Response.create!(user_id: rand(10) + 1, answer_choice_id: rand(30) + 1 )
+# end
+
+Response.create!(user_id: 10, answer_choice_id: 1)
+Response.create!(user_id: 2, answer_choice_id: 1)
+Response.create!(user_id: 3, answer_choice_id: 1)
+Response.create!(user_id: 4, answer_choice_id: 1)
+Response.create!(user_id: 5, answer_choice_id: 1)
+Response.create!(user_id: 6, answer_choice_id: 1)
+Response.create!(user_id: 7, answer_choice_id: 1)
+Response.create!(user_id: 8, answer_choice_id: 1)
+Response.create!(user_id: 9, answer_choice_id: 1)
