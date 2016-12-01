@@ -22,3 +22,12 @@ Visit.destroy_all
 100.times do
   Visit.create!(short_url_id: rand(2) + 1, visitor_id: rand(10) + 1)
 end
+
+TagTopic.create!(topic: 'social')
+TagTopic.create!(topic: 'news')
+TagTopic.create!(topic: 'sports')
+
+Tagging.create!(url_id: 1, tag_id: 1)
+Tagging.create!(url_id: 1, tag_id: 2)
+Tagging.create!(url_id: 1, tag_id: 3)
+Tagging.create!(url_id: 2, tag_id: 1)
