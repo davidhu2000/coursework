@@ -29,16 +29,19 @@ class ShortenedUrl < ActiveRecord::Base
     class_name: :User
 
   has_many :visits,
+    dependent: :destroy,
     primary_key: :id,
     foreign_key: :short_url_id,
     class_name: :Visit
 
   has_many :visitors,
     Proc.new { distinct },
+    dependent: :destroy,
     through: :visits,
     source: :visitor
 
   has_many :tag_ids,
+    dependent: :destroy,
     primary_key: :id,
     foreign_key: :url_id,
     class_name: :Tagging
@@ -50,6 +53,12 @@ class ShortenedUrl < ActiveRecord::Base
       code = SecureRandom::urlsafe_base64
     end
     code
+  end
+
+  def self.prune
+    urls = Visit.select(:short_url_id).where('created_at < ?', 10.seconds.ago)
+    ids = urls.map(&:short_url_id).uniq
+    ids.each { |id| ShortenedUrl.find(id).destroy }
   end
 
   def self.create_for_user_and_long_url!(user, long_url)
