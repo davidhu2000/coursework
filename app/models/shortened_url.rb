@@ -1,6 +1,17 @@
 class ShortenedUrl < ActiveRecord::Base
   validates :short_url, presence: true, uniqueness: true
-  validates :submitter_id, :long_url, presence: true
+  validates :submitter_id, presence: true
+  validates :long_url, presence: true, length: { maximum: 1024 }
+  validate :less_than_five_submissions_last_minute
+
+  def less_than_five_submissions_last_minute
+    user_id = self.submitter.id
+    user_subs = self.class.submissions_last_minute.where(submitter_id: user_id).length
+
+    if user_subs >= 5
+      errors.add(:submitter, 'cannot submit more than 5 per minute.')
+    end
+  end
 
   belongs_to :submitter,
     primary_key: :id,
@@ -33,6 +44,10 @@ class ShortenedUrl < ActiveRecord::Base
 
   def self.create_for_user_and_long_url!(user, long_url)
     self.create!(submitter_id: user.id, short_url: random_code, long_url: long_url)
+  end
+
+  def self.submissions_last_minute
+    self.select(:submitter_id).where('created_at > ?', 1.minute.ago)
   end
 
   def num_clicks
