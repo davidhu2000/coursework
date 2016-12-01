@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
+  validates :premium, inclusion: { in: [true, false] }
 
   has_many :submitted_urls,
     primary_key: :id,
