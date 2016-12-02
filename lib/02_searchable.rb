@@ -12,7 +12,7 @@ module Searchable
       WHERE #{attr_names}
     SQL
 
-    parse_all(res.drop(1))
+    options.class_name.constantize.parse_all(res.drop(1))
   end
 end
 
