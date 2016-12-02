@@ -37,8 +37,10 @@ end
 module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
+    assoc_options
     options = BelongsToOptions.new(name, options)
-    p options.instance_variables
+
+    assoc_options[name] = options
     define_method(name.to_s.underscore) do
       options.class_name.constantize.find(self.send(options.foreign_key))
     end
@@ -58,7 +60,7 @@ module Associatable
 
   def assoc_options
     # Wait to implement this in Phase IVa. Modify `belongs_to`, too.
-    assoc_options || = {}
+    @assoc_options ||= {}
   end
 end
 

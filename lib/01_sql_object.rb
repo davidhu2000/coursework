@@ -60,7 +60,6 @@ class SQLObject
   end
 
   def initialize(params = {})
-    attributes
     self.class.finalize!
     params.each do |attr_name, attr_val|
       unless self.class.columns.include?(attr_name.to_sym)
