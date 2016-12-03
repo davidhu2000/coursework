@@ -19,14 +19,10 @@ module Associatable
           #{source_table}
         JOIN
           #{through_table}
-          ON #{source_table}.#{source_options.primary_key}
-              = #{through_table}.#{source_options.foreign_key}
-        JOIN
-          #{self.class.table_name}
-          ON #{through_table}.#{through_options.primary_key}
-              = #{self.class.table_name}.#{through_options.foreign_key}
+          ON #{source_table}.#{source_options.foreign_key}
+              = #{through_table}.#{through_table.primary_key}
         WHERE
-          #{self.class.table_name}.id = ?
+          #{through_table}.#{through_options.foreign_key} = ?
       SQL
 
       source_options.class_name.constantize.parse_all(res).first

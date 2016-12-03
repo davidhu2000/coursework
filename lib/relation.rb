@@ -4,7 +4,7 @@ class Relation
   def initialize(klass)
     @klass = klass
     @params = {}
-    @query = nil
+    @query = []
   end
 
   [:where, :having].each do |name|
@@ -37,12 +37,24 @@ class Relation
     define_method(name) do
       find_nth idx
     end
+
+    define_method("#{name}!") do
+      raise 'Record not found' if find_nth(idx).nil?
+    end
   end
 
   [:last, :second_to_last, :third_to_last].each_with_index do |name, idx|
     define_method(name) do
       find_nth -1 * idx
     end
+
+    define_method("#{name}!") do
+      raise 'Record not found' if find_nth(idx).nil?
+    end
+  end
+
+  def length
+    @query.length
   end
 
   private
@@ -60,6 +72,7 @@ class Relation
   end
 
   def run_query
+    p 'Hitting DB'
     query = DBConnection.execute(<<-SQL, *where_values, *having_values)
       SELECT #{select_str}
       FROM #{@klass.table_name}

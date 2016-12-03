@@ -17,11 +17,6 @@ module Searchable
   #   self
   # end
 
-  # define_method(:where) do |params|
-  #   @relation.send(:where, params)
-  #   self
-  # end
-
   [:select, :group, :limit, :order, :offset].each do |name|
     define_method(name) do |*params|
       @relation.send(name, params)
@@ -36,8 +31,6 @@ module Searchable
     end
   end
 end
-
-
 
 class SQLObject
   extend Searchable
