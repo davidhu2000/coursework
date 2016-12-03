@@ -33,11 +33,3 @@ module Associatable
     end
   end
 end
-
-=begin
-SELECT house.*
-FROM houses
-JOIN humans ON humans.id = houses.human_id
-JOIN cats ON cats.owner_id = humans.id
-WHERE cats.id = id
-=end

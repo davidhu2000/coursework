@@ -64,6 +64,38 @@ module Associatable
   end
 end
 
+module RunQuery
+  # def puts_all(&blk)
+  #   # p self.methods
+  #   # all_methods = self.methods
+  #   # all_methods.delete(__callee__)
+  #   # all_methods.delete(:inherited)
+  #   all_methods = [:first]
+  #   all_methods.each do |x|
+  #     print "hi "
+  #     send(x)
+  #   end
+  # end
+end
+
 class SQLObject
   extend Associatable
+  extend RunQuery
+  # def self.descendants
+  #   ObjectSpace.each_object(Class).select { |klass| klass < self }
+  # end
+
+  # everytime a class inherit from SQLObject, run method to create
+  # relation object in child class
+  def self.inherited(child)
+    child.instance_eval do
+      @relation = Relation.new(child)
+    end
+  end
+
+  # def self.first
+  #   puts "first"
+  # end
+  #
+  # puts_all
 end
