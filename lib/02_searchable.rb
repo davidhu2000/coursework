@@ -22,7 +22,7 @@ module Searchable
   #   self
   # end
 
-  [:group, :limit, :order, :offset].each do |name|
+  [:select, :group, :limit, :order, :offset].each do |name|
     define_method(name) do |*params|
       @relation.send(name, params)
       @relation
