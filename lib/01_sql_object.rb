@@ -67,7 +67,7 @@ class SQLObject
       end
       self.send("#{attr_name}=", attr_val)
     end
-
+    @relation = Relation.new(self.class)
   end
 
   def attributes
