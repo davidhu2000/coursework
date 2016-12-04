@@ -4,7 +4,9 @@ This is a simple chess game that can be played in the terminal.
 
 To get started, `cd` into the directory. Then use the command `ruby game.rb` in the terminal to start a new game.
 
-<img src='images/board.png' />
+<p align='center'>
+  <img src='images/board.png' width='400px'/>
+</p>
 
 Use `space` or `return` to select a piece, and use the arrow keys to select a destination.
 
