@@ -10,7 +10,7 @@ class ContactShare < ActiveRecord::Base
     owned_contact_ids = Contact.where(user_id: self.user_id).map(&:id)
 
     if owned_contact_ids.include? self.contact_id
-      errors[:contact] << "cannot be owned by user"
+      errors[:contact_shared] << "cannot be owned by user"
     end
   end
 end

@@ -11,13 +11,11 @@
 end
 
 5.times do |i|
-  3.times do
-    Contact.create!(name: Faker::Name.name, email: Faker::Internet.email, user_id: i)
-  end
+  Contact.create!(name: Faker::Name.name, email: Faker::Internet.email, user_id: i+1, favorite: false)
 end
 
 5.times do |i|
-  ContactShare.create!(user_id: i+1, contact_id: i == 4 ? 1 : i + 2)
+  ContactShare.create!(user_id: i+1, contact_id: i == 4 ? 1 : i + 2, favorite: false)
 end
 
 5.times do |i|

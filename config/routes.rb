@@ -8,10 +8,18 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create, :update, :destroy] do
     resources :contacts, only: [:index]
     resources :comments, only: [:index]
+    member do
+      get 'favorites'
+      post 'favorite/:id', to: 'contacts#favorite'
+    end
   end
 
   resources :contacts, except: [:index, :new, :edit] do
     resources :comments, only: [:index]
+
+    member do
+      post 'favorite'
+    end
   end
 
   resources :contact_shares, only: [:create, :destroy]

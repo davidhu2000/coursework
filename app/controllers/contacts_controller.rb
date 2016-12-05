@@ -4,10 +4,6 @@ class ContactsController < ApplicationController
   def index
     @owned_contacts = Contact.where(user_id: params[:user_id])
     @shared_contacts = User.find_by(id: params[:user_id]).shared_contacts
-    # render text: 'Owned contacts'
-    # render json: @owned_contacts
-    # render text: 'Shared contacts'
-    # render json: @shared_contacts
 
     render json: {'shared contacts' => @shared_contacts,
                   'owned contacts'  => @owned_contacts}
@@ -36,6 +32,15 @@ class ContactsController < ApplicationController
 
   def destroy
     if @contact.destroy
+      render json: @contact
+    else
+      render json: error_messages, status: :unprocessable_entity
+    end
+  end
+
+  def favorite
+    @contact.favorite = true
+    if @contact.save
       render json: @contact
     else
       render json: error_messages, status: :unprocessable_entity
