@@ -17,7 +17,13 @@ end
 end
 
 5.times do |i|
-  2.times do
-    ContactShare.create!(user_id: i, contact_id: ((1..5).to_a - [i+1]).sample)
-  end
+  ContactShare.create!(user_id: i+1, contact_id: i == 4 ? 1 : i + 2)
+end
+
+5.times do |i|
+  Comment.create!(body: Faker::ChuckNorris.fact, comments_id: i + 1, comments_type: 'User')
+end
+
+15.times do |i|
+  Comment.create!(body: Faker::ChuckNorris.fact, comments_id: i + 1, comments_type: 'Contact')
 end
