@@ -13,11 +13,12 @@
 #
 
 class Cat < ActiveRecord::Base
-  COLORS = [:orange, :black, :white, :brown, :grey].freeze
+  COLORS = ['orange', 'black', 'white', 'brown', 'grey'].freeze
+
   validates :birth_date, presence: true
   validates :name, presence: true
-  validates :color, presence: true, inclusion: COLORS
-  validates :sex, presence: true, inclusion: ['M', 'F']
+  validates :color, presence: true, inclusion: { in: COLORS, message: "%{value} is not a valid color" }
+  validates :sex, presence: true, inclusion: { in: ['M', 'F'] }
 
   def age
     birth_year = self.birth_date.year
