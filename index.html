@@ -56,6 +56,39 @@
     </ol>
   </section>
 
+  <section>
+    <h3> Add a Review </h3>
+    
+    <form action="/reviews" method="post">
+      <label for="name">Reviewer name: </label>
+      <input type="text" id="name">
+
+      <br />
+
+      <label for="rating">Rating: </label>
+      <input type="radio" name="rating" checked>1</input>
+      <input type="radio" name="rating">2</input>
+      <input type="radio" name="rating">3</input>
+      <input type="radio" name="rating">4</input>
+      <input type="radio" name="rating">5</input>
+
+      <br />
+
+      <label for="expertise">Cooking Expertise</label>
+      <select id="expertise" name="expertise">
+        <option disabled selected>-- Select cooking expertise --</option>
+        <option value="some">Sometimes Cook</option>
+        <option value="more">Cook Everyday</option>
+        <option value="hobby">Cooking is a Hobby</option>
+        <option value="professional">Professional Chef</option>
+      </select>
+
+      <br />
+
+      <input type="submit" value="Submit Review">
+    </form>
+  </section>
+
   <footer>
     <p>
       Original recipe <a href="http://allrecipes.com/recipe/23553/basic-fruit-smoothie/">here</a>
