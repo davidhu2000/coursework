@@ -16,4 +16,3 @@
 
 ## Week 4
 - [Day 1: Rails Routing & Contacts API](w4d1)
-- [Day 3: Rails Authentication](w4d3)
