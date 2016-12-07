@@ -13,3 +13,11 @@
               birth_date: Faker::Date.between(10.years.ago, 1.day.ago),
               description: Faker::ChuckNorris.fact)
 end
+
+
+CatRentalRequest.create!(cat_id: 2, status: 'APPROVED', start_date: "2015/1/1", end_date: '2015/2/1')
+CatRentalRequest.create!(cat_id: 2, status: 'PENDING', start_date: "2016/1/1", end_date: '2016/2/1')
+CatRentalRequest.create!(cat_id: 2, status: 'PENDING', start_date: "2016/1/1", end_date: '2016/2/1')
+CatRentalRequest.create!(cat_id: 2, status: 'PENDING', start_date: "2016/1/1", end_date: '2016/2/1')
+CatRentalRequest.create!(cat_id: 2, status: 'PENDING', start_date: "2016/1/1", end_date: '2016/2/1')
+CatRentalRequest.create!(cat_id: 2, status: 'PENDING', start_date: "2017/1/1", end_date: '2017/2/1')

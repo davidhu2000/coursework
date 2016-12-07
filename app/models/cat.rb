@@ -20,6 +20,8 @@ class Cat < ActiveRecord::Base
   validates :color, presence: true, inclusion: { in: COLORS, message: "%{value} is not a valid color" }
   validates :sex, presence: true, inclusion: { in: ['M', 'F'] }
 
+  has_many :cat_rental_requests, dependent: :destroy
+
   def age
     birth_year = self.birth_date.year
     Time.now.year - birth_year
