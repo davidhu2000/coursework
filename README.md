@@ -13,3 +13,7 @@
 - [Day 1: SQL Zoo](w3d1)
 - [Day 3: Rails Associations and Migrations](w3d3)
 - [Day 4: ActiveRecord Queries and Associations](w3d4)
+
+## Week 4
+- [Day 1: Rails Routing & Contacts API](w4d1)
+- [Day 3: Rails Authentication](w4d3)
