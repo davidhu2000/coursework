@@ -1,0 +1,5 @@
+<%= render 'shared/form', controller: :session,
+                          user: @user,
+                          action: :post,
+                          url: new_session_url,
+                          button_text: 'Log In' %>
