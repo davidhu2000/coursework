@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end
 
   def is_password?(password)
-    digest = BCrypt::Password.new(user.password_digest)
+    digest = BCrypt::Password.new(self.password_digest)
     digest.is_password?(password)
   end
 
