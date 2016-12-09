@@ -25,10 +25,12 @@ class SubsController < ApplicationController
 
   def edit
     @sub = Sub.find_by_id(params[:id])
+    redirect_to subs_url unless is_moderator?
   end
 
   def update
     @sub = Sub.find_by_id(params[:id])
+    redirect_to subs_url unless is_moderator?
     if @sub.update(sub_params)
       redirect_to sub_url(@sub)
     else

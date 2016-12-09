@@ -2,3 +2,15 @@
 <br>
 <br>
 <p><%= @sub.description %></p>
+
+<ul>
+  <% @sub.posts.each do |post| %>
+    <li><%= link_to post.title, post_url(post) %></li>-
+  <% end %>
+</ul>
+
+<%= link_to 'Add New Post', new_post_url(sub_id: @sub.id) %>
+
+<% unless is_moderator? %>
+  <%= link_to 'Edit Sub', edit_sub_url %>
+<% end %>

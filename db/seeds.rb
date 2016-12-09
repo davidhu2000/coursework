@@ -13,3 +13,10 @@ User.create!(username: "bob", password: "password")
 end
 
 User.create!(username: Faker::GameOfThrones.character, password: "random")
+
+10.times do |i|
+  10.times do
+    Post.create!(title: Faker::StarWars.vehicle, content: Faker::Hipster.paragraph, author_id: 1, sub_id: i+1)
+  end
+
+end
