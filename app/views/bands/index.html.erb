@@ -1,0 +1,15 @@
+<h3>All Bands</h3>
+
+<hr>
+
+<ul class="list-group">
+  <% @bands.each do |band| %>
+    <a href='<%= band_url(band) %>' class="list-group-item">
+      <span class="badge"><%= pluralize(band.num_albums, 'album') %></span>
+      <%= band.name %>
+    </li>
+  <% end %>
+</ul>
+
+
+<%= link_to 'Add Band', new_band_url, class: 'btn btn-success' %>

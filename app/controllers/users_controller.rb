@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = ['Welcome to the Music App.']
       login(@user)
-      redirect_to user_url(@user)
+      redirect_to bands_url
     else
       flash.now[:danger] = @user.errors.full_messages
       render :new

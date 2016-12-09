@@ -1,0 +1,19 @@
+<h2>'<%= @track.name %>' <small>Song Page</small> </h2>
+<hr>
+
+<h4> Album:
+<%= link_to @track.album_name, album_url(@track.album), class: 'label label-info' %>
+</h4>
+<h4> Band:
+<%= link_to @track.band_name, band_url(@track.band), class: 'label label-primary' %>
+</h4>
+
+<h4>Lyrics: </h4>
+<blockquote>
+  <%= @track.lyrics %>
+</blockquote>
+
+<%= link_to 'Edit Track', edit_track_url(@track), class: 'btn btn-success' %>
+<br>
+<br>
+<%= button_to 'Delete Track', track_url(@track), method: :delete, class: 'btn btn-danger' %>

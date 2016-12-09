@@ -1,0 +1,20 @@
+<h2>'<%= @band.name %>' <small>Band Page</small> </h2>
+<hr>
+
+<ul class="list-group">
+
+  <% @band.albums.each do |album| %>
+    <a href="<%= album_url(album) %>" class="list-group-item">
+      <span class="badge"><%= album.tracks.count %></span>
+      <%= album.name %>
+    </a>
+  <% end %>
+</ul>
+
+<%= link_to 'Add Album', new_band_album_url(@band.id), class: 'btn btn-success' %>
+<br>
+<br>
+<%= link_to 'Edit Band', edit_band_url(@band), class: 'btn btn-success' %>
+<br>
+<br>
+<%= button_to 'Delete Band', band_url(@band), method: :delete, class: 'btn btn-danger' %>

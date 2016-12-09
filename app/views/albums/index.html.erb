@@ -1,0 +1,14 @@
+<h3>All Albums</h3>
+
+<hr>
+
+<ul class="list-group">
+  <% @albums.each do |album| %>
+    <a href='<%= album_url(album) %>' class="list-group-item">
+      <%= album.name %>
+    </li>
+  <% end %>
+</ul>
+
+
+<%= link_to 'Add Album', new_band_album_url(1), class: 'btn btn-success' %>

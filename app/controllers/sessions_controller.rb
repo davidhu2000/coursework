@@ -12,9 +12,9 @@ class SessionsController < ApplicationController
     if @user && @user.is_password?(session_params[:password])
       login(@user)
       flash[:success] = ['Welcome to the MusicApp']
-      redirect_to user_url(@user)
+      redirect_to bands_url
     else
-      flash[:danger] = ['Invalid Credentials, try again']
+      flash.now[:danger] = ['Invalid Credentials, try again']
       render :new
     end
   end
