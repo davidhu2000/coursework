@@ -1,5 +1,10 @@
 <h2>'<%= @track.name %>' <small>Song Page</small> </h2>
-<hr>
+
+<div class="button-group" style='float: right'>
+  <%= link_to 'Edit Track', edit_track_url(@track), class: 'btn btn-success' %>
+  &nbsp&nbsp&nbsp&nbsp&nbsp
+  <%= link_to 'Delete Track', track_url(@track), method: :delete, class: 'btn btn-danger' %>
+</div>
 
 <h4> Album:
 <%= link_to @track.album_name, album_url(@track.album), class: 'label label-info' %>
@@ -13,7 +18,20 @@
   <%= @track.lyrics %>
 </blockquote>
 
-<%= link_to 'Edit Track', edit_track_url(@track), class: 'btn btn-success' %>
-<br>
-<br>
-<%= button_to 'Delete Track', track_url(@track), method: :delete, class: 'btn btn-danger' %>
+<% unless @track.notes.empty? %>
+
+  <h4>Notes: </h4>
+
+  <% @track.notes.each do |note| %>
+    <blockquote>
+      <%= note.body %>
+      <footer class="blockquote-footer"><cite><%= note.user_email %></cite></footer>
+      <% if current_user.id == note.user_id %>
+        <%= button_to 'Delete', note_url(note), method: :delete, class:'btn btn-xs btn-danger' %>
+      <% end %>
+    </blockquote>
+  <% end %>
+<% end %>
+
+<h4>Add a note</h4>
+<%= render 'notes/form', note: @note, action: :new %>

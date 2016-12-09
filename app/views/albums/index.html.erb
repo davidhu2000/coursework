@@ -6,7 +6,7 @@
   <% @albums.each do |album| %>
     <a href='<%= album_url(album) %>' class="list-group-item">
       <%= album.name %>
-    </li>
+    </a>
   <% end %>
 </ul>
 
