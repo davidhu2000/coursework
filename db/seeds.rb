@@ -6,4 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-u = User.create(username: "bob", password: "password")
+User.create!(username: "bob", password: "password")
+
+10.times do
+  Sub.create!(title: Faker::Pokemon.name, description: Faker::ChuckNorris.fact, mod_id: 1)
+end
+
+User.create!(username: Faker::GameOfThrones.character, password: "random")

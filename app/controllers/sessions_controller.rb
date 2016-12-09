@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_credentials(session_params[:username], session_params[:password])
     if @user
       log_in(@user)
-      render :index
+      redirect_to subs_url
     else
       render :new
     end
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   def destroy
     @user = User.find_by(session_token: session[:session_token])
     log_out if @user
-    render :index
+    redirect_to new_session_url
   end
 
   private
