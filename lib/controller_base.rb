@@ -12,6 +12,7 @@ class ControllerBase
     @req = req
     @res = res
     @already_built_response = false
+    @session = Session.new(req)
   end
 
   # Helper method to alias @already_built_response
@@ -23,6 +24,7 @@ class ControllerBase
   def redirect_to(url)
     @res.status = 302
     @res.header['location'] = url
+    @session.store_session(@res)
     render_content(@res, 'text/html')
   end
 
@@ -35,6 +37,7 @@ class ControllerBase
     @res['Content-Type'] = content_type
     @res.write(content)
     @res.finish
+    @session.store_session(@res)
   end
 
   # use ERB and binding to evaluate templates
@@ -49,7 +52,7 @@ class ControllerBase
 
   # method exposing a `Session` object
   def session
-    Rack::Session
+    @session
   end
 
   # use this with the router to call action_name (:index, :show, :create...)
