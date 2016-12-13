@@ -19,8 +19,8 @@ class Route
   # use pattern to pull out route params (save for later?)
   # instantiate controller and call controller action
   def run(req, res)
-    p match_data = @pattern.match(req.path)
-    p route_params = Hash[match_data.names.zip(match_data.captures)]
+    match_data = @pattern.match(req.path)
+    route_params = Hash[match_data.names.zip(match_data.captures)]
 
     @controller_class.new(req, res, route_params).invoke_action(@action_name)
   end
@@ -64,6 +64,7 @@ class Router
       route.run(req, res)
     else
       res.status = 404
+      res.body = 'Route not found'
     end
   end
 end
