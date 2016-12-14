@@ -1,0 +1,19 @@
+<h1><%= action.capitalize %> A Sub</h1>
+<% http = action == 'new' ? 'post' : 'patch' %>
+<% url = action == 'new' ? subs_url : sub_url(sub) %>
+
+<form class="" action="<%= url %>" method="post">
+  <input type="hidden" name="_method" value="<%= http %>">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input type="hidden" name="sub[mod_id]" value="<%= current_user.id  %>">
+
+  <label for="title">Title: </label>
+  <input id='title' type="text" name="sub[title]" value="<%= sub.title %>">
+  <br>
+  <br>
+  <label for="description">Description: </label>
+  <textarea id='description' name="sub[description]" rows="8" cols="80"><%= sub.description %></textarea>
+
+  <input type="submit" value="<%= action.capitalize %>Sub">
+</form>
