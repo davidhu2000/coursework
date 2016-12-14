@@ -30,7 +30,7 @@ class Relation
   def all
     run_query
     @params = {}
-    self
+    @query
   end
 
   [:first, :second, :third, :fourth, :fifth].each_with_index do |name, idx|
@@ -59,6 +59,7 @@ class Relation
 
   private
 
+  # used to assign key-value pairs for where and having strings
   def assign_hash(method_name, params)
     @params[method_name] ||= {}
     params.each do |attr_name, value|
@@ -66,6 +67,7 @@ class Relation
     end
   end
 
+  # used to assign values for select, group, limit, order, offset
   def assign_value(method_name, value)
     @params[method_name] ||= []
     @params[method_name] += value
