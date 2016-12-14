@@ -1,6 +1,7 @@
 require 'json'
 
 class Session
+  attr_reader :cookie
   # find the cookie for this app
   # deserialize the cookie into a hash
   def initialize(req)

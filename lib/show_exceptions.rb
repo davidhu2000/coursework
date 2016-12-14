@@ -16,7 +16,7 @@ class ShowExceptions
   private
 
   def render_exception(e)
-    filename = "lib/templates/rescue.html.erb"
+    filename = 'lib/templates/rescue.html.erb'
     b = binding
     b.local_variable_set(:e, e)
     file = File.open(filename, 'r')
@@ -26,6 +26,6 @@ class ShowExceptions
     # res.status = '500'
     # res['Content-type'] = 'text/html'
     # res.finish
-    ['500' , {'Content-type' => 'text/html'}, body]
+    ['500', { 'Content-type' => 'text/html' }, body]
   end
 end
