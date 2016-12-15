@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+.ingredient-list {
+  list-style: square inside;
+}
+
+ol {
+  list-style: lower-roman;
+}
+
+header > img {
+  width: 100px;
+}
+
+ul li a {
+  text-decoration: none;
+  color: inhert;
+}
+
+.review h4 {
+  font-weight: bolder;
+  font-style: oblique;
+}
