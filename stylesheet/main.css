@@ -1,6 +1,33 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #FFEFEF;
+  width: 900px;
+  margin: 0 auto;
+}
+
+aside {
+  width: 180px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+section {
+  width: 700px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+nav {
+  display: inline-block;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a {
+  display: block;
+  padding: 20px;
 }
 
 h1, h2, h3 {
@@ -21,6 +48,10 @@ h3 {
 
 .ingredient-list {
   list-style: square inside;
+}
+
+.ingredient-list li, h2 + ol li {
+  margin: 15px 0 15px 0
 }
 
 ol {
@@ -73,4 +104,17 @@ ol li:nth-of-type(2n) {
 
 h3 + .user_review {
   border-top: 1px solid black;
+}
+
+input[type='text'], select, input[type='submit'] {
+  display: block;
+}
+
+select {
+  margin: 10px 0;
+  width: 200px;
+}
+
+textarea {
+  width: 350px;
 }
