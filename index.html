@@ -18,6 +18,7 @@
 
   <script type="text/javascript" src="javascript/test_script.js"></script>
   <link rel="stylesheet" href="stylesheet/css_custom_reset.css" type="text/css">
+  <link rel="stylesheet" href="stylesheet/custom_grid.css" type="text/css">
   <link rel="stylesheet" href="stylesheet/main.css" type="text/css">
 
   <!-- <link rel="stylesheet" href="stylesheet/css_reset.css" type="text/css" > -->
@@ -37,71 +38,76 @@
 
   <h1>Fruit Smooth</h1>
 
-  <aside class="ingredients-ls">
-    <h2 id="ingredients">Ingredients</h2>
-    <ul class="ingredient-list">
-      <li>frozen strawberries</li>
-      <li>frozen blueberries</li>
-      <li>frozen pinapple</li>
-      <li>one cup of milk</li>
-      <li>one banana</li>
-      <li>plain yogurt</li>
-      <li>half cup of water</li>
-      <li>optional: kiwi</li>
-    </ul>
-  </aside>
+  <div class="col col-1-3">
+    <aside class="ingredients-ls">
+      <h2 id="ingredients">Ingredients</h2>
+      <ul class="ingredient-list">
+        <li>frozen strawberries</li>
+        <li>frozen blueberries</li>
+        <li>frozen pinapple</li>
+        <li>one cup of milk</li>
+        <li>one banana</li>
+        <li>plain yogurt</li>
+        <li>half cup of water</li>
+        <li>optional: kiwi</li>
+      </ul>
+    </aside>
+  </div>
 
-  <section>
-  <h2 id="description">Description</h2>
-    <p>
-      The fruit smoothie is a perfect blend of fruits and milk for a delicious cold treat.
-    </p>
+  <div class="col col-2-3">
+    <section>
+      <h2 id="description">Description</h2>
+      <p>
+        The fruit smoothie is a perfect blend of fruits and milk for a delicious cold treat.
+      </p>
 
-    <figure>
-      <img src='http://www.bestherbalhealth.com/wp-content/uploads/2014/10/Berry-Smoothie1.jpg' width='700px' />
-      <figcaption><a href='https://en.wikipedia.org/wiki/Smoothie'>Delicious berry smoothie.</a></figcaption>
-    </figure>
+      <figure>
+        <img src='http://www.bestherbalhealth.com/wp-content/uploads/2014/10/Berry-Smoothie1.jpg' width='700px' />
+        <figcaption><a href='https://en.wikipedia.org/wiki/Smoothie'>Delicious berry smoothie.</a></figcaption>
+      </figure>
 
-    <h2 id="directions">Direction</h2>
-    <ol>
-      <li>Defrost the frozen strawberries, blueberries, and pinapple for two minutes</li>
-      <li>Add banana, milk, and yogurt</li>
-      <li>Add water.</li>
-      <li>Use blender to mix the ingredients.</li>
-      <li>Enjoy the treat.</li>
-    </ol>
-  </section>
+      <h2 id="directions">Direction</h2>
+      <ol>
+        <li>Defrost the frozen strawberries, blueberries, and pinapple for two minutes</li>
+        <li>Add banana, milk, and yogurt</li>
+        <li>Add water.</li>
+        <li>Use blender to mix the ingredients.</li>
+        <li>Enjoy the treat.</li>
+      </ol>
+    </section>
 
-  <section id='reviews'>
-    <h3> Reviews </h3>
-    <br>
-    <form id='review-form' action="/reviews" method="post">
-      <label for="name">Reviewer name: </label>
-      <input type="text" name="name">
 
-      <label for="rating"></label>
-      1 <input type="radio" name="rating" checked>
-      2 <input type="radio" name="rating">
-      3 <input type="radio" name="rating">
-      4 <input type="radio" name="rating">
-      5 <input type="radio" name="rating">
+    <section id='reviews'>
+      <h3> Reviews </h3>
+      <br>
+      <form id='review-form' action="/reviews" method="post">
+        <label for="name">Reviewer name: </label>
+        <input type="text" name="name">
 
-      <label for="expertise"></label>
-      <select id="expertise" name="expertise">
-        <option disabled selected>-- Select cooking expertise --</option>
-        <option value="some">Sometimes Cook</option>
-        <option value="more">Cook Everyday</option>
-        <option value="hobby">Cooking is a Hobby</option>
-        <option value="professional">Professional Chef</option>
-      </select>
+        <label for="rating"></label>
+        1 <input type="radio" name="rating" checked>
+        2 <input type="radio" name="rating">
+        3 <input type="radio" name="rating">
+        4 <input type="radio" name="rating">
+        5 <input type="radio" name="rating">
 
-      <label>
-        <textarea id="review" name="review" rows="8" cols="80"></textarea>
-      </label>
+        <label for="expertise"></label>
+        <select id="expertise" name="expertise">
+          <option disabled selected>-- Select cooking expertise --</option>
+          <option value="some">Sometimes Cook</option>
+          <option value="more">Cook Everyday</option>
+          <option value="hobby">Cooking is a Hobby</option>
+          <option value="professional">Professional Chef</option>
+        </select>
 
-      <input type="submit" value="Submit Review">
-    </form>
-  </section>
+        <label>
+          <textarea id="review" name="review" rows="8" cols="80"></textarea>
+        </label>
+
+        <input type="submit" value="Submit Review">
+      </form>
+    </section>
+  </div>
 
   <footer>
     <p>

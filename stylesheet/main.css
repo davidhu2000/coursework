@@ -18,7 +18,12 @@ section {
 }
 
 nav {
-  display: inline-block;
+  /*display: inline-block;*/
+  float: right;
+}
+
+body > img {
+  float: left;
 }
 
 nav ul li {

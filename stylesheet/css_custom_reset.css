@@ -7,3 +7,7 @@ figure, figcaption, ol, h3, form, label, input, br {
   font: inherit;
   background-color: inherit;
 }
+
+img {
+  width: 100%;
+}
