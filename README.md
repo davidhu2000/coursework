@@ -20,3 +20,6 @@
 - [Day 3: Ninety nine cats authentication](w4d3)
 - [Day 4: Music App](w4d4)
 - [Day 5: Reddit on Rails](w4d5)
+
+## Week 5
+- [Day 1: Capybara Spec Exercise](w5d1)
