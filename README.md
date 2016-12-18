@@ -23,3 +23,4 @@
 
 ## Week 5
 - [Day 1: Capybara Spec Exercise](w5d1)
+- [Day 3: Intro to Javascript & Reversi](w5d3)
