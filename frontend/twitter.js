@@ -4,6 +4,5 @@ $(() => {
   $('.follow-toggle').each((index, el) => {
     let $el = $(el);
     const button = new FollowToggle($el);
-
   });
 });
