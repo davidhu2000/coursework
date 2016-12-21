@@ -28,21 +28,26 @@ FollowToggle.prototype.toggleState = function () {
 FollowToggle.prototype.handleClick = function () {
   this.$el.on('click', (e) => {
     e.preventDefault();
+    this.$el.attr('disabled', 'disabled');
+
     if (this.followState === "followed") {
-      API.unfollowUser(this.userId).then(
-      (res) => this.toggleState()
-    ).then(
-      (res) => this.render()
-    );
+      API.unfollowUser(this.userId)
+         .then(res => this.toggleState())
+         .then(res => this.render())
+         .then(res => {
+           this.$el.removeAttr('disabled');
+         });
     } else {
-      API.followUser(this.userId).then(
-      (res) => this.toggleState()
-    ).then(
-      (res) => this.render()
-    );
+      API.followUser(this.userId)
+          .then(res => this.toggleState())
+          .then(res => this.render())
+          .then(res => {
+            this.$el.removeAttr('disabled');
+          });
     }
 
   });
 };
+
 
 module.exports = FollowToggle;
