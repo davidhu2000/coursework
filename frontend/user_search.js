@@ -25,13 +25,13 @@ UsersSearch.prototype.updateList = function (users) {
   users.forEach( user => {
     $("nav ul").append(`<li>
       <a href='/users/${user.id}'>${user.username}</a>
-      <button type="button" class="follow-toggle" name=""
+      <button id="follow-button-${user.id}" type="button" class="follow-toggle" name=""
        data-user-id="${user.id}"
        data-initial-follow-state="${user.followed}">
       </button>
     </li>`);
 
-    new FollowToggle($('#user-search ul li:last-child button'));
+    new FollowToggle($(`#follow-button-${user.id}`));
   });
 };
 
