@@ -45,6 +45,13 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const Router = __webpack_require__(1);
+	const Inbox = __webpack_require__(2);
+
+	const routes = {
+	  compose: 'compose',
+	  inbox: Inbox,
+	  sent: 'send'
+	};
 
 	document.addEventListener('DOMContentLoaded', () => {
 	  let sidebar = document.getElementsByClassName('sidebar-nav')[0];
@@ -53,7 +60,7 @@
 	    let hash = event.target.innerHTML.toLowerCase();
 
 	    window.location.hash = hash;
-	    let router = new Router(document.querySelector('.content'));
+	    let router = new Router(document.querySelector('.content'), routes);
 	    router.start();
 	  });
 	});
@@ -63,8 +70,9 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	function Router(node) {
+	function Router(node, routes) {
 	  this.node = node;
+	  this.routes = routes;
 	}
 
 	Router.prototype.start = function () {
@@ -73,17 +81,36 @@
 
 	Router.prototype.render = function () {
 	  this.node.innerHTML = '';
-	  let current = this.activeRoute();
+	  let node = this.activeRoute();
+	  console.log(node.render());
 	  let p = document.createElement('p');
-	  p.innerHTML = current;
+	  p.appendChild(node.render());
 	  this.node.append(p);
 	};
 
 	Router.prototype.activeRoute = function () {
-	  return location.hash.replace('#','');
+	  let component = location.hash.toLowerCase().replace('#','');
+	  if (component === '') component = 'inbox';
+	  return this.routes[component];
 	};
 
 	module.exports = Router;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	let Inbox = {
+	  render: function() {
+	    let ul = document.createElement('ul');
+	    ul.innerHTML = 'An inbox message';
+	    ul.classList.add('messages');
+	    return ul;
+	  }
+	};
+
+	module.exports = Inbox;
 
 
 /***/ }
