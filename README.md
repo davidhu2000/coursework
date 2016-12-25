@@ -32,3 +32,4 @@
 - [Day 2: App Academy Friends](w6d2)
 - [Day 3: AJAX Twitter](w6d3)
 - [Day 4: Mail App](w6d4)
+- [Day 5: Widgets](w6d5)

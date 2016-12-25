@@ -1,0 +1,16 @@
+#clock {
+  border: 3px solid black;
+  width: 600px;
+  height: 200px;
+  background-color: black;
+  color: white;
+}
+
+#clock h1{
+  display: inline-block;
+}
+
+.time {
+  float: right;
+  padding-right: 30px;
+}

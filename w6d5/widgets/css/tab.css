@@ -1,0 +1,24 @@
+.tab-header span {
+  box-sizing: border-box;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: #93baf9;
+  display: inline-block;
+  width: 50px;
+  text-align: center;
+}
+
+.tab-header span:hover {
+  background: #6b94d6;
+}
+
+.tab-content {
+  box-sizing: border-box;
+  border: 3px solid black;
+  background-image: url(https://static.vecteezy.com/system/resources/previews/000/106/719/original/vector-abstract-blue-wave-background.jpg);
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: center;
+  line-height: 150px;
+}
