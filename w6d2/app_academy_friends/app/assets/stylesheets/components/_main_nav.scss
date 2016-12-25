@@ -1,0 +1,46 @@
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $light-gray;
+  padding: 5px 0px;
+  align-items: center;
+}
+
+.left-nav > ul,
+.right-nav > ul {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+}
+
+.left-nav > ul > li {
+  float: left;
+  padding: 5px 15px;
+}
+
+.right-nav > ul > li {
+  float: right;
+  padding: 5px;
+}
+
+.right-nav > ul > li:last-of-type {
+  padding-right: 0px;
+}
+
+.left-nav > ul > li:hover,
+.right-nav > ul > li:last-of-type:hover {
+  color: $gray;
+}
+
+.left-nav span {
+  text-transform: uppercase;
+  font-family: $sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.right-nav i {
+  font-size: 20px;
+  color: $dark-gray;
+}

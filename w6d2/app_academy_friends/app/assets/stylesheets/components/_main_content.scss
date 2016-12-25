@@ -1,0 +1,97 @@
+.feature-title {
+  font-size: 24px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.feature-title:hover {
+  text-decoration: underline;
+}
+
+.author {
+  color: $gray;
+  padding: 5px 20px 5px 0px;
+}
+
+.article-items {
+  margin-left: 15px;
+  list-style: disc;
+}
+
+.article-items li{
+  margin: 10px 0px;
+  line-height: 1.5;
+}
+
+.comments-link {
+  color: $blue;
+}
+
+.comments-link:hover {
+  text-decoration: underline;
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.article-title {
+  font-weight: bold;
+}
+
+.article-title:hover {
+  text-decoration: underline;
+}
+
+.subtitle {
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+hr {
+  width: 45%;
+}
+
+.video-caption {
+  padding: 5px 0px;
+  font-size: 10px;
+}
+
+.article-topics {
+  margin-left: 15px;
+  list-style: disc;
+  font-weight: bold;
+}
+
+.article-topics li {
+  margin: 5px 0px;
+}
+
+.signup-form {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px 0px;
+  padding-right: 20px;
+}
+
+.fine-print {
+  font-size: 10px;
+  color: $gray;
+  text-align: center;
+  font-family: $sans-serif;
+  padding-right: 20px;
+}
+
+.input-field {
+  font-family: $sans-serif;
+  width: 78%;
+  border: 1px solid $gray;
+  padding-left: 10px;
+}
+
+.submit-button {
+  width: 22%;
+}

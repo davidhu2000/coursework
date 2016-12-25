@@ -29,3 +29,4 @@
 
 ## Week 6
 - [Day 1: Tic-Tac-Toe & Towers of Hanoi jQuery](w6d1)
+- [Day 2: App Academy Friends](w6d2)

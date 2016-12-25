@@ -1,0 +1,135 @@
+#sections-sidebar > ul {
+  position: absolute;
+  display: flex;
+  z-index: 1;
+  flex-direction: column;
+  background-color: white;
+  font-weight: bold;
+  width: 200px;
+  border: 1px solid $light-gray;
+  box-shadow: -1px 4px 6px 1px rgba(0, 0, 0, 0.09);
+  font-family: $sans-serif;
+  color: black;
+}
+
+#sections-sidebar > ul li {
+  padding: 5px 5px 5px 20px;
+}
+
+#sections-sidebar > ul li:hover {
+  background-color: $lightest-blue;
+}
+
+.sections-sidebar {
+  opacity: 0;
+}
+
+.expand {
+  opacity: 1;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown > ul {
+  z-index: 2;
+  padding: 10px 20px 25px 10px;
+  display: none;
+  background-color: white;
+  position: absolute;
+  left: 100%;
+  top: -100%;
+  width: 200px;
+  border: 1px solid $light-gray;
+  box-shadow: -1px 4px 6px 1px rgba(0, 0, 0, 0.09);
+}
+
+.dropdown:hover > ul {
+  display: block;
+}
+
+.dropdown li {
+  position: relative;
+}
+
+.sidebar-links a:hover {
+  text-decoration: none;
+}
+
+.dropdown:after,
+.dropdown:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  border-left: 5px solid $light-gray;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  width: 0;
+  height: 0;
+}
+
+.dropdown:after {
+  right: 2px;
+  border-left: 5px solid white;
+  z-index: 1;
+}
+
+.dropdown-header {
+  text-transform: uppercase;
+  color: $gray;
+  font-size: 10px;
+  margin-bottom: 7px;
+}
+
+.arrow_box {
+  display: block;
+	position: relative;
+	background: #ffffff;
+	border: 1px solid #e2e2e2;
+}
+.arrow_box:after, .arrow_box:before {
+	right: 100%;
+	top: 35px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #ffffff;
+	border-width: 20px;
+	margin-top: -20px;
+}
+.arrow_box:before {
+	border-color: rgba(226, 226, 226, 0);
+	border-right-color: #e2e2e2;
+	border-width: 21px;
+	margin-top: -21px;
+}
+
+@media all and (max-width: 800px) {
+  .section-nav {
+    display: none;
+  }
+
+  .feature-title {
+    margin-top: 20px;
+  }
+
+  .right-nav button {
+    display: none;
+  }
+
+  .main-nav {
+    padding-bottom: 20px;
+  }
+
+
+
+}
