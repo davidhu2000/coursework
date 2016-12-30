@@ -5,10 +5,8 @@ import { RECEIVE_CURRENT_USER,
        } from '../actions/session_actions';
 
 const _defaultState = {
-  session: {
-    currentUser: null,
-    errors: []
-  }
+  currentUser: null,
+  errors: []
 };
 
 const SessionReducer = (state = _defaultState, action) => {
@@ -16,17 +14,13 @@ const SessionReducer = (state = _defaultState, action) => {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       return {
-        session: {
-          currentUser: action.currentUser,
-          errors: []
-        }
+        currentUser: action.currentUser,
+        errors: []
       };
     case RECEIVE_ERRORS:
       return {
-        session: {
-          currentUser: null,
-          errors: action.erorrs
-        }
+        currentUser: null,
+        errors: action.errors
       };
     default:
       return state;
