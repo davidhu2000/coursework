@@ -1,13 +1,12 @@
 class Api::SessionsController < ApplicationController
   def create
-    p session_params
-    user = User.find_by_credentials(session_params[:username], session_params[:password])
-    p user
+    user = User.find_by_credentials(session_params[:username],
+                                    session_params[:password])
     if user
       login(user)
-      redirect_to root_url
+      render 'api/users/show'
     else
-      render json: {text: 'Invalid Credentials'}.to_json, status: 404
+      render json: ["Invalid Credentials"], status: 401
     end
   end
 
@@ -16,7 +15,7 @@ class Api::SessionsController < ApplicationController
       logout
       render json: {}
     else
-      render json: { text: 'No current user' }.to_json, status: 404
+      render json: ["No current user"], status: 404
     end
   end
 
