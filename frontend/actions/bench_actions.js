@@ -9,5 +9,6 @@ export const receiveBenches = benches => ({
 
 export const fetchBenches = () => dispatch => {
   return ApiUtil.fetchBenches()
-    .then(benchRes => dispatch(receiveBenches(benchRes)));
+    .then(benchRes => dispatch(receiveBenches(benchRes))
+  );
 };
