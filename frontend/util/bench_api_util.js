@@ -1,8 +1,6 @@
-export const fetchBenches = (successCallback) => {
+export const fetchBenches = () => {
   return $.ajax({
     method: 'GET',
-    url: '/api/benches',
-    success: res => successCallback(res),
-    error: err => console.log(err)
+    url: '/api/benches'
   });
 };
