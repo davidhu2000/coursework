@@ -4,7 +4,7 @@ import configureStore from './store/store';
 import Root from './components/root';
 
 // import { fetchBenches } from './util/bench_api_util';
-import { fetchBenches } from './actions/bench_actions';
+// import { fetchBenches } from './actions/bench_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
@@ -21,5 +21,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // for testing
   window.store = store;
-  window.fetchBenches = fetchBenches;
+  // window.fetchBenches = fetchBenches;
 });
