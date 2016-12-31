@@ -4,8 +4,8 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 
 import SessionFormContainer from './session_form/session_form_container';
-import BenchIndexContainer from './benches/bench_index_container';
-
+// import BenchIndexContainer from './benches/bench_index_container';
+import SearchContainer from './search/search_container';
 
 const Root = ({ store }) => {
 
@@ -20,7 +20,7 @@ const Root = ({ store }) => {
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path='/' component={ App }>
-          <IndexRoute component={ BenchIndexContainer } />
+          <IndexRoute component={ SearchContainer } />
           <Route path='/login'
                  component={ SessionFormContainer }
                  onEnter={ _redirectIfLoggedIn } />
