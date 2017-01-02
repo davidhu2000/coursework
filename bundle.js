@@ -22618,7 +22618,7 @@
 	        };
 	      case _todo_actions.RECEIVE_TODO:
 	        return {
-	          v: (0, _lodash.merge)({}, state, _defineProperty({}, action.todos.id, action.todos))
+	          v: (0, _lodash.merge)({}, state, _defineProperty({}, action.todo.id, action.todo))
 	        };
 	      default:
 	        return {
@@ -41037,17 +41037,26 @@
 	
 	var _todo_list_item2 = _interopRequireDefault(_todo_list_item);
 	
+	var _todo_form = __webpack_require__(227);
+	
+	var _todo_form2 = _interopRequireDefault(_todo_form);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var TodoList = function TodoList(_ref) {
 	  var todos = _ref.todos,
 	      receiveTodo = _ref.receiveTodo;
 	  return _react2.default.createElement(
-	    'ul',
+	    'div',
 	    null,
-	    todos.map(function (todo, id) {
-	      return _react2.default.createElement(_todo_list_item2.default, { key: id, todo: todo });
-	    })
+	    _react2.default.createElement(
+	      'ul',
+	      null,
+	      todos.map(function (todo, id) {
+	        return _react2.default.createElement(_todo_list_item2.default, { key: id, todo: todo });
+	      })
+	    ),
+	    _react2.default.createElement(_todo_form2.default, { receiveTodo: receiveTodo })
 	  );
 	};
 	
@@ -41142,6 +41151,121 @@
 	}(_react2.default.Component);
 	
 	exports.default = TodoListItem;
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TodoForm = function (_React$Component) {
+	  _inherits(TodoForm, _React$Component);
+	
+	  function TodoForm(props) {
+	    _classCallCheck(this, TodoForm);
+	
+	    var _this = _possibleConstructorReturn(this, (TodoForm.__proto__ || Object.getPrototypeOf(TodoForm)).call(this, props));
+	
+	    console.log('TodoFormConstructor');
+	    console.log(_this.props);
+	    _this.state = {
+	      id: _this.uniqueId(),
+	      title: '',
+	      body: '',
+	      done: false
+	    };
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.handleInput = _this.handleInput.bind(_this);
+	    _this.handleCheckbox = _this.handleCheckbox.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(TodoForm, [{
+	    key: 'uniqueId',
+	    value: function uniqueId() {
+	      return new Date().getTime();
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+	      this.props.receiveTodo(this.state);
+	    }
+	  }, {
+	    key: 'handleInput',
+	    value: function handleInput(field) {
+	      var _this2 = this;
+	
+	      return function (e) {
+	        _this2.setState(_defineProperty({}, field, e.target.value));
+	      };
+	    }
+	  }, {
+	    key: 'handleCheckbox',
+	    value: function handleCheckbox(e) {
+	      if (e.target.checked) {
+	        this.setState({ done: true });
+	      } else {
+	        this.setState({ done: false });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Title:',
+	          _react2.default.createElement('input', { type: 'text', onChange: this.handleInput('title') })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Body:',
+	          _react2.default.createElement('input', { type: 'text', onChange: this.handleInput('body') })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          "Done?",
+	          _react2.default.createElement('input', { type: 'checkbox', value: 'true', onChange: this.handleCheckbox })
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'submit', value: 'Submit' },
+	          'Submit'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return TodoForm;
+	}(_react2.default.Component);
+	
+	exports.default = TodoForm;
 
 /***/ }
 /******/ ]);
