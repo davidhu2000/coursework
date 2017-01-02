@@ -22605,6 +22605,8 @@
 	  var action = arguments[1];
 	
 	  Object.freeze(state);
+	  console.log('todosReducer');
+	  console.log(action);
 	
 	  var _ret = function () {
 	    switch (action.type) {
@@ -22619,6 +22621,13 @@
 	      case _todo_actions.RECEIVE_TODO:
 	        return {
 	          v: (0, _lodash.merge)({}, state, _defineProperty({}, action.todo.id, action.todo))
+	        };
+	      case _todo_actions.REMOVE_TODO:
+	        console.log("removing todo");
+	        var removeState = (0, _lodash.merge)({}, state);
+	        delete removeState[action.todo.id];
+	        return {
+	          v: removeState
 	        };
 	      default:
 	        return {
@@ -22643,6 +22652,7 @@
 	});
 	var RECEIVE_TODOS = exports.RECEIVE_TODOS = "RECEIVE_TODOS";
 	var RECEIVE_TODO = exports.RECEIVE_TODO = "RECEIVE_TODO";
+	var REMOVE_TODO = exports.REMOVE_TODO = "REMOVE_TODO";
 	
 	var receiveTodos = exports.receiveTodos = function receiveTodos(todos) {
 	  return {
@@ -22657,6 +22667,13 @@
 	    todo: todo
 	  };
 	};
+	
+	var removeTodo = exports.removeTodo = function removeTodo(todo) {
+	  return {
+	    type: REMOVE_TODO,
+	    todo: todo
+	  };
+	};
 
 /***/ },
 /* 203 */
@@ -22667,9 +22684,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var allTodos = exports.allTodos = function allTodos(state) {
-	  return Object.keys(state.todos).map(function (index) {
-	    return state.todos[index];
+	var allTodos = exports.allTodos = function allTodos(_ref) {
+	  var todos = _ref.todos;
+	
+	  return Object.keys(todos).map(function (index) {
+	    return todos[index];
 	  });
 	};
 
@@ -41045,7 +41064,8 @@
 	
 	var TodoList = function TodoList(_ref) {
 	  var todos = _ref.todos,
-	      receiveTodo = _ref.receiveTodo;
+	      receiveTodo = _ref.receiveTodo,
+	      removeTodo = _ref.removeTodo;
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -41053,7 +41073,7 @@
 	      'ul',
 	      null,
 	      todos.map(function (todo, id) {
-	        return _react2.default.createElement(_todo_list_item2.default, { key: id, todo: todo });
+	        return _react2.default.createElement(_todo_list_item2.default, { key: id, todo: todo, removeTodo: removeTodo });
 	      })
 	    ),
 	    _react2.default.createElement(_todo_form2.default, { receiveTodo: receiveTodo })
@@ -41094,6 +41114,9 @@
 	  return {
 	    receiveTodo: function receiveTodo(todo) {
 	      return dispatch((0, _todo_actions.receiveTodo)(todo));
+	    },
+	    removeTodo: function removeTodo(todo) {
+	      return dispatch((0, _todo_actions.removeTodo)(todo));
 	    }
 	  };
 	};
@@ -41104,7 +41127,7 @@
 /* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -41133,16 +41156,28 @@
 	    var _this = _possibleConstructorReturn(this, (TodoListItem.__proto__ || Object.getPrototypeOf(TodoListItem)).call(this, props));
 	
 	    _this.todo = _this.props.todo;
+	    _this.handleDelete = _this.handleDelete.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(TodoListItem, [{
-	    key: 'render',
+	    key: "handleDelete",
+	    value: function handleDelete(e) {
+	      e.preventDefault();
+	      this.props.removeTodo(this.todo);
+	    }
+	  }, {
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'li',
+	        "li",
 	        { key: this.todo.id },
-	        this.todo.title
+	        this.todo.title,
+	        _react2.default.createElement(
+	          "button",
+	          { type: "button", onClick: this.handleDelete },
+	          "Delete"
+	        )
 	      );
 	    }
 	  }]);
@@ -41188,15 +41223,11 @@
 	
 	    console.log('TodoFormConstructor');
 	    console.log(_this.props);
-	    _this.state = {
-	      id: _this.uniqueId(),
-	      title: '',
-	      body: '',
-	      done: false
-	    };
+	    _this.state = _this.initialState();
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    _this.handleInput = _this.handleInput.bind(_this);
 	    _this.handleCheckbox = _this.handleCheckbox.bind(_this);
+	    _this.initialState = _this.initialState.bind(_this);
 	    return _this;
 	  }
 	
@@ -41206,10 +41237,22 @@
 	      return new Date().getTime();
 	    }
 	  }, {
+	    key: 'initialState',
+	    value: function initialState() {
+	      return {
+	        id: this.uniqueId(),
+	        title: '',
+	        body: '',
+	        done: false
+	      };
+	    }
+	  }, {
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
 	      this.props.receiveTodo(this.state);
+	      this.setState(this.initialState());
+	      document.getElementById('todoform').reset();
 	    }
 	  }, {
 	    key: 'handleInput',
@@ -41234,7 +41277,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit },
+	        { onSubmit: this.handleSubmit, id: 'todoform' },
 	        _react2.default.createElement(
 	          'label',
 	          null,

@@ -5,24 +5,31 @@ class TodoForm extends React.Component {
     super(props);
     console.log('TodoFormConstructor');
     console.log(this.props);
-    this.state = {
-      id: this.uniqueId(),
-      title: '',
-      body: '',
-      done: false
-    };
+    this.state = this.initialState();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.initialState = this.initialState.bind(this);
   }
 
   uniqueId() {
     return new Date().getTime();
   }
 
+  initialState() {
+    return {
+      id: this.uniqueId(),
+      title: '',
+      body: '',
+      done: false
+    };
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.receiveTodo(this.state);
+    this.setState(this.initialState());
+    document.getElementById('todoform').reset();
   }
 
   handleInput(field) {
@@ -43,7 +50,7 @@ class TodoForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} id='todoform'>
         <label>
           Title:
           <input type='text' onChange={this.handleInput('title')}></input>
