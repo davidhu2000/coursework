@@ -58,11 +58,14 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
+	var _selectors = __webpack_require__(203);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	document.addEventListener("DOMContentLoaded", function () {
 	  var store = (0, _store2.default)();
 	  window.store = store;
+	  window.allTodos = _selectors.allTodos;
 	  var root = document.getElementById("root");
 	  _reactDom2.default.render(_react2.default.createElement(
 	    'h1',
@@ -22568,7 +22571,7 @@
 /* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22576,8 +22579,23 @@
 	
 	var _todo_actions = __webpack_require__(202);
 	
+	var initialState = {
+	  1: {
+	    id: 1,
+	    title: "wash car",
+	    body: "with soap",
+	    done: false
+	  },
+	  2: {
+	    id: 2,
+	    title: "wash dog",
+	    body: "with shampoo",
+	    done: true
+	  }
+	};
+	
 	var todosReducer = function todosReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	  var action = arguments[1];
 	
 	  switch (action.type) {
@@ -22612,6 +22630,21 @@
 	    type: RECEIVE_TODO,
 	    todo: todo
 	  };
+	};
+
+/***/ },
+/* 203 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var allTodos = exports.allTodos = function allTodos(state) {
+	  return Object.keys(state.todos).map(function (index) {
+	    return state.todos[index];
+	  });
 	};
 
 /***/ }
