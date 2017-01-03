@@ -35,7 +35,6 @@ class TodoListItem extends React.Component {
   handleTitleClick() {
     this.detail = this.detail ? false : true;
     this.forceUpdate();
-    console.log(this.detail);
   }
 
   showDetail() {
@@ -43,8 +42,6 @@ class TodoListItem extends React.Component {
       return (
         <TodoDetailViewContainer body={this.state.body}/>
       );
-    } else {
-      console.log('nodetail');
     }
   }
 

@@ -41292,15 +41292,12 @@
 	    value: function handleTitleClick() {
 	      this.detail = this.detail ? false : true;
 	      this.forceUpdate();
-	      console.log(this.detail);
 	    }
 	  }, {
 	    key: 'showDetail',
 	    value: function showDetail() {
 	      if (this.detail) {
 	        return _react2.default.createElement(_todo_detail_view_container2.default, { body: this.state.body });
-	      } else {
-	        console.log('nodetail');
 	      }
 	    }
 	  }, {
@@ -41672,8 +41669,6 @@
 	
 	    var _this = _possibleConstructorReturn(this, (TodoForm.__proto__ || Object.getPrototypeOf(TodoForm)).call(this, props));
 	
-	    console.log('TodoFormConstructor');
-	    console.log(_this.props);
 	    _this.state = _this.initialState();
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    _this.handleInput = _this.handleInput.bind(_this);

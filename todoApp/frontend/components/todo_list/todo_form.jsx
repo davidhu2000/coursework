@@ -3,8 +3,6 @@ import React from 'react';
 class TodoForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log('TodoFormConstructor');
-    console.log(this.props);
     this.state = this.initialState();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
