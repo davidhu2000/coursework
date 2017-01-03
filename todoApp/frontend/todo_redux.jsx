@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store';
-import { allTodos, stepsByTodoId } from './reducers/selectors';
 import Root from './components/root';
+
+// for testing
+import { allTodos, stepsByTodoId } from './reducers/selectors';
+import { getTodos } from './util/todo_api_util';
 
 document.addEventListener("DOMContentLoaded", () => {
   const store = configureStore();
@@ -13,4 +16,5 @@ document.addEventListener("DOMContentLoaded", () => {
   window.store = store;
   window.allTodos = allTodos;
   window.stepsByTodoId = stepsByTodoId;
+  window.getTodos = getTodos;
 });

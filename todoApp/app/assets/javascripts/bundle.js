@@ -58,14 +58,17 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _selectors = __webpack_require__(206);
-	
 	var _root = __webpack_require__(207);
 	
 	var _root2 = _interopRequireDefault(_root);
 	
+	var _selectors = __webpack_require__(206);
+	
+	var _todo_api_util = __webpack_require__(236);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	// for testing
 	document.addEventListener("DOMContentLoaded", function () {
 	  var store = (0, _store2.default)();
 	  var root = document.getElementById("root");
@@ -75,6 +78,7 @@
 	  window.store = store;
 	  window.allTodos = _selectors.allTodos;
 	  window.stepsByTodoId = _selectors.stepsByTodoId;
+	  window.getTodos = _todo_api_util.getTodos;
 	});
 
 /***/ },
@@ -21506,10 +21510,16 @@
 	
 	var _root_reducer2 = _interopRequireDefault(_root_reducer);
 	
+	var _thunk = __webpack_require__(237);
+	
+	var _thunk2 = _interopRequireDefault(_thunk);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var preloadedState = {};
+	
 	var configureStore = function configureStore() {
-	  return (0, _redux.createStore)(_root_reducer2.default);
+	  return (0, _redux.createStore)(_root_reducer2.default, preloadedState, (0, _redux.applyMiddleware)(_thunk2.default));
 	};
 	
 	exports.default = configureStore;
@@ -41755,6 +41765,46 @@
 	}(_react2.default.Component);
 	
 	exports.default = TodoForm;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var getTodos = exports.getTodos = function getTodos() {
+	  return $.ajax({
+	    method: 'GET',
+	    url: 'api/todos'
+	  });
+	};
+
+/***/ },
+/* 237 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var thunkMiddleware = function thunkMiddleware(_ref) {
+	  var dispatch = _ref.dispatch,
+	      getState = _ref.getState;
+	  return function (next) {
+	    return function (action) {
+	      if (typeof action === 'function') {
+	        return action(dispatch, getState);
+	      }
+	      return next(action);
+	    };
+	  };
+	};
+	
+	exports.default = thunkMiddleware;
 
 /***/ }
 /******/ ]);
