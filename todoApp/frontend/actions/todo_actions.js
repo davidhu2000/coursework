@@ -26,3 +26,10 @@ export const fetchTodos = () => dispatch => {
                 error => console.log("error")
               );
 };
+
+export const createTodo = todo => dispatch => {
+  return APIUtil.createTodo(todo)
+                .then(resp => dispatch(receiveTodo(resp)),
+                error => console.log("error")
+              );
+};

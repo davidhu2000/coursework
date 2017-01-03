@@ -22669,7 +22669,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.fetchTodos = exports.removeTodo = exports.receiveTodo = exports.receiveTodos = exports.REMOVE_TODO = exports.RECEIVE_TODO = exports.RECEIVE_TODOS = undefined;
+	exports.createTodo = exports.fetchTodos = exports.removeTodo = exports.receiveTodo = exports.receiveTodos = exports.REMOVE_TODO = exports.RECEIVE_TODO = exports.RECEIVE_TODOS = undefined;
 	
 	var _todo_api_util = __webpack_require__(236);
 	
@@ -22706,6 +22706,16 @@
 	  return function (dispatch) {
 	    return APIUtil.getTodos().then(function (resp) {
 	      return dispatch(receiveTodos(resp));
+	    }, function (error) {
+	      return console.log("error");
+	    });
+	  };
+	};
+	
+	var createTodo = exports.createTodo = function createTodo(todo) {
+	  return function (dispatch) {
+	    return APIUtil.createTodo(todo).then(function (resp) {
+	      return dispatch(receiveTodo(resp));
 	    }, function (error) {
 	      return console.log("error");
 	    });
@@ -41205,6 +41215,9 @@
 	    },
 	    fetchTodos: function fetchTodos() {
 	      return dispatch((0, _todo_actions.fetchTodos)());
+	    },
+	    createTodo: function createTodo(todo) {
+	      return dispatch((0, _todo_actions.createTodo)(todo));
 	    }
 	  };
 	};
@@ -41276,7 +41289,7 @@
 	              removeTodo: _this2.props.removeTodo.bind(null, todo) });
 	          })
 	        ),
-	        _react2.default.createElement(_todo_form2.default, { receiveTodo: this.props.receiveTodo })
+	        _react2.default.createElement(_todo_form2.default, { createTodo: this.props.createTodo })
 	      );
 	    }
 	  }]);
@@ -41761,7 +41774,7 @@
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
-	      this.props.receiveTodo(this.state);
+	      this.props.createTodo(this.state);
 	      this.setState(this.initialState());
 	      document.getElementById('todoform').reset();
 	    }
@@ -41834,6 +41847,14 @@
 	  return $.ajax({
 	    method: 'GET',
 	    url: 'api/todos'
+	  });
+	};
+	
+	var createTodo = exports.createTodo = function createTodo(todo) {
+	  return $.ajax({
+	    method: "POST",
+	    url: "api/todos",
+	    data: { todo: todo }
 	  });
 	};
 
