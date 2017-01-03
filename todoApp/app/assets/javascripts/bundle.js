@@ -22580,11 +22580,16 @@
 	
 	var _steps_reducer2 = _interopRequireDefault(_steps_reducer);
 	
+	var _error_reducer = __webpack_require__(239);
+	
+	var _error_reducer2 = _interopRequireDefault(_error_reducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  todos: _todos_reducer2.default,
-	  steps: _steps_reducer2.default
+	  steps: _steps_reducer2.default,
+	  errors: _error_reducer2.default
 	});
 	
 	exports.default = rootReducer;
@@ -22664,7 +22669,7 @@
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22674,6 +22679,8 @@
 	var _todo_api_util = __webpack_require__(236);
 	
 	var APIUtil = _interopRequireWildcard(_todo_api_util);
+	
+	var _error_actions = __webpack_require__(238);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -22704,20 +22711,22 @@
 	
 	var fetchTodos = exports.fetchTodos = function fetchTodos() {
 	  return function (dispatch) {
-	    return APIUtil.getTodos().then(function (resp) {
-	      return dispatch(receiveTodos(resp));
-	    }, function (error) {
-	      return console.log("error");
+	    return APIUtil.getTodos().then(function (res) {
+	      dispatch(receiveTodos(res));
+	      dispatch((0, _error_actions.clearErrors)());
+	    }, function (err) {
+	      return dispatch((0, _error_actions.receiveErrors)(err.responseJSON));
 	    });
 	  };
 	};
 	
 	var createTodo = exports.createTodo = function createTodo(todo) {
 	  return function (dispatch) {
-	    return APIUtil.createTodo(todo).then(function (resp) {
-	      return dispatch(receiveTodo(resp));
-	    }, function (error) {
-	      return console.log("error");
+	    return APIUtil.createTodo(todo).then(function (res) {
+	      dispatch(receiveTodo(res));
+	      dispatch((0, _error_actions.clearErrors)());
+	    }, function (err) {
+	      return dispatch((0, _error_actions.receiveErrors)(err.responseJSON));
 	    });
 	  };
 	};
@@ -41197,11 +41206,14 @@
 	
 	var _todo_actions = __webpack_require__(202);
 	
+	var _error_actions = __webpack_require__(238);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    todos: (0, _selectors.allTodos)(state)
+	    todos: (0, _selectors.allTodos)(state),
+	    errors: state.errors
 	  };
 	};
 	
@@ -41218,6 +41230,12 @@
 	    },
 	    createTodo: function createTodo(todo) {
 	      return dispatch((0, _todo_actions.createTodo)(todo));
+	    },
+	    receiveErrors: function receiveErrors(errors) {
+	      return dispatch((0, _error_actions.receiveErrors)(errors));
+	    },
+	    clearErrors: function clearErrors() {
+	      return dispatch((0, _error_actions.clearErrors)());
 	    }
 	  };
 	};
@@ -41262,7 +41280,10 @@
 	  function TodoList(props) {
 	    _classCallCheck(this, TodoList);
 	
-	    return _possibleConstructorReturn(this, (TodoList.__proto__ || Object.getPrototypeOf(TodoList)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (TodoList.__proto__ || Object.getPrototypeOf(TodoList)).call(this, props));
+	
+	    _this.renderErrors = _this.renderErrors.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(TodoList, [{
@@ -41272,6 +41293,32 @@
 	      this.forceUpdate();
 	    }
 	  }, {
+	    key: 'renderErrors',
+	    value: function renderErrors() {
+	      if (this.props.errors.length !== 0) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Errors'
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            this.props.errors.map(function (error, id) {
+	              return _react2.default.createElement(
+	                'li',
+	                { key: id },
+	                error
+	              );
+	            })
+	          )
+	        );
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -41279,6 +41326,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        this.renderErrors(),
 	        _react2.default.createElement(
 	          'ul',
 	          null,
@@ -41881,6 +41929,62 @@
 	};
 	
 	exports.default = thunkMiddleware;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var RECEIVE_ERRORS = exports.RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+	var CLEAR_ERRORS = exports.CLEAR_ERRORS = 'CLEAR_ERRORS';
+	
+	var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+	  return {
+	    type: RECEIVE_ERRORS,
+	    errors: errors
+	  };
+	};
+	
+	var clearErrors = exports.clearErrors = function clearErrors() {
+	  return {
+	    type: CLEAR_ERRORS
+	  };
+	};
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _lodash = __webpack_require__(203);
+	
+	var _error_actions = __webpack_require__(238);
+	
+	var errorReducer = function errorReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	  var action = arguments[1];
+	
+	  Object.freeze(state);
+	  switch (action.type) {
+	    case _error_actions.RECEIVE_ERRORS:
+	      return (0, _lodash.merge)([], state, action.errors);
+	    case _error_actions.CLEAR_ERRORS:
+	      return [];
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = errorReducer;
 
 /***/ }
 /******/ ]);

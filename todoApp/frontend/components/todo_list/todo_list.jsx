@@ -5,6 +5,7 @@ import TodoForm from './todo_form';
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
+    this.renderErrors = this.renderErrors.bind(this);
   }
 
   componentDidMount() {
@@ -12,9 +13,27 @@ class TodoList extends React.Component {
     this.forceUpdate();
   }
 
+  renderErrors() {
+    if(this.props.errors.length !== 0) {
+      return (
+        <div>
+          <h3>Errors</h3>
+          <ul>
+            {
+              this.props.errors.map( (error, id) => (
+                <li key={id}>{error}</li>
+              ))
+            }
+          </ul>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div>
+        { this.renderErrors() }
         <ul>
           {
             this.props.todos.map( (todo, id) => (
