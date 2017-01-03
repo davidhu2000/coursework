@@ -4,7 +4,7 @@ import { merge } from 'lodash';
 const initialState = {
   1: {
     id: 1,
-    title: "wash car",
+    title: "wash car not!",
     body: "with soap",
     done: false
   },
@@ -14,6 +14,12 @@ const initialState = {
     body: "with shampoo",
     done: true
   },
+  // 3: {
+  //   id: 3,
+  //   title: "wash dog",
+  //   body: "with shampoo",
+  //   done: true
+  // },
 };
 
 const todosReducer = (state = initialState, action) => {

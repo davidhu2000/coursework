@@ -6,6 +6,7 @@ import Root from './components/root';
 // for testing
 import { allTodos, stepsByTodoId } from './reducers/selectors';
 import { getTodos } from './util/todo_api_util';
+import { fetchTodos } from './actions/todo_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
   const store = configureStore();
@@ -17,4 +18,5 @@ document.addEventListener("DOMContentLoaded", () => {
   window.allTodos = allTodos;
   window.stepsByTodoId = stepsByTodoId;
   window.getTodos = getTodos;
+  window.fetchTodos = fetchTodos;
 });

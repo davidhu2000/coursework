@@ -4,7 +4,6 @@ import TodoDetailViewContainer from './todo_detail_view_container';
 class TodoListItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.todo;
     this.handleDelete = this.handleDelete.bind(this);
     this.handleDone = this.handleDone.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
@@ -14,12 +13,12 @@ class TodoListItem extends React.Component {
 
   handleDelete(e) {
     e.preventDefault();
-    this.props.removeTodo(this.state);
+    this.props.removeTodo(this.props.todo);
   }
 
   handleDone(e) {
     e.preventDefault();
-    if (this.state.done) {
+    if (this.props.todo.done) {
       this.setState({
         done: false
       });
@@ -29,7 +28,7 @@ class TodoListItem extends React.Component {
       });
     }
 
-    this.props.receiveTodo(this.state);
+    this.props.receiveTodo(this.props.todo);
   }
 
   handleTitleClick() {
@@ -40,16 +39,16 @@ class TodoListItem extends React.Component {
   showDetail() {
     if (this.detail) {
       return (
-        <TodoDetailViewContainer body={this.state.body}/>
+        <TodoDetailViewContainer body={this.props.todo.body}/>
       );
     }
   }
 
   render() {
     return (
-      <li key={this.state.id}>
-        <span onClick={this.handleTitleClick}>{ this.state.title }</span>
-        <button type="button" onClick={this.handleDone}>{this.state.done === false ? "done" : "undo"}</button>
+      <li key={this.props.todo.id}>
+        <span onClick={this.handleTitleClick}>{ this.props.todo.title }</span>
+        <button type="button" onClick={this.handleDone}>{this.props.todo.done === false ? "done" : "undo"}</button>
         <button type="button" onClick={this.handleDelete}>Delete</button>
         { this.showDetail() }
       </li>
