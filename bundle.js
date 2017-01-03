@@ -41073,7 +41073,7 @@
 	      'ul',
 	      null,
 	      todos.map(function (todo, id) {
-	        return _react2.default.createElement(_todo_list_item2.default, { key: id, todo: todo, removeTodo: removeTodo });
+	        return _react2.default.createElement(_todo_list_item2.default, { key: id, todo: todo, receiveTodo: receiveTodo, removeTodo: removeTodo });
 	      })
 	    ),
 	    _react2.default.createElement(_todo_form2.default, { receiveTodo: receiveTodo })
@@ -41155,8 +41155,9 @@
 	
 	    var _this = _possibleConstructorReturn(this, (TodoListItem.__proto__ || Object.getPrototypeOf(TodoListItem)).call(this, props));
 	
-	    _this.todo = _this.props.todo;
+	    _this.state = _this.props.todo;
 	    _this.handleDelete = _this.handleDelete.bind(_this);
+	    _this.handleDone = _this.handleDone.bind(_this);
 	    return _this;
 	  }
 	
@@ -41164,15 +41165,36 @@
 	    key: "handleDelete",
 	    value: function handleDelete(e) {
 	      e.preventDefault();
-	      this.props.removeTodo(this.todo);
+	      this.props.removeTodo(this.state);
+	    }
+	  }, {
+	    key: "handleDone",
+	    value: function handleDone(e) {
+	      e.preventDefault();
+	      if (this.state.done) {
+	        this.setState({
+	          done: false
+	        });
+	      } else {
+	        this.setState({
+	          done: true
+	        });
+	      }
+	
+	      this.props.receiveTodo(this.state);
 	    }
 	  }, {
 	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "li",
-	        { key: this.todo.id },
-	        this.todo.title,
+	        { key: this.state.id },
+	        this.state.title,
+	        _react2.default.createElement(
+	          "button",
+	          { type: "button", onClick: this.handleDone },
+	          this.state.done === false ? "done" : "undo"
+	        ),
 	        _react2.default.createElement(
 	          "button",
 	          { type: "button", onClick: this.handleDelete },
