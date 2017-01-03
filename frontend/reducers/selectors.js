@@ -3,3 +3,14 @@ export const allTodos = ({ todos }) => {
     todos[index]
   ));
 };
+
+export const stepsByTodoId = ({ steps }, todoId) => {
+  let todoSteps = [];
+  Object.keys(steps).forEach( index => {
+    let currStep = steps[index];
+    if (currStep.todo_id === todoId) {
+      todoSteps.push(currStep);
+    }
+  });
+  return todoSteps;
+};

@@ -68,10 +68,13 @@
 	
 	document.addEventListener("DOMContentLoaded", function () {
 	  var store = (0, _store2.default)();
-	  window.store = store;
-	  window.allTodos = _selectors.allTodos;
 	  var root = document.getElementById("root");
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
+	
+	  // for testing
+	  window.store = store;
+	  window.allTodos = _selectors.allTodos;
+	  window.stepsByTodoId = _selectors.stepsByTodoId;
 	});
 
 /***/ },
@@ -22559,10 +22562,15 @@
 	
 	var _todos_reducer2 = _interopRequireDefault(_todos_reducer);
 	
+	var _steps_reducer = __webpack_require__(230);
+	
+	var _steps_reducer2 = _interopRequireDefault(_steps_reducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
-	  todos: _todos_reducer2.default
+	  todos: _todos_reducer2.default,
+	  steps: _steps_reducer2.default
 	});
 	
 	exports.default = rootReducer;
@@ -22687,6 +22695,19 @@
 	  return Object.keys(todos).map(function (index) {
 	    return todos[index];
 	  });
+	};
+	
+	var stepsByTodoId = exports.stepsByTodoId = function stepsByTodoId(_ref2, todoId) {
+	  var steps = _ref2.steps;
+	
+	  var todoSteps = [];
+	  Object.keys(steps).forEach(function (index) {
+	    var currStep = steps[index];
+	    if (currStep.todo_id === todoId) {
+	      todoSteps.push(currStep);
+	    }
+	  });
+	  return todoSteps;
 	};
 
 /***/ },
@@ -41442,6 +41463,85 @@
 	}(_react2.default.Component);
 	
 	exports.default = TodoDetailView;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _step_actions = __webpack_require__(231);
+	
+	var initialState = {
+	  1: { // this is the step with id = 1
+	    id: 1,
+	    title: "walk to store",
+	    done: false,
+	    todo_id: 1
+	  },
+	  2: { // this is the step with id = 2
+	    id: 2,
+	    title: "buy soap",
+	    done: false,
+	    todo_id: 1
+	  }
+	};
+	
+	var stepsReducer = function stepsReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _step_actions.RECEIVE_STEPS:
+	
+	    case _step_actions.RECEIVE_STEP:
+	
+	    case _step_actions.REMOVE_STEP:
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = stepsReducer;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var RECEIVE_STEPS = exports.RECEIVE_STEPS = 'RECEIVE_STEPS';
+	var RECEIVE_STEP = exports.RECEIVE_STEP = 'RECEIVE_STEP';
+	var REMOVE_STEP = exports.REMOVE_STEP = 'REMOVE_STEP';
+	
+	var receiveSteps = exports.receiveSteps = function receiveSteps(steps) {
+	  return {
+	    type: RECEIVE_STEPS,
+	    steps: steps
+	  };
+	};
+	
+	var receiveStep = exports.receiveStep = function receiveStep(step) {
+	  return {
+	    type: RECEIVE_STEP,
+	    step: step
+	  };
+	};
+	
+	var removeStep = exports.removeStep = function removeStep(step) {
+	  return {
+	    type: REMOVE_STEP,
+	    step: step
+	  };
+	};
 
 /***/ }
 /******/ ]);
