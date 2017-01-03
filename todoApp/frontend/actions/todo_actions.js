@@ -40,3 +40,23 @@ export const createTodo = todo => dispatch => {
     err => dispatch(receiveErrors(err.responseJSON))
   );
 };
+
+export const updateTodo = todo => dispatch => {
+  return APIUtil.updateTodo(todo)
+    .then(res => {
+      dispatch(receiveTodo(res));
+      dispatch(clearErrors());
+    },
+    err => dispatch(receiveErrors(err.responseJSON))
+  );
+};
+
+export const deleteTodo = todo => dispatch => {
+  return APIUtil.deleteTodo(todo)
+    .then(res => {
+      dispatch(removeTodo(res));
+      dispatch(clearErrors());
+    },
+    err => dispatch(receiveErrors(err.responseJSON))
+  );
+};

@@ -22674,7 +22674,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.createTodo = exports.fetchTodos = exports.removeTodo = exports.receiveTodo = exports.receiveTodos = exports.REMOVE_TODO = exports.RECEIVE_TODO = exports.RECEIVE_TODOS = undefined;
+	exports.deleteTodo = exports.updateTodo = exports.createTodo = exports.fetchTodos = exports.removeTodo = exports.receiveTodo = exports.receiveTodos = exports.REMOVE_TODO = exports.RECEIVE_TODO = exports.RECEIVE_TODOS = undefined;
 	
 	var _todo_api_util = __webpack_require__(236);
 	
@@ -22724,6 +22724,28 @@
 	  return function (dispatch) {
 	    return APIUtil.createTodo(todo).then(function (res) {
 	      dispatch(receiveTodo(res));
+	      dispatch((0, _error_actions.clearErrors)());
+	    }, function (err) {
+	      return dispatch((0, _error_actions.receiveErrors)(err.responseJSON));
+	    });
+	  };
+	};
+	
+	var updateTodo = exports.updateTodo = function updateTodo(todo) {
+	  return function (dispatch) {
+	    return APIUtil.updateTodo(todo).then(function (res) {
+	      dispatch(receiveTodo(res));
+	      dispatch((0, _error_actions.clearErrors)());
+	    }, function (err) {
+	      return dispatch((0, _error_actions.receiveErrors)(err.responseJSON));
+	    });
+	  };
+	};
+	
+	var deleteTodo = exports.deleteTodo = function deleteTodo(todo) {
+	  return function (dispatch) {
+	    return APIUtil.deleteTodo(todo).then(function (res) {
+	      dispatch(removeTodo(res));
 	      dispatch((0, _error_actions.clearErrors)());
 	    }, function (err) {
 	      return dispatch((0, _error_actions.receiveErrors)(err.responseJSON));
@@ -41236,6 +41258,12 @@
 	    },
 	    clearErrors: function clearErrors() {
 	      return dispatch((0, _error_actions.clearErrors)());
+	    },
+	    updateTodo: function updateTodo(todo) {
+	      return dispatch((0, _todo_actions.updateTodo)(todo));
+	    },
+	    deleteTodo: function deleteTodo(todo) {
+	      return dispatch((0, _todo_actions.deleteTodo)(todo));
 	    }
 	  };
 	};
@@ -41333,8 +41361,8 @@
 	          this.props.todos.map(function (todo, id) {
 	            return _react2.default.createElement(_todo_list_item2.default, { key: id,
 	              todo: todo,
-	              receiveTodo: _this2.props.receiveTodo,
-	              removeTodo: _this2.props.removeTodo.bind(null, todo) });
+	              updateTodo: _this2.props.updateTodo,
+	              deleteTodo: _this2.props.deleteTodo });
 	          })
 	        ),
 	        _react2.default.createElement(_todo_form2.default, { createTodo: this.props.createTodo })
@@ -41395,7 +41423,7 @@
 	    key: 'handleDelete',
 	    value: function handleDelete(e) {
 	      e.preventDefault();
-	      this.props.removeTodo(this.props.todo);
+	      this.props.deleteTodo(this.props.todo);
 	    }
 	  }, {
 	    key: 'handleDone',
@@ -41411,7 +41439,7 @@
 	        });
 	      }
 	
-	      this.props.receiveTodo(this.props.todo);
+	      this.props.updateTodo(this.props.todo);
 	    }
 	  }, {
 	    key: 'handleTitleClick',
@@ -41903,6 +41931,21 @@
 	    method: "POST",
 	    url: "api/todos",
 	    data: { todo: todo }
+	  });
+	};
+	
+	var updateTodo = exports.updateTodo = function updateTodo(todo) {
+	  return $.ajax({
+	    method: 'PATCH',
+	    url: 'api/todos/' + todo.id,
+	    data: { todo: todo }
+	  });
+	};
+	
+	var deleteTodo = exports.deleteTodo = function deleteTodo(todo) {
+	  return $.ajax({
+	    method: 'DELETE',
+	    url: 'api/todos/' + todo.id
 	  });
 	};
 

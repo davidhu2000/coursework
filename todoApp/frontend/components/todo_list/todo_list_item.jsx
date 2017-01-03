@@ -13,7 +13,7 @@ class TodoListItem extends React.Component {
 
   handleDelete(e) {
     e.preventDefault();
-    this.props.removeTodo(this.props.todo);
+    this.props.deleteTodo(this.props.todo);
   }
 
   handleDone(e) {
@@ -28,7 +28,7 @@ class TodoListItem extends React.Component {
       });
     }
 
-    this.props.receiveTodo(this.props.todo);
+    this.props.updateTodo(this.props.todo);
   }
 
   handleTitleClick() {
