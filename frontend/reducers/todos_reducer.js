@@ -18,8 +18,6 @@ const initialState = {
 
 const todosReducer = (state = initialState, action) => {
   Object.freeze(state);
-  console.log('todosReducer');
-  console.log(action);
   switch(action.type) {
     case RECEIVE_TODOS:
       let newState = {};
@@ -32,7 +30,6 @@ const todosReducer = (state = initialState, action) => {
          [action.todo.id]: action.todo
       });
     case REMOVE_TODO:
-    console.log("removing todo");
       let removeState = merge({}, state);
       delete removeState[action.todo.id];
       return removeState;
