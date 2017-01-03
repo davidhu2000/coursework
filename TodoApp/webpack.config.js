@@ -1,7 +1,7 @@
 module.exports = {
   entry: './frontend/todo_redux.jsx',
   output: {
-    path: './',
+    path: './app/assets/javascripts',
     filename: 'bundle.js',
   },
   module: {
