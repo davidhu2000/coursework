@@ -9,7 +9,7 @@ class TodoDetailView extends React.Component {
 
   render() {
     return (
-      <ul>
+      <ul className="todo-detail">
         <li>{ this.body }</li>
         <ul>
           <StepListContainer />

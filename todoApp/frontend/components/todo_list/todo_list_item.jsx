@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoDetailViewContainer from './todo_detail_view_container';
+import merge from 'lodash/merge';
 
 class TodoListItem extends React.Component {
   constructor(props) {
@@ -18,17 +19,14 @@ class TodoListItem extends React.Component {
 
   handleDone(e) {
     e.preventDefault();
-    if (this.props.todo.done) {
-      this.setState({
-        done: false
-      });
-    } else {
-      this.setState({
-        done: true
-      });
-    }
+    let todo = merge({}, this.props.todo);
+    todo.done = !this.props.todo.done;
+    this.props.updateTodo(todo);
+  }
 
-    this.props.updateTodo(this.props.todo);
+  handleUpdate(e) {
+    e.preventDefault();
+
   }
 
   handleTitleClick() {
@@ -39,17 +37,18 @@ class TodoListItem extends React.Component {
   showDetail() {
     if (this.detail) {
       return (
-        <TodoDetailViewContainer body={this.props.todo.body}/>
+        <TodoDetailViewContainer className="todo-detail" body={this.props.todo.body}/>
       );
     }
   }
 
   render() {
     return (
-      <li key={this.props.todo.id}>
-        <span onClick={this.handleTitleClick}>{ this.props.todo.title }</span>
-        <button type="button" onClick={this.handleDone}>{this.props.todo.done === false ? "done" : "undo"}</button>
-        <button type="button" onClick={this.handleDelete}>Delete</button>
+      <li key={this.props.todo.id} className='todo'>
+        <span className='todo-title' onClick={this.handleTitleClick}>{ this.props.todo.title }</span>
+        <button className='todo-button' type="button" onClick={this.handleDone}>{this.props.todo.done === false ? "done" : "undo"}</button>
+        <button className='todo-button' type="button" onClick={this.handleDelete}>Delete</button>
+        <button className='todo-button' type="button" onClick={this.handleUpdate}>Update</button>
         { this.showDetail() }
       </li>
     );

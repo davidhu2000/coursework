@@ -6,6 +6,7 @@ class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.renderErrors = this.renderErrors.bind(this);
+    this.creating = true;
   }
 
   componentDidMount() {
@@ -18,10 +19,10 @@ class TodoList extends React.Component {
       return (
         <div>
           <h3>Errors</h3>
-          <ul>
+          <ul className='error-list'>
             {
               this.props.errors.map( (error, id) => (
-                <li key={id}>{error}</li>
+                <li className='error' key={id}>{error}</li>
               ))
             }
           </ul>
@@ -34,7 +35,7 @@ class TodoList extends React.Component {
     return (
       <div>
         { this.renderErrors() }
-        <ul>
+        <ul className='todo-list'>
           {
             this.props.todos.map( (todo, id) => (
               <TodoListItem key={id}
@@ -44,7 +45,8 @@ class TodoList extends React.Component {
             ))
           }
         </ul>
-        <TodoForm createTodo={this.props.createTodo}/>
+        <TodoForm createTodo={ this.props.createTodo }
+                  creating={ this.creating } />
       </div>
     );
   }

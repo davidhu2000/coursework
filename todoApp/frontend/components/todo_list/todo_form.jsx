@@ -25,7 +25,11 @@ class TodoForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createTodo(this.state);
+    if(this.props.creating) {
+      this.props.createTodo(this.state);
+    } else {
+      this.props.updateTodo(this.state);
+    }
     this.setState(this.initialState());
     document.getElementById('todoform').reset();
   }
@@ -48,24 +52,36 @@ class TodoForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} id='todoform'>
-        <label>
-          Title:
-          <input type='text' onChange={this.handleInput('title')}></input>
-        </label>
+      <div>
+        <h3>{'Create new todo'}</h3>
+        <form onSubmit={this.handleSubmit} id='todoform'>
 
-        <label>
-          Body:
-          <input type='text' onChange={this.handleInput('body')}></input>
-        </label>
+          <label className='form-label'>
+            Title:
+          </label>
+          <input type='text'
+            className='form-input'
+            onChange={this.handleInput('title')}></input>
 
-        <label>
-          {"Done?"}
-          <input type="checkbox" value="true" onChange={this.handleCheckbox}></input>
-        </label>
+          <label className='form-label'>
+            Body:
+          </label>
+          <input type='text'
+            className='form-input'
+            onChange={this.handleInput('body')}></input>
 
-        <button type="submit" value="Submit">Submit</button>
-      </form>
+
+          <label className='form-label'>
+            {"Done?"}
+          </label>
+          <input type="checkbox"
+            className='form-input'
+            value="true"
+            onChange={this.handleCheckbox}></input>
+
+          <button type="submit" value="Submit" className='form-button'>Submit</button>
+        </form>
+      </div>
     );
   }
 }
