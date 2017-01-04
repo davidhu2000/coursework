@@ -11,10 +11,6 @@ class PokemonIndex extends React.Component {
   }
 
   render() {
-    console.log('rendering');
-    console.log(this.props.pokemon);
-    console.log(selectAllPokemon);
-    console.log(selectAllPokemon(this.props.pokemon));
     if(this.props.pokemon) {
       return (
         <ul>

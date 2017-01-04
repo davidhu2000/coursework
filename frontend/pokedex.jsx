@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
 
-  window.fetchAllPokemon = APIUtil.fetchAllPokemon;
-  window.requestAllPokemon = requestAllPokemon;
-  window.store = store;
+  // window.fetchAllPokemon = APIUtil.fetchAllPokemon;
+  // window.requestAllPokemon = requestAllPokemon;
+  // window.store = store;
 });
