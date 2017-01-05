@@ -1,5 +1,6 @@
 import React from 'react';
 import { selectAllPokemon } from '../../reducers/selectors';
+import PokemonIndexItem from './pokemon_index_item';
 
 class PokemonIndex extends React.Component {
   constructor(props) {
@@ -16,10 +17,7 @@ class PokemonIndex extends React.Component {
         <ul>
           {
             selectAllPokemon(this.props.pokemon).map( (pokemon, idx) => (
-              <li key={idx}>
-                <span>{ pokemon.name }</span>
-                <img src={ pokemon.image_url } width="50px" />
-              </li>
+              <PokemonIndexItem key={idx} pokemon={pokemon}/>
             ))
           }
         </ul>

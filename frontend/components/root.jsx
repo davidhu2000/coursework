@@ -1,10 +1,13 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import App from './app';
+import PokemonIndexContainer from './pokemon/pokemon_index_container';
+import { Router, Route, hashHistory } from 'react-router';
 
 const Root = ({ store }) => (
   <Provider store={ store }>
-    <App />
+    <Router history={hashHistory}>
+      <Route path="/" component={ PokemonIndexContainer} />
+    </Router>
   </Provider>
 );
 
