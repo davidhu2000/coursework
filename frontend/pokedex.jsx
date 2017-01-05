@@ -13,5 +13,5 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   // window.fetchAllPokemon = APIUtil.fetchAllPokemon;
   // window.requestAllPokemon = requestAllPokemon;
-  // window.store = store;
+  window.store = store;
 });

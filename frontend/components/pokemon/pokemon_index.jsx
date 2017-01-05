@@ -14,13 +14,16 @@ class PokemonIndex extends React.Component {
   render() {
     if(this.props.pokemon) {
       return (
-        <ul>
-          {
-            selectAllPokemon(this.props.pokemon).map( (pokemon, idx) => (
-              <PokemonIndexItem key={idx} pokemon={pokemon}/>
-            ))
-          }
-        </ul>
+        <div>
+          <ul>
+            {
+              selectAllPokemon(this.props.pokemon).map( (pokemon, idx) => (
+                <PokemonIndexItem key={idx} pokemon={pokemon}/>
+              ))
+            }
+          </ul>
+          <div>{this.props.children}</div>
+        </div>
       );
     } else {
       return (<div></div>);
