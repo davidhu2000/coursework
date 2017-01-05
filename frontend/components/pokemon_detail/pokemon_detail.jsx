@@ -3,6 +3,7 @@ import React from 'react';
 class PokemonDetail extends React.Component {
   constructor(props) {
     super(props);
+    this.showItemDetail = this.showItemDetail.bind(this);
   }
 
   componentDidMount () {
@@ -15,9 +16,24 @@ class PokemonDetail extends React.Component {
     }
   }
 
+  showItemDetail(id) {
+    return e => {
+      this.props.router.push(`pokemon/${this.props.pokemonDetail.id}/item/${id}`);
+    };
+  }
+
+  renderItemImage(item, idx) {
+    return (
+       <li key={idx}>
+         <img className="item-image"
+              src={item.image_url}
+              onClick={this.showItemDetail(item.id)}/>
+       </li>
+    );
+  }
+
   render() {
     let details = this.props.pokemonDetail;
-    console.log(details);
     if(details['name'] !== undefined) {
       return (
         <div className='pokemon-detail'>
@@ -30,8 +46,9 @@ class PokemonDetail extends React.Component {
             { details.moves.map( (move, idx) => <li key={idx}>{move}</li> )}
           </ul>
           <ul>
-            { details.items.map( (item, idx) => <li key={idx}>{item.name}</li> )}
+            { details.items.map( (item, idx) => this.renderItemImage(item, idx) )}
           </ul>
+          { this.props.children }
         </div>
       );
     } else {
