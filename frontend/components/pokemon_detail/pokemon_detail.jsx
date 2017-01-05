@@ -17,7 +17,8 @@ class PokemonDetail extends React.Component {
 
   render() {
     let details = this.props.pokemonDetail;
-    if(details) {
+    console.log(details);
+    if(details['name'] !== undefined) {
       return (
         <div className='pokemon-detail'>
           <img src={ details.image_url } className='pokemon-detail-image'/>
