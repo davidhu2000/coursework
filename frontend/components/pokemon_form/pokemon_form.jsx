@@ -12,9 +12,14 @@ class PokemonForm extends React.Component {
       defense: '',
       moves: []
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  renderErrors() {
+    return <ul>
+      { this.props.errors.map((error, idx) => <li key={idx}>{error}</li>)}
+    </ul>;
   }
 
   handleSubmit(e) {
@@ -43,6 +48,7 @@ class PokemonForm extends React.Component {
   render() {
     return (
       <div>
+        {this.renderErrors()}
         <form onSubmit={this.handleSubmit} >
           <input type='text'
                  placeholder='Name'
@@ -54,9 +60,8 @@ class PokemonForm extends React.Component {
                  onChange={this.handleChange('image_url')}
                  value={ this.state.image_url } />
 
-          <select value={ this.state.poke_type }
-                  onChange={this.handleChange('poke_type')}>
-
+               <select defaultValue='select' onChange={this.handleChange('poke_type')}>
+            <option disabled value='select'>{'--Select Type--'}</option>
             <option value="bug">bug</option>
             <option value="dragon">dragon</option>
             <option value="electric">electric</option>
