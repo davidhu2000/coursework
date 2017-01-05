@@ -14,15 +14,19 @@ class PokemonIndex extends React.Component {
   render() {
     if(this.props.pokemon) {
       return (
-        <div>
-          <ul>
-            {
-              selectAllPokemon(this.props.pokemon).map( (pokemon, idx) => (
-                <PokemonIndexItem key={idx} pokemon={pokemon}/>
-              ))
-            }
-          </ul>
-          <div>{this.props.children}</div>
+        <div className='container'>
+          <aside className='col col-1-3'>
+            <ul className='pokemon-list'>
+              {
+                selectAllPokemon(this.props.pokemon).map( (pokemon, idx) => (
+                  <PokemonIndexItem key={idx} pokemon={pokemon}/>
+                ))
+              }
+            </ul>
+          </aside>
+          <section className='col col-2-3'>
+            <div>{this.props.children}</div>
+          </section>
         </div>
       );
     } else {
