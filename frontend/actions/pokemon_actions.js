@@ -22,3 +22,8 @@ export const requestSinglePokemon = id => dispatch => {
   return APIUtil.fetchSinglePokemon(id)
     .then(pokemon => dispatch(receivePokemon(pokemon)));
 };
+
+export const createPokemon = pokemon => dispatch => {
+  return APIUtil.createPokemon(pokemon)
+    .then(res => dispatch(receivePokemon(res)));
+};
