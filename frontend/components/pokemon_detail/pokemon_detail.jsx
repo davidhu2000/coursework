@@ -38,16 +38,22 @@ class PokemonDetail extends React.Component {
       return (
         <div className='pokemon-detail'>
           <img src={ details.image_url } className='pokemon-detail-image'/>
-          <span className='pokemon-detail-name'>{details.name}</span>
-          <span className='pokemon-detail-poke-type'>{details.poke_type}</span>
-          <span className='pokemon-detail-attack'>{details.attack}</span>
-          <span className='pokemon-detail-defense'>{details.defense}</span>
-          <ul>
-            { details.moves.map( (move, idx) => <li key={idx}>{move}</li> )}
+          <ul className="pokemon-stats">
+            <li className='pokemon-detail-name'>{details.name}</li>
+            <li className='pokemon-detail-poke-type'>Type: {details.poke_type}</li>
+            <li className='pokemon-detail-attack'>Attack: {details.attack}</li>
+            <li className='pokemon-detail-defense'>Defense: {details.defense}</li>
+            <li>
+              <ul className='pokemon-detail-move-list'>
+                <label>Moves:</label>
+                { details.moves.map( (move, idx) => <li className='pokemon-detail-move' key={idx}>{move}</li> )}
+              </ul>
+          </li>
+            <ul className='item-list'>
+              { details.items.map( (item, idx) => this.renderItemImage(item, idx) )}
+            </ul>
           </ul>
-          <ul>
-            { details.items.map( (item, idx) => this.renderItemImage(item, idx) )}
-          </ul>
+
           { this.props.children }
         </div>
       );

@@ -2,8 +2,8 @@ import React from 'react';
 
 const ItemDetail = ({item}) => {
   return <div className="item-detail">
-    <h3>{item.name}</h3>
-    <ul>
+    <span>{item.name}</span>
+    <ul className='pokemon-stats'>
       <li>Happiness: {item.happiness}</li>
       <li>Price: ${item.price}</li>
     </ul>

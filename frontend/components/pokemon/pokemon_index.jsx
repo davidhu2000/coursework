@@ -15,7 +15,7 @@ class PokemonIndex extends React.Component {
     if(this.props.pokemon) {
       return (
         <div className='container'>
-          <aside className='col col-1-3'>
+          <aside className='col col-1-3 scrollable'>
             <ul className='pokemon-list'>
               {
                 selectAllPokemon(this.props.pokemon).map( (pokemon, idx) => (
