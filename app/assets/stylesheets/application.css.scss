@@ -235,3 +235,63 @@ section {
 .item-list-item {
   height: 40px;
 }
+
+.error-list {
+  list-style: none;
+
+  li {
+    display: block;
+    width: 50%;
+    margin: 3px auto;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 3px 20px;
+    background-color: rgba(247, 93, 46, 0.6);
+    color: #600000;
+  }
+}
+
+.pokemon-form {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+
+  input, select {
+    margin: 10px 0;
+    font-size: 1.2em;
+    padding: 3px;
+    border: none;
+    border-bottom: 1px solid gray;
+  }
+
+  input[type='text']:focus {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #0c859e;
+  }
+
+  input[type='submit'] {
+    width: 200px;
+    height: 30px;
+    margin: 10px auto;
+    background-color: #689ee0;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #454545;
+  }
+
+  input[type='submit']:focus {
+    outline: none;
+    border: none;
+  }
+
+  input[type='submit']:hover {
+    background-color: #689000;
+  }
+
+  input[type='submit']:active {
+    box-shadow: none;
+    transform: rotate3d(0,1,0,15deg);
+  }
+
+}

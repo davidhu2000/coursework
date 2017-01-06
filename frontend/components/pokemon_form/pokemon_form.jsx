@@ -17,7 +17,7 @@ class PokemonForm extends React.Component {
   }
 
   renderErrors() {
-    return <ul>
+    return <ul className='error-list'>
       { this.props.errors.map((error, idx) => <li key={idx}>{error}</li>)}
     </ul>;
   }
@@ -49,7 +49,7 @@ class PokemonForm extends React.Component {
     return (
       <div>
         {this.renderErrors()}
-        <form onSubmit={this.handleSubmit} >
+        <form onSubmit={this.handleSubmit} className='pokemon-form' >
           <input type='text'
                  placeholder='Name'
                  onChange={this.handleChange('name')}
@@ -60,7 +60,7 @@ class PokemonForm extends React.Component {
                  onChange={this.handleChange('image_url')}
                  value={ this.state.image_url } />
 
-               <select defaultValue='select' onChange={this.handleChange('poke_type')}>
+          <select defaultValue='select' onChange={this.handleChange('poke_type')}>
             <option disabled value='select'>{'--Select Type--'}</option>
             <option value="bug">bug</option>
             <option value="dragon">dragon</option>
