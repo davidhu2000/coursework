@@ -1,3 +1,5 @@
+/* global google */
+
 class MarkerManager {
   constructor(map) {
     this.map = map;
@@ -8,8 +10,9 @@ class MarkerManager {
     console.log('time to update');
     let benchesToAdd = this._benchesToAdd(benches);
     benchesToAdd.forEach( bench => {
-      this._createMarketFromBench(bench);
+      this._createMarkerFromBench(bench);
     });
+    console.log(this.markers);
   }
 
   _benchesToAdd(benches) {
@@ -17,7 +20,7 @@ class MarkerManager {
     return benches.filter( bench => !currentMarkers.includes(bench.id) );
   }
 
-  _createMarketFromBench(bench) {
+  _createMarkerFromBench(bench) {
     let pos = { lat: bench.lat, lng: bench.lng };
 
     const marker = new google.maps.Marker({
@@ -27,6 +30,14 @@ class MarkerManager {
     });
 
     this.markers.push(marker);
+  }
+
+  _markersToRemove() {
+
+  }
+
+  _removeMarker(marker) {
+
   }
 }
 
