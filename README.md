@@ -36,3 +36,4 @@
 
 ## Week 7
 - [Day 1-2: todoApp](w7d1)
+- [Day 3: jBuilder](w7d3)
