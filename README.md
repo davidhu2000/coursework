@@ -33,3 +33,6 @@
 - [Day 3: AJAX Twitter](w6d3)
 - [Day 4: Mail App](w6d4)
 - [Day 5: Widgets](w6d5)
+
+## Week 7
+- [Day 1-2: todoApp](w7d1)
