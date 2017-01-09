@@ -6,6 +6,7 @@ const mapPropsToState = ({ benches }) => ({
   benches
 });
 
+// TODO: maybe remove
 const mapDispatchToProps = dispatch => ({
   fetchBenches: () => dispatch(fetchBenches())
 });

@@ -2,9 +2,8 @@ import { RECEIVE_BENCHES } from '../actions/bench_actions';
 
 const BenchReducer = (state = {}, action) => {
   Object.freeze(state);
-  // console.log('BenchReducer');
-  // console.log(state);
-  // console.log(action);
+  console.log('BenchReducer');
+  console.log(action);
   switch(action.type) {
     case RECEIVE_BENCHES:
       console.log(action.benches);

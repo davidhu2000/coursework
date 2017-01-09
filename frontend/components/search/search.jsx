@@ -5,9 +5,10 @@ import BenchIndex from '../benches/bench_index';
 const Search = (props) => (
   <div>
     <BenchMap benches={props.benches}
-              updateBounds={props.updateBounds}
-              filters={props.filters} />
-            
+              updateFilter={props.updateFilter}
+              filters={props.filters}
+              fetchBenches={props.fetchBenches} />
+
     <BenchIndex fetchBenches={props.fetchBenches} benches={props.benches}/>
   </div>
 );
