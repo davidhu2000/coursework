@@ -9,7 +9,6 @@ class BenchMap extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Map mounted');
     this.props.fetchBenches();
     const mapOptions = {
       center: { lat: 37.7758, lng: -122.435 },
@@ -40,15 +39,10 @@ class BenchMap extends React.Component {
       };
 
       fetchBenches(bounds);
-      // updateFilter(bounds);
     });
   }
 
   componentDidUpdate() {
-    console.log('map updates');
-    // this.props.updateFilter(this.props.filters);
-    console.log(this.props.benches);
-    console.log(this.MarkerManager.markers);
     this.MarkerManager.updateMarkers(this.props.benches);
   }
 

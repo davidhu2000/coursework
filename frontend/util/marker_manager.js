@@ -9,20 +9,11 @@ class MarkerManager {
   }
 
   updateMarkers(benches) {
-    console.log('time to update');
-    console.log(this.markers);
-    this._removeOutOfBoundMarkers(benches);
-    console.log(this.markers);
+    this._removeAllMarkers();
     let benchesToAdd = this._benchesToAdd(benches);
     benchesToAdd.forEach( bench => {
       this._createMarkerFromBench(bench);
     });
-    // let markersToRemove = this._markersToRemove(benches);
-    // console.log('markersToRemove');
-    // console.log(markersToRemove);
-    // markersToRemove.forEach( marker => {
-    //   this._removeMarker(marker);
-    // });
   }
 
   _benchesToAdd(benches) {
@@ -45,20 +36,6 @@ class MarkerManager {
   _removeAllMarkers() {
     this.markers.forEach( marker => (marker.setMap(null)) );
     this.markers = [];
-  }
-
-  _removeOutOfBoundMarkers(benches) {
-    let deleteIndex = [];
-    this.markers.forEach( (marker, idx) => {
-      if(Object.keys(benches).indexOf(marker.benchId) === -1) {
-        marker.setMap(null);
-        deleteIndex.push(idx);
-      }
-    });
-
-    for(let i = deleteIndex.length -1; i >= 0; i--) {
-      this.markers.splice(i, 1);
-    }
   }
 
   _removeMarker(marker) {
