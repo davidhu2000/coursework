@@ -9,7 +9,7 @@
 
 ### Week 2
 - [Day 1: Inheritance](w2d1)
-- [Day 2: Test Driven Development](w2d2)
+- [Day 2: Test Driven Development, Five Card Poker](w2d2)
 - [Day 4: Big-O Exercises](w2d4)
 
 ### Week 3
