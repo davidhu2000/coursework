@@ -1,7 +1,7 @@
 # App Academy Coursework Exercises
 
 ### Week 1
-- [Day 1: Iteration and Enumerables](w1d1)
+- [Day 1: Iteration, Enumerable, Ghost](w1d1)
 - [Day 3: Recursion](w1d3)
 
 ### Week 2
