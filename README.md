@@ -5,6 +5,7 @@
 - [Day 2: Match Memory, Sudoku](w1d2)
 - [Day 3: Recursion](w1d3)
 - [Day 4: Minesweeper](w1d4)
+- [Day 5: Knight Travail, Poly Tree Node, Tic-Tac-Toe](w1d5)
 
 ### Week 2
 - [Day 1: Inheritance](w2d1)
