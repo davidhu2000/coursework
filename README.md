@@ -42,3 +42,6 @@
 - [Day 1-2: todoApp](w7d1)
 - [Day 3-4: jBuilder, Pokedex](w7d3)
 - [Day 5: BenchBnB](w7d5)
+
+## Other Projects
+- [HTML/CSS Curriculum](side_projects/html_css)
