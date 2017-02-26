@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" name='My Smoothie' description='The best smooth on the market.'>
+  <title>David Hu Smoothies</title>
+
+  <!-- <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-12345678-9', 'auto');
+    ga('send', 'pageview');
+
+  </script> -->
+
+  <script type="text/javascript" src="javascript/test_script.js"></script>
+  <link rel="stylesheet" href="stylesheet/css_custom_reset.css" type="text/css">
+  <link rel="stylesheet" href="stylesheet/custom_grid.css" type="text/css">
+  <link rel="stylesheet" href="stylesheet/main.css" type="text/css">
+
+  <!-- <link rel="stylesheet" href="stylesheet/css_reset.css" type="text/css" > -->
+</head>
+
+<body>
+  <header class='cf'>
+    <img src="https://p5.zdassets.com/hc/settings_assets/949671/200252358/3TMJzYYYqSGC63rsxUhMNA-logo-emblem-red.png" alt="App Academy" width='50px'>
+    <nav>
+      <ul>
+        <li><a href="#description">Description</a></li>
+        <li><a href="#ingredients">Ingredients</a></li>
+        <li><a href="#directions">Directions</a></li>
+      </ul>
+      <ul class='hamburger-dropdown'>
+        <li>
+          <ul>
+            <li><a href="#description">Description</a></li>
+            <li><a href="#ingredients">Ingredients</a></li>
+            <li><a href="#directions">Directions</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="col col-1-3">
+    <aside class="ingredients-ls">
+      <h2 id="ingredients">Ingredients</h2>
+      <ul class="ingredient-list">
+        <li>frozen strawberries</li>
+        <li>frozen blueberries</li>
+        <li>frozen pinapple</li>
+        <li>one cup of milk</li>
+        <li>one banana</li>
+        <li>plain yogurt</li>
+        <li>half cup of water</li>
+        <li>optional: kiwi</li>
+      </ul>
+    </aside>
+  </div>
+
+  <div class="col col-2-3">
+
+      <h1>Fruit Smooth</h1>
+    <section>
+      <h2 id="description">Description</h2>
+      <p>
+        The fruit smoothie is a perfect blend of fruits and milk for a delicious cold treat.
+      </p>
+
+      <figure>
+        <img src='http://www.bestherbalhealth.com/wp-content/uploads/2014/10/Berry-Smoothie1.jpg' width='auto' />
+        <figcaption><a href='https://en.wikipedia.org/wiki/Smoothie'>Delicious berry smoothie.</a></figcaption>
+      </figure>
+
+      <h2 id="directions">Direction</h2>
+      <ol>
+        <li>Defrost the frozen strawberries, blueberries, and pinapple for two minutes</li>
+        <li>Add banana, milk, and yogurt</li>
+        <li>Add water.</li>
+        <li>Use blender to mix the ingredients.</li>
+        <li>Enjoy the treat.</li>
+      </ol>
+    </section>
+
+
+    <section id='reviews'>
+      <h3> Reviews </h3>
+      <br>
+      <form id='review-form' action="/reviews" method="post">
+        <label for="name">Reviewer name: </label>
+        <input type="text" name="name">
+
+        <label for="rating"></label>
+        1 <input type="radio" name="rating" checked>
+        2 <input type="radio" name="rating">
+        3 <input type="radio" name="rating">
+        4 <input type="radio" name="rating">
+        5 <input type="radio" name="rating">
+
+        <label for="expertise"></label>
+        <select id="expertise" name="expertise">
+          <option disabled selected>-- Select cooking expertise --</option>
+          <option value="some">Sometimes Cook</option>
+          <option value="more">Cook Everyday</option>
+          <option value="hobby">Cooking is a Hobby</option>
+          <option value="professional">Professional Chef</option>
+        </select>
+
+        <label>
+          <textarea id="review" name="review" rows="8" cols="80"></textarea>
+        </label>
+
+        <input type="submit" value="Submit Review">
+      </form>
+    </section>
+  </div>
+
+  <footer>
+    <p>
+      Original recipe <a href="http://allrecipes.com/recipe/23553/basic-fruit-smoothie/">here</a>
+    </p>
+  </footer>
+
+</body>
+
+</html>

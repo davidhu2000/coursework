@@ -1,0 +1,163 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #FFEFEF;
+  width: 80%;
+  margin: 0 auto;
+}
+
+aside {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+section {
+  display: inline-block;
+  vertical-align: top;
+}
+
+nav {
+  /*display: inline-block;*/
+  float: right;
+}
+
+body > img {
+  float: left;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a {
+  display: block;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  padding: 10px;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 28px;
+}
+
+.ingredient-list {
+  list-style: square inside;
+}
+
+.ingredient-list li, h2 + ol li {
+  margin: 15px 0 15px 0
+}
+
+ol {
+  list-style: lower-roman inside;
+}
+
+header > img {
+  width: 100px;
+}
+
+ul li a {
+  text-decoration: none;
+  color: inhert;
+}
+
+.user_review h4 {
+  font-weight: bolder;
+  font-style: oblique;
+}
+
+input {
+  cursor: pointer;
+  outline: none;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  background-image: url(../assets/star.png);
+  background-size: 30px 30px;
+  vertical-align: bottom;
+}
+
+input[type="radio"]:checked {
+  background-color: blue;
+}
+
+input:last-child {
+  background-color: gold;
+}
+
+input:last-child:hover {
+  -webkit-filter: brightness(80%);
+}
+
+ol li:nth-of-type(2n) {
+  background-color: #c2c4c6;
+}
+
+h3 + .user_review {
+  border-top: 1px solid black;
+}
+
+input[type='text'], select, input[type='submit'] {
+  display: block;
+}
+
+select {
+  margin: 10px 0;
+  width: 200px;
+}
+
+textarea {
+  width: 350px;
+}
+
+.hamburger-dropdown {
+
+  display: none;
+}
+
+@media all and (max-width: 900px) {
+  nav ul {
+    display: none;
+  }
+
+  .hamburger-dropdown {
+    display: block;
+  }
+  .hamburger-dropdown > li {
+    background-image: url(../assets/hamburger.png);
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+    background-size: 50px 50px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .hamburger-dropdown ul {
+    position: absolute;
+    flex-direction: column;
+    top: 50px;
+    box-shadow: black 5px 5px 10px;
+    background-color: whitesmoke;
+  }
+
+  .hamburger-dropdown:hover ul {
+    display: flex;
+  }
+
+  .hamburger-dropdown ul li:hover a {
+    border-bottom: 1px solid black;
+  }
+}

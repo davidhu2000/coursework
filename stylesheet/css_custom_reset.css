@@ -1,0 +1,13 @@
+html, body, header, img, nav, ul, li, a, h1, aside, h2, section, p,
+figure, figcaption, ol, h3, form, label, input, br {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  background-color: inherit;
+}
+
+img {
+  width: 100%;
+}
