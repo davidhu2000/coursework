@@ -1,2 +1,6 @@
 --color
+<<<<<<< HEAD
 --format=documentation
+=======
+--format documentation
+>>>>>>> tt/master
