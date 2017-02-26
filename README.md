@@ -2,6 +2,7 @@
 
 ### Week 1
 - [Day 1: Iteration, Enumerable, Ghost](w1d1)
+- [Day 2: Match Memory, Sudoku](w1d2)
 - [Day 3: Recursion](w1d3)
 
 ### Week 2
