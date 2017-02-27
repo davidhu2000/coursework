@@ -74,7 +74,6 @@ class Relation
   end
 
   def run_query
-    p 'Hitting DB'
     query = DBConnection.execute(<<-SQL, *where_values, *having_values)
       SELECT #{select_str}
       FROM #{@klass.table_name}

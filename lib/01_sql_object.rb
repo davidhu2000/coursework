@@ -5,11 +5,6 @@ require 'active_support/inflector'
 
 class SQLObject
   def self.columns
-    # cols = DBConnection.execute(<<-SQL)
-    #   PRAGMA table_info(#{self.table_name});
-    # SQL
-    # cols.map { |col| col['name'].to_sym }
-
     @columns ||= DBConnection.execute2(<<-SQL)
       SELECT * FROM #{table_name} LIMIT 1
     SQL
