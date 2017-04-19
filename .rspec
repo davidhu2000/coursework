@@ -1,7 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 --format documentation
 --color
 =======
 --color
 --format documentation
 >>>>>>> a/master
+=======
+--color
+--format documentation
+>>>>>>> c/master
