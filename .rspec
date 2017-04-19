@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 --format documentation
 --color
+=======
+--color
+--format documentation
+>>>>>>> a/master
