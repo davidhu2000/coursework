@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # App Academy Coursework Exercises
 
 ### Week 1
