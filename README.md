@@ -1,4 +1,4 @@
-# App Academy Coursework Exercises
+# Coursework Exercises
 
 ### Week 1
 
